@@ -21,9 +21,10 @@
 
 - [ ] UAV, controller and sufficient charged batteries for the planned mission
 - [ ] GOBI or CALViS payload (per sensor fieldbook)
-- [ ] 1 × GRYFN 4-panel reflectance set (11%, 30%, 56%, 82%)
-- [ ] Ground control points (GCPs) — Propeller Aeropoints or equivalent
-- [ ] Folding table and spirit bubble (for panel set-up)
+- [ ] 1 × GRYFN 4-panel reflectance set (11%, 30%, 56%, 82%) (2 sets recommended)
+- [ ] 1 × GRYFN 2-panel validation reflectance set 
+- [ ] 5x Ground control points (GCPs) — Propeller Aeropoints or equivalent (more for larger areas)
+- [ ] Folding table(s) and spirit bubble (for panel set-up)
 - [ ] Tape measure
 - [ ] Weather station / handheld anemometer
 - [ ] Field tablet or laptop with mission planning software

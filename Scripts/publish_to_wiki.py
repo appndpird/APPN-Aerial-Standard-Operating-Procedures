@@ -72,6 +72,51 @@ _IMG_RE = re.compile(r"(!\[[^\]]*\]\()([^)\s]*_media/[^)\s]+)(\))")
 
 
 # ---------------------------------------------------------------------------
+# Field EWG review pipeline
+# ---------------------------------------------------------------------------
+
+# Ordered list of (id, label) for the Field EWG review stages each page passes
+# through. Page status in the manifest is a list of completed stage IDs.
+REVIEW_STAGES: list[tuple[str, str]] = [
+    ("drafted", "Drafted"),
+    ("ewg_feedback", "EWG feedback"),
+    ("modified", "Modified"),
+    ("approved", "Approved"),
+    ("adopted", "Adopted"),
+]
+_VALID_STAGE_IDS = {sid for sid, _ in REVIEW_STAGES}
+
+# Where the human-readable tracker mirror lives in the source repo.
+STATUS_FILE = REPO_ROOT / "Protocols" / "STATUS.md"
+
+# Wiki page name for the published tracker.
+STATUS_WIKI_PAGE = "Status"
+
+
+def page_status(page: dict[str, Any]) -> list[str]:
+    """Return validated, ordered list of completed stage IDs for a page."""
+    raw = page.get("status") or []
+    if not isinstance(raw, list):
+        sys.exit(f"page status must be a list: {page.get('source')}")
+    unknown = [s for s in raw if s not in _VALID_STAGE_IDS]
+    if unknown:
+        sys.exit(f"unknown status stage(s) {unknown!r} on page {page.get('source')}; "
+                 f"valid: {sorted(_VALID_STAGE_IDS)}")
+    # Preserve canonical stage order regardless of YAML order.
+    return [sid for sid, _ in REVIEW_STAGES if sid in raw]
+
+
+def status_summary(page: dict[str, Any]) -> str:
+    """Render a one-line status summary suitable for the per-page banner."""
+    completed = set(page_status(page))
+    parts = []
+    for sid, label in REVIEW_STAGES:
+        marker = "✅" if sid in completed else "⬜"
+        parts.append(f"{marker} {label}")
+    return " · ".join(parts)
+
+
+# ---------------------------------------------------------------------------
 # Manifest loading
 # ---------------------------------------------------------------------------
 
@@ -126,10 +171,14 @@ def make_banner(page: dict[str, Any], manifest: dict[str, Any], date: str) -> st
         link = f"[main repository]({repo_url}/blob/{branch}/{source})"
     else:
         link = f"`{source}` in the main repository"
-    return (
+    lines = [
         f"> **Locked revision {revision}** — published {date}. "
-        f"Edit the working draft in the {link}."
-    )
+        f"Edit the working draft in the {link}.",
+        ">",
+        f"> **Field EWG review status:** {status_summary(page)} "
+        f"&nbsp;·&nbsp; [Full tracker]({STATUS_WIKI_PAGE})",
+    ]
+    return "\n".join(lines)
 
 
 # ---------------------------------------------------------------------------
@@ -183,7 +232,8 @@ def render_sidebar(manifest: dict[str, Any], date: str) -> str:
     for page in manifest["pages"]:
         by_cat.setdefault(page["category"], []).append(page)
 
-    lines = ["## APPN Aerial SOP", "", "- [Home](Home)", ""]
+    lines = ["## APPN Aerial SOP", "", "- [Home](Home)",
+             f"- [Document status]({STATUS_WIKI_PAGE})", ""]
     # Preserve manifest category order; append any unknown categories at the end.
     ordered = [c for c in cats] + [c for c in by_cat if c not in cats]
     for cat_id in ordered:
@@ -228,6 +278,9 @@ def render_home(manifest: dict[str, Any], date: str) -> str:
 
     lines.append("## Index")
     lines.append("")
+    lines.append(f"- 📋 **[Document review status]({STATUS_WIKI_PAGE})** — "
+                 "Field EWG progress tracker for every protocol.")
+    lines.append("")
     ordered = [c for c in cats] + [c for c in by_cat if c not in cats]
     for cat_id in ordered:
         if cat_id not in by_cat:
@@ -245,17 +298,120 @@ def write_navigation(manifest: dict[str, Any], wiki_root: Path, date: str,
                      dry_run: bool) -> None:
     sidebar = render_sidebar(manifest, date)
     home = render_home(manifest, date)
+    status_md = render_status(manifest, date, for_wiki=True)
     has_footer = FOOTER_FILE.is_file()
-    nav_files = "Home.md, _Sidebar.md"
+    nav_files = f"Home.md, _Sidebar.md, {STATUS_WIKI_PAGE}.md"
     if has_footer:
         nav_files += ", _Footer.md"
     print(f"  nav:  {nav_files}")
+    print(f"  tracker (repo): {STATUS_FILE.relative_to(REPO_ROOT)}")
     if dry_run:
         return
     (wiki_root / "_Sidebar.md").write_text(sidebar, encoding="utf-8")
     (wiki_root / "Home.md").write_text(home, encoding="utf-8")
+    (wiki_root / f"{STATUS_WIKI_PAGE}.md").write_text(status_md, encoding="utf-8")
     if has_footer:
         shutil.copyfile(FOOTER_FILE, wiki_root / "_Footer.md")
+    # Also refresh the in-repo tracker (without the wiki banner/links).
+    STATUS_FILE.parent.mkdir(parents=True, exist_ok=True)
+    STATUS_FILE.write_text(render_status(manifest, date, for_wiki=False),
+                           encoding="utf-8")
+
+
+def render_status(manifest: dict[str, Any], date: str, *, for_wiki: bool) -> str:
+    """Render the Field EWG review-status tracker as a markdown page.
+
+    ``for_wiki=True`` produces the wiki version (links to wiki page names);
+    ``for_wiki=False`` produces the in-repo tracker (links to source paths
+    relative to the repo root).
+    """
+    cats = {c["id"]: c for c in manifest.get("categories", [])}
+    by_cat: dict[str, list[dict[str, Any]]] = {}
+    for page in manifest["pages"]:
+        by_cat.setdefault(page["category"], []).append(page)
+
+    lines: list[str] = []
+    if for_wiki:
+        lines += [
+            "# Document Status",
+            "",
+            f"_Generated from `publish.yaml` on {date} for revision "
+            f"{manifest['revision']}._",
+            "",
+        ]
+    else:
+        lines += [
+            "# Protocol Document Status Tracker",
+            "",
+            "<!-- AUTO-GENERATED by Scripts/publish_to_wiki.py from publish.yaml. "
+            "Do not edit by hand: update each page's `status:` list in "
+            "publish.yaml and re-run the publish script. -->",
+            "",
+            f"_Last regenerated {date} for revision {manifest['revision']}._",
+            "",
+        ]
+
+    lines += [
+        "**Stages**",
+        "",
+    ]
+    for sid, label in REVIEW_STAGES:
+        lines.append(f"- **{label}** (`{sid}`)")
+    lines += [
+        "",
+        "Tick = stage complete. Update each page's `status:` list in "
+        "[`publish.yaml`](" +
+        ("../publish.yaml" if not for_wiki else
+         (manifest.get("repo_url", "").rstrip("/") + "/blob/" +
+          manifest.get("default_branch", "main") + "/publish.yaml")) +
+        ") to advance.",
+        "",
+    ]
+
+    # Header row.
+    headers = ["Document", "Category"] + [label for _, label in REVIEW_STAGES] + ["Notes"]
+    aligns = ["---", "---"] + [":---:" for _ in REVIEW_STAGES] + ["---"]
+    lines.append("| " + " | ".join(headers) + " |")
+    lines.append("| " + " | ".join(aligns) + " |")
+
+    ordered_cats = [c for c in cats] + [c for c in by_cat if c not in cats]
+    for cat_id in ordered_cats:
+        if cat_id not in by_cat:
+            continue
+        cat_title = cats.get(cat_id, {}).get("title", cat_id)
+        for page in by_cat[cat_id]:
+            completed = set(page_status(page))
+            if for_wiki:
+                doc_link = f"[{page['title']}]({page['wiki_page']})"
+            else:
+                # Path is repo-relative; the tracker lives in Protocols/, so
+                # link relative to that.
+                rel = page["source"]
+                if rel.startswith("Protocols/"):
+                    rel = rel[len("Protocols/"):]
+                else:
+                    rel = "../" + rel
+                doc_link = f"[{page['title']}]({rel})"
+            row = [doc_link, cat_title]
+            for sid, _ in REVIEW_STAGES:
+                row.append("✅" if sid in completed else "⬜")
+            row.append(str(page.get("notes", "") or ""))
+            lines.append("| " + " | ".join(row) + " |")
+
+    # Summary counts.
+    total = len(manifest["pages"])
+    counts = {sid: sum(1 for p in manifest["pages"] if sid in page_status(p))
+              for sid, _ in REVIEW_STAGES}
+    lines += [
+        "",
+        "## Summary",
+        "",
+        f"- Documents tracked: **{total}**",
+    ]
+    for sid, label in REVIEW_STAGES:
+        lines.append(f"- {label}: **{counts[sid]} / {total}**")
+    lines.append("")
+    return "\n".join(lines)
 
 
 # ---------------------------------------------------------------------------
