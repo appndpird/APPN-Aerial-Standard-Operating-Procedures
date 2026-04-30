@@ -24,11 +24,11 @@ Tick = stage complete. Update each page's `status:` list in [`publish.yaml`](../
 | [HiRes Fieldbook](Sensors/HIRES/HIRES_FieldBook.md) | Sensor Fieldbooks | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | Stub — content pending |
 | [Standard Flight Procedure](FlightDesign/StandardFlight/Standard_Flight.md) | Flight Design | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |  |
 | [Validation Flight](FlightDesign/ValidationFlight/Validation_Flight.md) | Flight Design | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |  |
-| [QA Process](QA/QAprocess/AerialDataQC.md) | Quality Assurance | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |  |
+| [QA Process](QA/QAprocess/AerialDataQC.md) | Quality Assurance | ✅ | ✅ | ✅ | ⬜ | ⬜ |  |
 | [QC and Reporting](QA/QCandReporting/QC_and_Reporting.md) | Quality Assurance | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |  |
 | [Plot Delimitation](PlotProtocols/PlotDelimitation/Plot_Delimitation.md) | Plot Protocols | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |  |
-| [Data Folder Structure](DataManagement/DataFolderStructure/DataFolderStructure.md) | Data Management | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |  |
-| [Processing Pipelines](Pipelines/ProcessingPipelines/Processing_Pipelines.md) | Processing & Data Products | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |  |
+| [Data Folder Structure](DataManagement/DataFolderStructure/DataFolderStructure.md) | Data Management | ✅ | ✅ | ✅ | ✅ | ⬜ |  |
+| [Processing Pipelines](Pipelines/ProcessingPipelines/Processing_Pipelines.md) | Processing & Data Products | ✅ | ✅ | ✅ | ⬜ | ⬜ |  |
 | [Standard Data Products](Pipelines/StandardDataProducts/Standard_Data_Products.md) | Processing & Data Products | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |  |
 | [Ground-Based Phenotyping and Environmental Platforms](GroundPlatforms/PhenotypingAndEnvironmental/Ground_Phenotyping_and_Environmental.md) | Ground-Based Platforms | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | Placeholder — formal protocols TBD |
 
@@ -36,7 +36,7 @@ Tick = stage complete. Update each page's `status:` list in [`publish.yaml`](../
 
 - Documents tracked: **15**
 - Drafted: **12 / 15**
-- EWG feedback: **1 / 15**
-- Modified: **1 / 15**
-- Approved: **0 / 15**
+- EWG feedback: **4 / 15**
+- Modified: **4 / 15**
+- Approved: **1 / 15**
 - Adopted: **0 / 15**
