@@ -17,7 +17,7 @@ Tick = stage complete. Update each page's `status:` list in [`publish.yaml`](../
 | Document | Category | Drafted | EWG feedback | Modified | Approved | Adopted | Notes |
 | --- | --- | :---: | :---: | :---: | :---: | :---: | --- |
 | [Platforms Overview](Sensors/PlatformsOverview/Platforms_Overview.md) | Sensor Fieldbooks | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |  |
-| [CALViS Fieldbook](Sensors/CALVIS/CALViS_FieldBook.md) | Sensor Fieldbooks | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |  |
+| [CALViS Fieldbook](Sensors/CALVIS/CALViS_FieldBook.md) | Sensor Fieldbooks | ✅ | ✅ | ✅ | ⬜ | ⬜ |  |
 | [GOBI M350 Fieldbook](Sensors/GOBI/GOBI_M350_FieldBook.md) | Sensor Fieldbooks | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |  |
 | [GOBI IF1200 Fieldbook](Sensors/GOBI/GOBI_IF1200_FieldBook.md) | Sensor Fieldbooks | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | IF1200 flight-mode terminology TBC |
 | [M3M Fieldbook](Sensors/M3M/M3M_FieldBook.md) | Sensor Fieldbooks | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | Stub — content pending |
@@ -36,7 +36,7 @@ Tick = stage complete. Update each page's `status:` list in [`publish.yaml`](../
 
 - Documents tracked: **15**
 - Drafted: **12 / 15**
-- EWG feedback: **0 / 15**
-- Modified: **0 / 15**
+- EWG feedback: **1 / 15**
+- Modified: **1 / 15**
 - Approved: **0 / 15**
 - Adopted: **0 / 15**
