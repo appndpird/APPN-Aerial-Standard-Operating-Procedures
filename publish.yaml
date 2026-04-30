@@ -24,6 +24,27 @@ revision: "1.0"
 repo_url: "https://github.com/ArdenB/APPN-Aerial-Standard-Operating-Procedures"
 default_branch: "main"
 
+# Sensor fieldbook nav strip injected at the top of every published wiki page
+# (just under the locked-revision/status banner). Each entry references an
+# existing wiki_page; rendered as a centred row of shields.io badges.
+# Set `nav_badges: []` to disable.
+nav_badges:
+  - wiki_page: CALViS-Fieldbook
+    label: "CALViS"
+    color: "6f901e"
+  - wiki_page: GOBI-M350-Fieldbook
+    label: "GOBI (M350)"
+    color: "6f901e"
+  - wiki_page: GOBI-IF1200-Fieldbook
+    label: "GOBI (IF1200)"
+    color: "6f901e"
+  - wiki_page: HiRes-Fieldbook
+    label: "HiRes"
+    color: "6f901e"
+  - wiki_page: M3M-Fieldbook
+    label: "M3M"
+    color: "6f901e"
+
 categories:
   - id: Sensors
     title: "Sensor Fieldbooks"
