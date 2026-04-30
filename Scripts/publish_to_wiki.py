@@ -116,6 +116,36 @@ def status_summary(page: dict[str, Any]) -> str:
     return " · ".join(parts)
 
 
+# Shields.io colours keyed off the most-advanced completed stage. The label
+# shown on the badge mirrors that stage; if no stages are complete we show
+# "not started" in red.
+_STATUS_BADGE_COLORS: dict[str, str] = {
+    "drafted":      "orange",
+    "ewg_feedback": "yellow",
+    "modified":     "yellowgreen",
+    "approved":     "blue",
+    "adopted":      "brightgreen",
+}
+_STATUS_BADGE_NONE = ("not started", "red")
+
+
+def status_badge(page: dict[str, Any]) -> str:
+    """Return a shields.io <img>-link describing the page's review status."""
+    completed = page_status(page)
+    if completed:
+        latest = completed[-1]  # canonical order — last == most advanced
+        label = dict(REVIEW_STAGES)[latest].lower()
+        color = _STATUS_BADGE_COLORS.get(latest, "lightgrey")
+    else:
+        label, color = _STATUS_BADGE_NONE
+    badge_label = label.replace("-", "--").replace("_", "__").replace(" ", "%20")
+    url = f"https://img.shields.io/badge/status-{badge_label}-{color}"
+    return (
+        f'<a href="{STATUS_WIKI_PAGE}">'
+        f'<img src="{url}" alt="status: {label}" /></a>'
+    )
+
+
 # ---------------------------------------------------------------------------
 # Sensor fieldbook nav-badge strip
 # ---------------------------------------------------------------------------
@@ -220,9 +250,15 @@ def make_banner(page: dict[str, Any], manifest: dict[str, Any], date: str) -> st
         f"&nbsp;·&nbsp; [Full tracker]({STATUS_WIKI_PAGE})",
     ]
     badges = render_nav_badges(manifest, current_wiki_page=page["wiki_page"])
-    if badges:
+    sbadge = status_badge(page)
+    if badges or sbadge:
         lines.append("")
-        lines.append(badges)
+        # Status badge sits on its own centred line above the sensor nav
+        # strip so it's immediately visible at the top of the page.
+        if sbadge:
+            lines.append(f'<p align="center">{sbadge}</p>')
+        if badges:
+            lines.append(badges)
     return "\n".join(lines)
 
 
@@ -424,8 +460,14 @@ def render_status(manifest: dict[str, Any], date: str, *, for_wiki: bool) -> str
     ]
 
     # Header row.
-    headers = ["Document", "Category"] + [label for _, label in REVIEW_STAGES] + ["Notes"]
-    aligns = ["---", "---"] + [":---:" for _ in REVIEW_STAGES] + ["---"]
+    headers = ["Document", "Category"]
+    if for_wiki:
+        headers.append("Status")
+    headers += [label for _, label in REVIEW_STAGES] + ["Notes"]
+    aligns = ["---", "---"]
+    if for_wiki:
+        aligns.append(":---:")
+    aligns += [":---:" for _ in REVIEW_STAGES] + ["---"]
     lines.append("| " + " | ".join(headers) + " |")
     lines.append("| " + " | ".join(aligns) + " |")
 
@@ -448,6 +490,8 @@ def render_status(manifest: dict[str, Any], date: str, *, for_wiki: bool) -> str
                     rel = "../" + rel
                 doc_link = f"[{page['title']}]({rel})"
             row = [doc_link, cat_title]
+            if for_wiki:
+                row.append(status_badge(page))
             for sid, _ in REVIEW_STAGES:
                 row.append("✅" if sid in completed else "⬜")
             row.append(str(page.get("notes", "") or ""))
