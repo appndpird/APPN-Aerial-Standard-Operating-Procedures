@@ -4,21 +4,24 @@ For a high-level description of the GOBI sensor package and how it sits
 alongside the other APPN platforms, see the
 [Platforms Overview](../PlatformsOverview/Platforms_Overview.md).
 
+For the GOBI fieldbook covering the Inspired Flight IF1200A, see
+[GOBI IF1200 Fieldbook](../GOBI/GOBI_IF1200_FieldBook.md).
+
 This fieldbook provides a standardised operational guide for APPN GOBI UAV
-deployments on the DJI M350, supporting safe flight operations, consistent
-sensor configuration, and high-integrity data capture. It is intended for
-trained APPN staff conducting hyperspectral, LiDAR, RGB, and GNSS-INS data
-acquisitions, and promotes repeatability, transparency, and confidence in
-downstream data analysis across APPN operations.
+deployments **on the DJI M350**, supporting safe flight operations,
+consistent sensor configuration, and high-integrity data capture. It is
+intended for trained APPN staff conducting hyperspectral, LiDAR, RGB, and
+GNSS-INS data acquisitions, and promotes repeatability, transparency, and
+confidence in downstream data analysis across APPN operations.
 
 > [!IMPORTANT]
-> **This protocol must be followed for all standard APPN GOBI UAV flights.**
-> Adherence to these procedures is essential to ensure operational safety,
-> data integrity, and comparability of datasets across deployments. For any
-> flights that **fall outside standard operating procedures**, detailed
-> records must be kept documenting all deviations, including the specific
-> settings changed, the rationale for those changes, and any anticipated
-> implications for data quality or analysis.
+> **This protocol must be followed for all standard APPN GOBI M350 UAV
+> flights.** Adherence to these procedures is essential to ensure operational
+> safety, data integrity, and comparability of datasets across deployments.
+> For any flights that **fall outside standard operating procedures**,
+> detailed records must be kept documenting all deviations, including the
+> specific settings changed, the rationale for those changes, and any
+> anticipated implications for data quality or analysis.
 
 ---
 
@@ -28,7 +31,7 @@ downstream data analysis across APPN operations.
 > Ensure batteries for all equipment are fully charged before heading to the
 > field. Ensure charging cables are available for necessary equipment.
 
-- [ ] **Aircraft**
+- [ ] **Aircraft (DJI M350)**
   - [ ] Aircraft batteries
   - [ ] Landing gear
   - [ ] Landing pad
@@ -63,7 +66,6 @@ downstream data analysis across APPN operations.
 
 ## Flight Planning – DJI M350
 
-
 > [!WARNING]
 > Ensure that you apply for UAV flight approvals for locations and dates of
 > flights well in advance.
@@ -79,7 +81,7 @@ downstream data analysis across APPN operations.
    polygon in the direction of travel (as per the figure below). Save both
    polygons uniquely.
 
-   ![Survey vs capture polygon layout](GOBI_FieldBook_media/image_154a62ad07f2.png)
+   ![Survey vs capture polygon layout](GOBI_M350_FieldBook_media/image_154a62ad07f2.png)
 
 4. If using QGIS, import the *capture* KML into Google Earth and immediately
    export it again. This is due to the required formatting Google Earth
@@ -87,37 +89,10 @@ downstream data analysis across APPN operations.
 5. Import the *capture* KML into the
    [HPI Polygon Tool](http://50.170.92.179/) and export. This polygon sets
    the activation of the hyperspectral sensor within Hyperspec3.
-6. Import the *survey* polygon into DJI Pilot 2 (M350), or into
-   QGroundControl (IF1200).
-7. Using both the flight planning app (DJI Pilot 2 or QGroundControl) and
-   the GRYFN flight calculator, determine the speed, altitude, and frame
-   period required to survey the area of interest.
-8. Ensure the frame period is > 20% oversampled and the side overlap is > 30%.
-
-## Flight Planning – Inspired Flight IF1200A
-
-1. Using a GPS survey system (Emlid, Trimble…) or a GIS software, create a
-   polygon of the area of interest. Make sure your polygon includes the areas
-   where you will place your calibration panels and GCPs, with an additional
-   5 m buffer to avoid incomplete data.
-2. Save this polygon twice as a KML — once as a *survey* polygon and once as a
-   *capture* polygon.
-3. If using QGIS, export the polygon as a KML (in Geometry, select *include
-   z-dimension*, and ensure the CRS is set to WGS 84). Import the *capture*
-   KML into the [HPI Polygon Tool](http://50.170.92.179/) and export. This
-   polygon sets the activation of the hyperspectral sensor within Hyperspec3.
-4. Import the *survey* polygon into QGroundControl.
-5. Using both QGroundControl and the GRYFN flight calculator, determine the
+6. Import the *survey* polygon into DJI Pilot 2.
+7. Using both DJI Pilot 2 and the GRYFN flight calculator, determine the
    speed, altitude, and frame period required to survey the area of interest.
-   - Do not go below 2 m/s or above 8 m/s for stability reasons (GRYFN).
-     Speeds greater than 8 m/s lead to excessive aircraft pitch and speeds
-     less than 2 m/s accentuate the impacts of wind on aircraft stability and
-     cause a visibly less smooth trajectory.
-   - Altitude and speed will be tested and recommended from APEx results.
-   - Ensure the frame period is at a minimum of 20% oversampling, the side
-     overlap is > 40% for the SWIR sensor, and the *turnaround distance* is
-     2× flight speed (> 3× at > 6 m/s).
-6. Ensure flight lines are in the direction of planting (GRYFN).
+8. Ensure the frame period is > 20% oversampled and the side overlap is > 30%.
 
 ---
 
@@ -135,7 +110,7 @@ downstream data analysis across APPN operations.
    centrally. Make sure you have GCPs installed (and coordinates recorded
    using Emlid) in the field for geometric calibration. (TO DO: ADD STANDARD FLIGHT LAYOUT md)
 4. Set up a safe UAV RTH location, RTH altitude, and other geo-fencing
-   settings on the respective drone.
+   settings on the M350.
 5. Attach payload (Gobi or CALViS) to the aircraft:
    - Connect the power cable from aircraft to payload (non-standard payload
      bus only).
@@ -143,23 +118,18 @@ downstream data analysis across APPN operations.
      A2).
    - Remove RGB and Nano HP lens caps.
    - Insert RGB SD card.
-   - For M350, connect the C-type power cable to power the gimbal (make
-     sure the B side of the cable is toward the outer side of the drone and
-     the upper side of the light sensor).
-   - For M350, activate the battery-powered fan (if warm ambient
-     conditions). Avoid leaving GOBI powered on in stagnant air or high
-     heat (> ~35–38 °C).
+   - Connect the C-type power cable to power the gimbal (make sure the B
+     side of the cable is toward the outer side of the drone and the upper
+     side of the light sensor).
+   - Activate the battery-powered fan (if warm ambient conditions). Avoid
+     leaving GOBI powered on in stagnant air or high heat (> ~35–38 °C).
 6. Power on the radio controller; check battery status.
-7. Launch DJI Pilot 2 on the M350, or QGroundControl on the IF1200
-   controller.
+7. Launch DJI Pilot 2 on the M350.
 8. Review the flight plan, checking operational height.
-9. Power on the aircraft; confirm connection to RC/GCS and battery status;
-   ensure Remote ID is enabled (if flying the IF1200).
-10. If you are using RTK (M350), check that you are receiving GNSS
-    corrections. There should be more than 8 satellites for good correction
-    (check the RTK fix in the M350 controller settings). The IF1200 does
-    not use RTK, but ensure a minimum of 8 satellites and GPS.
-11. Upload the flight plan to the aircraft (IF1200).
+9. Power on the aircraft; confirm connection to RC and battery status.
+10. Check that you are receiving GNSS RTK corrections. There should be more
+    than 8 satellites for good correction (check the RTK fix in the M350
+    controller settings).
 
 ---
 
@@ -202,8 +172,8 @@ downstream data analysis across APPN operations.
 ## Flight Operations
 
 1. Ensure the aircraft (M350) is in **Position** flight mode.
-2. Sync the flight plan to the radio controller if applicable; double-check
-   the flight plan.
+2. Sync the flight plan to the radio controller; double-check the flight
+   plan.
 3. Clear people/objects away from the UAV.
 4. Notify crew/observers that takeoff is beginning.
 5. Begin manual takeoff, check stick controls work, and then fly to ~12 m
@@ -368,7 +338,7 @@ Formal paths use the wiki's placeholder syntax; an example follows each.
    ```
 
 7. Standard QA process should be performed following
-   [this guide](../QAprocess/APPN_AerialDataQC_Rev1.0.md).
+   [this guide](../../QA/QAprocess/AerialDataQC.md).
 
 ---
 
@@ -411,6 +381,3 @@ be set:
 | HSInsight    | `10.0.65.50:8080`    |
 | Ouster       | `10.0.65.128`        |
 | SBG          | `10.0.65.100`        |
-
-
-

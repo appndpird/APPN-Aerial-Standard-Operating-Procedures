@@ -9,8 +9,9 @@
 > actions — so that data captured at any node is comparable and traceable.
 >
 > For sensor-specific setup and shutdown steps, see the
-> [CALViS Fieldbook](../../Sensors/CALVIS/CALViS_FieldBook.md) and the
-> [GOBI Fieldbook](../../Sensors/GOBI/GOBI_FieldBook.md).
+> [CALViS Fieldbook](../../Sensors/CALVIS/CALViS_FieldBook.md), the
+> [GOBI M350 Fieldbook](../../Sensors/GOBI/GOBI_M350_FieldBook.md), and the
+> [GOBI IF1200 Fieldbook](../../Sensors/GOBI/GOBI_IF1200_FieldBook.md).
 >
 > For periodic calibration / APEx test flights, see the
 > [Validation Flight Procedure](../ValidationFlight/Validation_Flight.md).

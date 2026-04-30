@@ -38,5 +38,6 @@ All paths below are relative to the per-day folder:
 ## Related
 
 - [CALViS Fieldbook](CALViS-Fieldbook)
-- [GOBI Fieldbook](GOBI-Fieldbook)
+- [GOBI M350 Fieldbook](GOBI-M350-Fieldbook)
+- [GOBI IF1200 Fieldbook](GOBI-IF1200-Fieldbook)
 - [QA Process](QA-Process)

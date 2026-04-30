@@ -17,7 +17,7 @@ Protocols/
 ├── Sensors/
 │   ├── PlatformsOverview/            High-level description of APPN platforms
 │   ├── CALVIS/                       Headwall CoAligned HP + LiDAR + GNSS-INS (IF1200)
-│   ├── GOBI/                         GOBI sensor platform (M350 / IF1200)
+│   ├── GOBI/                         GOBI sensor platform (separate M350 and IF1200 fieldbooks)
 │   ├── M3M/                          DJI M3M multispectral platform (stub)
 │   └── HIRES/                        HiRes Phase One RGB platform (stub)
 ├── FlightDesign/

@@ -56,7 +56,8 @@ All configurations are linked to **RTK-based GNSS-INS positioning**, supporting
 robust geometric alignment between LiDAR, hyperspectral, and RGB data streams.
 This enables reliable extraction of physical and structural traits at scale.
 
-See also: [GOBI Fieldbook](../GOBI/GOBI_FieldBook.md).
+See also: [GOBI M350 Fieldbook](../GOBI/GOBI_M350_FieldBook.md) and
+[GOBI IF1200 Fieldbook](../GOBI/GOBI_IF1200_FieldBook.md).
 
 ---
 
