@@ -9,6 +9,28 @@
 \AtBeginEnvironment{tabular}{\scriptsize}
 \sloppy
 
+% Allow line breaks inside \texttt{...} (e.g. `frameindex`, `imu_gps`) so
+% inline code in narrow table cells wraps instead of overflowing the page.
+\usepackage[htt]{hyphenat}
+
+% Silence overfull / underfull \hbox / \vbox warnings: most originate from
+% wide tables or unbreakable URLs in upstream content and aren't actionable
+% at publish time.
+\hbadness=10000
+\vbadness=10000
+\hfuzz=2000pt
+\vfuzz=2000pt
+
+% Pandoc renders Markdown task-list checkboxes (``- [ ]`` / ``- [x]``) as the
+% literal Unicode ballot-box characters, which aren't in the default LaTeX
+% Roman fonts. Map them to math-mode equivalents to avoid "Missing character"
+% warnings from the TeX engine.
+\usepackage{amssymb}
+\usepackage{newunicodechar}
+\newunicodechar{☐}{\ensuremath{\square}}
+\newunicodechar{☑}{\ensuremath{\boxdot}}
+\newunicodechar{☒}{\ensuremath{\boxtimes}}
+
 % Wrap long lines in fenced code blocks (pandoc emits Verbatim/Highlighting
 % environments via fancyvrb). fvextra extends fancyvrb with breaklines.
 \usepackage{fvextra}

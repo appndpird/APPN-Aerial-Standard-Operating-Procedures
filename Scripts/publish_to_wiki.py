@@ -530,6 +530,71 @@ PDF_ENGINES = ("tectonic", "xelatex", "lualatex", "pdflatex",
 _CHECKLIST_HEADING_RE = re.compile(r"^##\s+(.*checklists?)\s*$",
                                    re.IGNORECASE | re.MULTILINE)
 
+# Emoji / pictograph codepoint ranges that are not present in the LaTeX
+# default fonts (lmroman). We strip them from the markdown before feeding it
+# to pandoc for PDF rendering to avoid noisy "Missing character" warnings
+# from the TeX engine. The wiki output is left untouched.
+_EMOJI_RE = re.compile(
+    "["
+    "\U0001F300-\U0001FAFF"   # Misc symbols & pictographs, emoticons, etc.
+    "\U00002600-\U000027BF"   # Misc symbols, dingbats
+    "\U0001F000-\U0001F02F"   # Mahjong tiles
+    "\U0001F0A0-\U0001F0FF"   # Playing cards
+    "\U0001F100-\U0001F1FF"   # Enclosed alphanumerics suppl.
+    "\U0001F200-\U0001F2FF"   # Enclosed ideographic suppl.
+    "\U0000FE0F"              # Variation selector-16
+    "\U0000200D"              # Zero-width joiner
+    "]"
+)
+
+
+def _strip_emoji(text: str) -> str:
+    """Remove emoji / pictograph characters not covered by LaTeX's default
+    fonts. Keeps the surrounding text intact (with any leading whitespace
+    collapsed to a single space).
+    """
+    cleaned = _EMOJI_RE.sub("", text)
+    # Collapse any double spaces left behind by removed emoji.
+    cleaned = re.sub(r"[ \t]{2,}", " ", cleaned)
+    return cleaned
+
+
+# Tectonic emits a number of chatty but benign warnings on every run that we
+# can't reasonably fix in upstream content (PDF version mismatches in embedded
+# images, absolute resource paths from pandoc's temp dir, lineno.sty's own
+# UTF-8 self-comment, and the trailing "warnings were issued" summary). We
+# filter them out of the engine's stderr so the publish output is readable.
+_BENIGN_PANDOC_STDERR_RE = re.compile(
+    r"^warning: ("
+    r"Trying to include PDF file with version"
+    r"|accessing absolute path"
+    r"|lineno\.sty:296: Invalid UTF-8"
+    r"|warnings were issued by the TeX engine"
+    r")"
+)
+
+
+def _run_pandoc(cmd: list[str], *, input_text: str | None = None) -> None:
+    """Run pandoc and forward its stderr, dropping known-benign tectonic
+    warnings. Raises ``subprocess.CalledProcessError`` on non-zero exit.
+    """
+    proc = subprocess.run(
+        cmd,
+        input=input_text,
+        text=True,
+        capture_output=True,
+    )
+    if proc.stdout:
+        sys.stdout.write(proc.stdout)
+    for line in proc.stderr.splitlines():
+        if _BENIGN_PANDOC_STDERR_RE.match(line):
+            continue
+        print(line, file=sys.stderr)
+    if proc.returncode != 0:
+        raise subprocess.CalledProcessError(proc.returncode, cmd,
+                                            output=proc.stdout,
+                                            stderr=proc.stderr)
+
 
 def detect_pdf_engine() -> str | None:
     for engine in PDF_ENGINES:
@@ -583,6 +648,11 @@ def _pandoc_pdf_cmd(source_arg: str | Path, pdf_path: Path,
             cmd += ["--include-in-header", str(LATEX_HEADER)]
         if compact_title and LATEX_CHECKLIST_HEADER.is_file():
             cmd += ["--include-in-header", str(LATEX_CHECKLIST_HEADER)]
+    # Quiet down tectonic's per-page chatter (PDF version notices, absolute
+    # path warnings, overfull/underfull \hbox notices that we can't easily
+    # fix in upstream content). Errors are still printed.
+    if engine == "tectonic":
+        cmd += ["--pdf-engine-opt=--chatter=minimal"]
     return cmd
 
 
@@ -616,16 +686,20 @@ def render_pdfs(manifest: dict[str, Any], dry_run: bool,
     failures = 0
     for page in manifest["pages"]:
         source = REPO_ROOT / page["source"]
+        source_md = source.read_text(encoding="utf-8")
         pdf_path = out_dir / f"{page['wiki_page']}.pdf"
         print(f"  pdf:  {page['source']}  ->  {pdf_path.relative_to(REPO_ROOT)}")
         if not dry_run:
+            # Pipe the source via stdin (after stripping emoji) instead of
+            # passing the file path, so we avoid "Missing character" warnings
+            # for codepoints not covered by the default LaTeX fonts.
             cmd = _pandoc_pdf_cmd(
-                source, pdf_path, source.parent, engine,
+                "-", pdf_path, source.parent, engine,
                 title=page["title"],
                 subtitle=f"APPN Aerial SOP — Locked revision {revision}",
             )
             try:
-                subprocess.run(cmd, check=True)
+                _run_pandoc(cmd, input_text=_strip_emoji(source_md))
             except subprocess.CalledProcessError as exc:
                 failures += 1
                 print(f"    pandoc failed (exit {exc.returncode})",
@@ -633,8 +707,7 @@ def render_pdfs(manifest: dict[str, Any], dry_run: bool,
 
         # Split out any "Equipment Checklist"-style sections into standalone
         # printable PDFs alongside the main one.
-        sections = extract_checklist_sections(
-            source.read_text(encoding="utf-8"))
+        sections = extract_checklist_sections(source_md)
         for heading, body in sections:
             slug = _slugify(heading)
             checklist_pdf = checklists_dir / f"{page['wiki_page']}-{slug}.pdf"
@@ -655,8 +728,7 @@ def render_pdfs(manifest: dict[str, Any], dry_run: bool,
                 compact_title=True,
             )
             try:
-                subprocess.run(cmd, check=True, input=body_md,
-                               text=True)
+                _run_pandoc(cmd, input_text=_strip_emoji(body_md))
             except subprocess.CalledProcessError as exc:
                 failures += 1
                 print(f"    pandoc failed (exit {exc.returncode})",

@@ -394,12 +394,12 @@ analysis across APPN operations.
 
 ## Data Integrity Checks
 
-| Sensor type   | File count                                                       | File size           | Notes                                                                                          |
-| ------------- | ---------------------------------------------------------------- | ------------------- | ---------------------------------------------------------------------------------------------- |
-| **GNSS-INS**  | 1 file per minute                                                | ~1.5 MB per minute  | First/last files may be smaller depending on start/stop time within the UTC minute.            |
-| **LiDAR**     | 1 file per minute                                                | ~113 MB per file    | First/last file may be smaller. Files may be smaller over a low-reflectivity object.           |
-| **VNIR**      | Mission time (s) / Frame Period value ~ number of data cubes     | Several GB / flight | Check that `frameindex`, `imu_gps`, and `settings` files all exist.                            |
-| **SWIR**      | Mission time (s) / Frame Period value ~ number of data cubes     | Several GB / flight | Check that `frameindex`, `imu_gps`, `pps`, and `settings` files all exist.                     |
+| Sensor type  | File count                                | File size           | Notes                                                                                                |
+| ------------ | ----------------------------------------- | ------------------- | ---------------------------------------------------------------------------------------------------- |
+| **GNSS-INS** | 1 file per minute                         | ~1.5 MB per minute  | First/last files may be smaller depending on start/stop time within the UTC minute.                  |
+| **LiDAR**    | 1 file per minute                         | ~113 MB per file    | First/last file may be smaller. Files may be smaller over a low-reflectivity object.                 |
+| **VNIR**     | mission time (s) / frame period ≈ N cubes | Several GB / flight | Check that `frameindex`, `imu_gps`, and `settings` files all exist.                                  |
+| **SWIR**     | mission time (s) / frame period ≈ N cubes | Several GB / flight | Check that `frameindex`, `imu_gps`, `pps`, and `settings` files all exist.                           |
 
 ---
 
