@@ -18,6 +18,26 @@
 
 ---
 
+> [!IMPORTANT]
+> **Document status — work in progress.**
+> This protocol is a draft and requires further revision before it can
+> be considered final. New figures also need to be produced to
+> illustrate the procedures described below.
+>
+> **Outstanding TODOs:**
+>
+> - [ ] Review and revise all section content for technical accuracy
+>       and completeness.
+> - [ ] Produce new figures illustrating:
+>     - [ ] Flight-line layout and overlap geometry
+>     - [ ] Reflectance panel placement and orientation
+>     - [ ] GCP distribution across the survey area
+>     - [ ] On-site equipment setup
+> - [ ] Cross-check terminology and links against the sensor fieldbooks.
+> - [ ] Confirm equipment checklist with field operators.
+
+---
+
 ## Equipment Required
 
 - [ ] UAV, controller and batteries
