@@ -137,7 +137,7 @@ APPN Positional QC is performed in four stages:
    [Validation Flight](../../FlightDesign/ValidationFlight)). These GCPs are
    independent of any points used during processing so they provide an
    unbiased check.
-2. **Reference conversion** — convert the surveyed GCP coordinates into the
+2. **Reference point capture** — convert the surveyed GCP coordinates into the
    APPN standard format (geojson with `point_num`, X, Y, Z, CRS).
 3. **Observed point capture** — manually digitise a matched set of points
    from the drone orthomosaic in QGIS, saved as `QC_GCP_points.geojson`
@@ -151,6 +151,21 @@ APPN Positional QC is performed in four stages:
 >  used to produce shapefiles if preferred — just choose *ESRI Shapefile* in
 >  place of *GeoJSON* in the format dropdown.
 
+
+### QC files
+
+
+
+If alternative GCP points (like Aeropoints) are placed in the field, another
+vector file should be created. This should be a points-only file and the
+points should match the centre of the panels. It should be saved as:
+
+`QC_GCP_points.geojson` (or `QC_GCP_points.shp`)
+
+The point name should be saved in a column called `point_num` and the number
+should match the point number in the matching CSV file.
+
+
 For the CALViS, in the products folder of the completed GPRO you will find the
 `.tif` files:
 
@@ -160,7 +175,13 @@ For the CALViS, in the products folder of the completed GPRO you will find the
 These are the RGB bands from the VNIR and SWIR files respectively. They can be
 easier to use than the full `.bin` files, though the procedure is the same.
 
-### 1. Load the Data
+### Producing the GCP actual 
+
+TBD Name and details pending
+
+### Producing the GCP observed 
+
+#### 1. Load the Data
 
 1. Load the SWIR and VNIR files into QGIS and run the following checks:
    - Do the panels in the SWIR and VNIR overlap?
@@ -185,7 +206,7 @@ If overlap is fine:
 Here, is an example of the ground truth data points over the GCP from the CALVIS 
 ![GCPs_groundtruth_overlay_zoom](AerialDataQC_media/GCP_img2.png)   
 
-### 2. Create the Shapefile
+#### 2. Create the Shapefile
  
 1. Navigate to **Layer → Create Layer → New Shapefile Layer**.
 
@@ -203,7 +224,7 @@ The file name will be QC_GCP_points, Geomtry type is "points" and for field we d
      **Remove Field** (bottom right) to remove it.
    - Set `GCP_name` as an **Text(string)** 
 
-### 3. Annotating the GCPs   
+#### 3. Annotating the GCPs   
 
 To start annotating the GRYFN data: 
 1. Select `QC_GCP_points` in the **Layers** menu.
@@ -219,7 +240,7 @@ To start annotating the GRYFN data:
 
 Do this for all relevent GCPs.
 
-### 5. Save the data as a GeoJSON
+#### 5. Save the data as a GeoJSON
 
 1. Right-click `QC_GCP_points` in the **Layers** menu → **Export → Save
    Features As**.
@@ -230,7 +251,7 @@ Do this for all relevent GCPs.
 
 ![GCPs_export_json](AerialDataQC_media/GCP_img6.png)
 
-### 5. Accuracy reporting
+#### 5. Accuracy reporting
 Run the QA code at
    <https://github.com/ArdenB/APPN_GenricFileStorage>
    (`Code/DS02_DatasetQA/`) to generate a spatial accuracy report comparing
@@ -241,18 +262,6 @@ Run the QA code at
 > THINGS TODO/ Decide uponL 
 > The file locations of the observed
 
-### File paths
-
-
-
-If alternative GCP points (like Aeropoints) are placed in the field, another
-vector file should be created. This should be a points-only file and the
-points should match the centre of the panels. It should be saved as:
-
-`QC_GCP_points.geojson` (or `QC_GCP_points.shp`)
-
-The point name should be saved in a column called `point_num` and the number
-should match the point number in the matching CSV file.
 
 ---
 
