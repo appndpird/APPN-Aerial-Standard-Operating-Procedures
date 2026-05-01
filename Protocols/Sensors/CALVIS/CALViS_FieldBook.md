@@ -68,7 +68,7 @@ analysis across APPN operations.
   - [ ] Water, food, esky, sunscreen, bug spray, first aid kit, etc.
   - [ ] Spirit bubble, spirit level (or angle measurement) and measuring tape
   - [ ] External power brick (for charging UAV RC)
-  - [ ] Anemometer (e.g. Kestrel — TODO: add link)
+  - [ ] Anemometer (e.g. Kestrel — _TODO: add link_)
 
 
 ---
@@ -511,7 +511,7 @@ Formal paths use the wiki's placeholder syntax; an example follows each.
 
 5. The bundled `.graw` should be saved in the same `T0_raw` folder.
 6. The `.gpro` should be generated using the APPN GPT Pipeline (`.json` and
-   wiki links TBD) and stored in the adjacent `T1_proc` folder.
+   wiki links _TODO: add links_) and stored in the adjacent `T1_proc` folder.
 
    Formal path:
 

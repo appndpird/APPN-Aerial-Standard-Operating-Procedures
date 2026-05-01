@@ -167,8 +167,8 @@ operations.
 
 ## Flight Operations
 
-> [!NOTE]
-> TODO: confirm IF1200-specific flight-mode terminology with operators
+> [!IMPORTANT]
+> **TODO:** Confirm IF1200-specific flight-mode terminology with operators
 > (the original combined fieldbook only documented DJI M350 mode names).
 
 1. Ensure the aircraft is in the appropriate manual / stable flight mode
@@ -321,7 +321,7 @@ Formal paths use the wiki's placeholder syntax; an example follows each.
 
 5. The bundled `.graw` should be saved in the same `T0_raw` folder.
 6. The `.gpro` should be generated using the APPN GPT Pipeline (`.json` and
-   wiki links TBD) and stored in the adjacent `T1_proc` folder.
+   wiki links _TODO: add links_) and stored in the adjacent `T1_proc` folder.
 
    Formal path:
 

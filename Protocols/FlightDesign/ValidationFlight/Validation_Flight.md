@@ -8,7 +8,7 @@
 > spectral and geometric accuracy between flights. The standard test flight
 > should be flown:
 >
-> - At regular intervals **(exact interval TBD)** by all nodes to check that
+> - At regular intervals **(exact interval _TODO_)** by all nodes to check that
 >   sensors are still comparable.
 > - Any time a sensor is returned to service after repairs and maintenance.
 >
@@ -29,9 +29,9 @@
 - [ ] 1 × folding table
 - [ ] 1 × tape measure
 - [ ] Weather station
-  - Details TBD.
+  - _TODO: add details._
 - [ ] Downwelling radiation sensor
-  - Details TBD.
+  - _TODO: add details._
 - [ ] Optional spectroradiometer (SVC, FieldSpec)
 - [ ] Spirit bubble
 - [ ] All other equipment listed in the GOBI or CALViS standard operating

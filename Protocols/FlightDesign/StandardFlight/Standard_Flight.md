@@ -47,7 +47,7 @@
    - Wind speed within UAV and sensor limits.
    - No precipitation expected.
    - Solar conditions appropriate (ideally clear sky, sun > 30° elevation;
-     uniform overcast may also be acceptable — TBD).
+     uniform overcast may also be acceptable — _TODO: confirm_).
 4. **Plan the mission** in QGroundControl (IF1200) or DJI Pilot 2
    (M350 RTK) using the parameters in the matching sensor fieldbook.
 5. **Brief the team** on roles: pilot, visual observer, sensor operator,

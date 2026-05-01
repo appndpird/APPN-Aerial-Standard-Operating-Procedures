@@ -131,41 +131,16 @@ updated to include this folder:
 > and almost always require the data to be reprocessed before they can be
 > resolved. Catching them early avoids wasted downstream work.
 
-APPN Positional QC is performed in four stages:
+APPN Positional QC is performed in three stages:
 
-1. **Field deployment** — place independent GCPs in the field during data
-   capture (see [Standard Flight](../../FlightDesign/StandardFlight) and
-   [Validation Flight](../../FlightDesign/ValidationFlight)). These GCPs are
-   independent of any points used during processing so they provide an
-   unbiased check.
-2. **Reference point capture** — convert the surveyed GCP coordinates into the
-   APPN standard format (geojson with `point_num`, X, Y, Z, CRS).
-3. **Observed point capture** — manually digitise a matched set of points
-   from the drone orthomosaic in QGIS, saved as `QC_GCP_points.geojson`
-   (see [Naming Conventions](#naming-conventions)). The `point_num` column
-   must match the surveyed CSV.
-   ### Creating Geospatial Point Data — GOBI & CALViS (QGIS)
+1. **[Field Data Collection](#field-data-collection)**
+2. **[Observed point capture](#observed-point-capture)**
+3. **[Accuracy reporting](#accuracy-reporting)**
 
-> The description below shows the procedure for creating GeoJSON files for the
->  CALViS using GCPs The process for the GOBI is
->  the same, but there is only the VNIR orthomosaic. The same workflow can be
->  used to produce shapefiles if preferred — just choose *ESRI Shapefile* in
->  place of *GeoJSON* in the format dropdown.
-
-
-### QC files
-
-
-
-If alternative GCP points (like Aeropoints) are placed in the field, another
-vector file should be created. This should be a points-only file and the
-points should match the centre of the panels. It should be saved as:
-
-`QC_GCP_points.geojson` (or `QC_GCP_points.shp`)
-
-The point name should be saved in a column called `point_num` and the number
-should match the point number in the matching CSV file.
-
+> The descriptions below show the procedure for the CALViS using GCPs. The
+> process for the GOBI is the same, but there is only the VNIR orthomosaic.
+> The same workflow can be used to produce shapefiles if preferred — just
+> choose *ESRI Shapefile* in place of *GeoJSON* in the format dropdown.
 
 For the CALViS, in the products folder of the completed GPRO you will find the
 `.tif` files:
@@ -176,11 +151,76 @@ For the CALViS, in the products folder of the completed GPRO you will find the
 These are the RGB bands from the VNIR and SWIR files respectively. They can be
 easier to use than the full `.bin` files, though the procedure is the same.
 
-### Producing the GCP actual 
+### Field Data Collection
 
-TBD Name and details pending
+> [!IMPORTANT]
+> **TODO:** Name and details pending.
 
-### Producing the GCP observed 
+Independent GCPs are placed in the field during data capture (see
+[Standard Flight](../../FlightDesign/StandardFlight) and
+[Validation Flight](../../FlightDesign/ValidationFlight)). These GCPs are
+independent of any points used during processing so they provide an unbiased
+check.
+
+
+The raw data from the GCP points should be saved in the `T0_raw/Vault` folder
+(location may change).
+
+   Formal path:
+
+   ```
+   ./{Node}/
+     {YYYY_ProjectDesc[_I|E][_Researcher][_org]}/
+     {YYYYSiteName[_F|C]}/
+     {SensorPlatform}/{YYYYMMDD}/run_XX/T0_raw/Vault/
+   ```
+
+   Example:
+
+   ```
+   ./USYD_Narrabri/2025_SIFCal/2025IAWatson/CALVIS/20250825/run_00/T0_raw/Vault/
+   ```
+
+This data should then be convereted into the APPN standard format (geojson
+with `ID`, X, Y, Z, CRS). The exact process for doing this will depend on the
+exact GCP used (Aeropoint, Trimble, etc).
+
+> [!IMPORTANT]
+> **TODO:** Document the conversion process for each supported GCP type
+> (Aeropoint, Trimble, …).
+
+There are some common issues:
+- missmatched CRS between GCP coleection and data procesing. 
+- incorrect height data format e.g. GDA2020 ellipsoid and the Australian
+  Height Datum (AHD) — see Geoscience Australia's
+  [AUSGeoid2020 conversion tool](https://geodesyapps.ga.gov.au/ausgeoid2020)
+  for converting between ellipsoidal and AHD heights.
+- inconsistent ID names or duplicate points. Fix and remove.
+
+Once all the issues are fixed. The document should be saved as __TODO:
+
+   Formal path:
+
+   ```
+   ./{Node}/
+     {YYYY_ProjectDesc[_I|E][_Researcher][_org]}/
+     {YYYYSiteName[_F|C]}/
+     {SensorPlatform}/{YYYYMMDD}/run_XX/T1_proc/QC_data/QC_TODO:.geojson
+   ```
+
+   Example:
+
+   ```
+   ./USYD_Narrabri/2025_SIFCal/2025IAWatson/CALVIS/20250825/run_00/T1_proc/QC_data/QC_TODO:.geojson
+   ```
+
+
+### Observed point capture
+
+Manually digitise a matched set of points from the drone orthomosaic in QGIS
+and save them as `QC_GCP_points.geojson` (see
+[Naming Conventions](#naming-conventions)). The `GCP_name` column must match
+the names used in the field data.
 
 #### 1. Load the Data
 
@@ -252,16 +292,16 @@ Do this for all relevent GCPs.
 
 ![GCPs_export_json](AerialDataQC_media/GCP_img6.png)
 
-#### 5. Accuracy reporting
+### Accuracy reporting
+
 Run the QA code at
-   <https://github.com/ArdenB/APPN_GenricFileStorage>
-   (`Code/DS02_DatasetQA/`) to generate a spatial accuracy report comparing
-   the observed (drone) and reference (surveyed) GCP locations. The report
-   produces per-point residuals and overall RMSE in X, Y, and Z.
+<https://github.com/ArdenB/APPN_GenricFileStorage>
+(`Code/DS02_DatasetQA/`) to generate a spatial accuracy report comparing the
+observed (drone) and reference (surveyed) GCP locations. The report produces
+per-point residuals and overall RMSE in X, Y, and Z.
 
 > [!IMPORTANT]
-> THINGS TODO/ Decide uponL 
-> The file locations of the observed
+> **TODO:** Write this section and include lots of info.
 
 
 ---
@@ -312,8 +352,9 @@ SWIR. The information panel is open on the SWIR to confirm the CRS (EPSG:7855
 flight was collected.*
 
 #### 2. Create the Vector Layer
+
 > [!IMPORTANT]
-> TODO: Richard please check and update this
+> **TODO:** Richard please check and update this section.
 
 
 1. Navigate to **Layer → Create Layer → New GeoPackage Layer…** for GeoJSON

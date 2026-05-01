@@ -277,7 +277,7 @@ Examples (within
 ## Joining Trial Information
 
 > [!IMPORTANT]
-> **TBD — pending APPN Field EWG approval.**
+> **TODO / TBD — pending APPN Field EWG approval.**
 > The trial information spreadsheet specification (mandatory columns,
 > file format, naming convention, and storage location) and the
 > end-to-end procedure for joining it onto the plot shapefile are still
@@ -416,7 +416,7 @@ aerial imagery.
 
 > [!NOTE]
 > Achieving a perfect fit usually takes some iteration on the corner
-> coordinates. (TODO: improve this workflow.)
+> coordinates. (_TODO: improve this workflow._)
 
 #### Save your settings
 
@@ -442,7 +442,10 @@ final shapefile to the trial's `Plot_Layout` directory per the
 
 ---
 
-## Method 2: *(DPRID METHOD TBD)*
+## Method 2: *(DPRID METHOD — TODO)*
+
+> [!IMPORTANT]
+> **TODO:** Document the DPRID plot-delimitation method.
 
 > [!NOTE]
 > Additional plot delimitation methods will be documented here as they
