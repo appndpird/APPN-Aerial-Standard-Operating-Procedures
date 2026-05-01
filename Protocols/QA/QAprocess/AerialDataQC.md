@@ -82,7 +82,8 @@ These file-format, naming, and storage rules apply to every QC process
 | `QC_ELM_Panels.geojson`                 | Polygons of the reflectance panels used in the ELM during GRYFN Processing.                                               |
 | `QC_VAL_Grfyn_Panels.geojson`           | When a second set of GRYFN panels is placed in the field. Replace *ELM* with *VAL* for validation.                        |
 | `QC_VAL_{PanelName}_Panels.geojson`     | Any future validation panels or tests of other panels. Replace `{PanelName}` with the name or unique identifier.          |
-| `QC_GCP_points.geojson`                 | If alternative GCP points (e.g. Aeropoints) are placed in the field. Points-only file; points should match panel centres. |
+| `QC_GCP_groundtruth_points.geojson`     | **Reference** GCP locations measured independently in the field (e.g. Aeropoint, Trimble RTK). Points-only file; one point per GCP, with an `ID` matching the field log.                                  |
+| `QC_GCP_points.geojson`        | **Observed** GCP locations as digitised from the drone orthomosaic in QGIS. Points-only file; `GCP_name` must match the corresponding `ID` in `QC_GCP_groundtruth_points.geojson` so the two can be paired for residual reporting. |
 | `QC_LIDAR_{TargetName}_Surface.geojson` | Name for any future LiDAR calibration surfaces.                                                                           |
 
 > [!TIP]
@@ -153,18 +154,15 @@ easier to use than the full `.bin` files, though the procedure is the same.
 
 ### Field Data Collection
 
-> [!IMPORTANT]
-> **TODO:** Name and details pending.
-
 Independent GCPs are placed in the field during data capture (see
 [Standard Flight](../../FlightDesign/StandardFlight) and
 [Validation Flight](../../FlightDesign/ValidationFlight)). These GCPs are
 independent of any points used during processing so they provide an unbiased
-check.
+reference ("ground truth") to compare the drone-derived positions against.
 
-
-The raw data from the GCP points should be saved in the `T0_raw/Vault` folder
-(location may change).
+The **raw** data exported from the GCP hardware (Aeropoint CSVs, Trimble job
+files, etc.) should be saved to the `T0_raw/Vault` folder so the original
+measurements are preserved.
 
    Formal path:
 
@@ -181,23 +179,28 @@ The raw data from the GCP points should be saved in the `T0_raw/Vault` folder
    ./USYD_Narrabri/2025_SIFCal/2025IAWatson/CALVIS/20250825/run_00/T0_raw/Vault/
    ```
 
-This data should then be convereted into the APPN standard format (geojson
-with `ID`, X, Y, Z, CRS). The exact process for doing this will depend on the
-exact GCP used (Aeropoint, Trimble, etc).
+The raw data must then be converted into the APPN standard reference format:
+a GeoJSON with one point per GCP and the fields `ID`, `X`, `Y`, `Z`, plus an
+explicit CRS. The exact conversion process depends on the GCP hardware
+(Aeropoint, Trimble, etc.).
 
 > [!IMPORTANT]
 > **TODO:** Document the conversion process for each supported GCP type
 > (Aeropoint, Trimble, …).
 
-There are some common issues:
-- missmatched CRS between GCP coleection and data procesing. 
-- incorrect height data format e.g. GDA2020 ellipsoid and the Australian
-  Height Datum (AHD) — see Geoscience Australia's
-  [AUSGeoid2020 conversion tool](https://geodesyapps.ga.gov.au/ausgeoid2020)
-  for converting between ellipsoidal and AHD heights.
-- inconsistent ID names or duplicate points. Fix and remove.
+Common issues to watch for during conversion:
 
-Once all the issues are fixed. The document should be saved as __TODO:
+- Mismatched CRS between GCP collection and data processing.
+- Incorrect height datum — e.g. GDA2020 ellipsoidal heights vs the Australian
+  Height Datum (AHD). See Geoscience Australia's
+  [AUSGeoid2020 conversion tool](https://geodesyapps.ga.gov.au/ausgeoid2020)
+  for converting between the two.
+- Inconsistent `ID` names or duplicate points — fix or remove before saving.
+
+Once the issues are resolved, save the cleaned reference points as
+`QC_GCP_groundtruth_points.geojson` in the `T1_proc/QC_data/` folder (see
+[Naming Conventions](#naming-conventions) and
+[File Storage](#file-storage)).
 
    Formal path:
 
@@ -205,13 +208,13 @@ Once all the issues are fixed. The document should be saved as __TODO:
    ./{Node}/
      {YYYY_ProjectDesc[_I|E][_Researcher][_org]}/
      {YYYYSiteName[_F|C]}/
-     {SensorPlatform}/{YYYYMMDD}/run_XX/T1_proc/QC_data/QC_TODO:.geojson
+     {SensorPlatform}/{YYYYMMDD}/run_XX/T1_proc/QC_data/QC_GCP_groundtruth_points.geojson
    ```
 
    Example:
 
    ```
-   ./USYD_Narrabri/2025_SIFCal/2025IAWatson/CALVIS/20250825/run_00/T1_proc/QC_data/QC_TODO:.geojson
+   ./USYD_Narrabri/2025_SIFCal/2025IAWatson/CALVIS/20250825/run_00/T1_proc/QC_data/QC_GCP_groundtruth_points.geojson
    ```
 
 
@@ -219,8 +222,9 @@ Once all the issues are fixed. The document should be saved as __TODO:
 
 Manually digitise a matched set of points from the drone orthomosaic in QGIS
 and save them as `QC_GCP_points.geojson` (see
-[Naming Conventions](#naming-conventions)). The `GCP_name` column must match
-the names used in the field data.
+[Naming Conventions](#naming-conventions)). The `GCP_name` column **must**
+match the `ID` values used in `QC_GCP_groundtruth_points.geojson` so that
+each observed point can be paired with its reference for accuracy reporting.
 
 #### 1. Load the Data
 
@@ -235,60 +239,69 @@ SWIR. The information panel is open on the SWIR to confirm the CRS (EPSG:7855
 – GDA2020 / MGA zone 54). This CRS is for Roseworthy SA where this CALViS
 flight was collected.*
 
-Instead of transperency you can also turn one image on and off to confirm overlap is aceptable.
+Instead of transparency you can also toggle one image on and off to confirm
+the overlap is acceptable.
 
 If overlap is fine:
 
- 2. Load the ground truth GPS data for your GCPs. Note that the ground truth data is loaded to making naming the annotations on the GRYFN data easier.
-
+ 2. Load the ground-truth GPS data (`QC_GCP_groundtruth_points.geojson`) for
+    your GCPs. The reference layer is loaded first so it is easy to name the
+    digitised points on the drone imagery to match.
 
    ![GCPs_groundtruth_overlay](AerialDataQC_media/GCP_img1.png)
 
-Here, is an example of the ground truth data points over the GCP from the CALVIS 
-![GCPs_groundtruth_overlay_zoom](AerialDataQC_media/GCP_img2.png)   
+Example of the ground-truth points over a GCP visible in the CALViS
+orthomosaic:
 
-#### 2. Create the Shapefile
- 
+![GCPs_groundtruth_overlay_zoom](AerialDataQC_media/GCP_img2.png)
+
+#### 2. Create the Vector Layer
+
 1. Navigate to **Layer → Create Layer → New Shapefile Layer**.
 
-The file name will be QC_GCP_points, Geomtry type is "points" and for field we delete the existing "ID" and replace it with GCP_name (Note: use Type "Text(string)")
-![GCPs_set_up_shapefile](AerialDataQC_media/GCP_img3.png) 
+   Set the **File Name** to `QC_GCP_points`, the **Geometry type**
+   to *Point*, and replace the pre-filled `id` field with `GCP_name` of type
+   **Text (string)**.
 
-2. Set the **File Name** to `QC_GCP_points.shp` 
+   ![GCPs_set_up_shapefile](AerialDataQC_media/GCP_img3.png)
 
-3. Set the **Geometry type** to *points*.
-
-4. Set the **CRS** to match your dataset.
-
+2. Set the **File Name** to `QC_GCP_points.shp` (it will be exported
+   to GeoJSON in step 5).
+3. Set the **Geometry type** to *Point*.
+4. Set the **CRS** to match the orthomosaic.
 5. Add a single field — `GCP_name`:
    - Select the pre-filled `id` field in the Fields list and click
      **Remove Field** (bottom right) to remove it.
-   - Set `GCP_name` as an **Text(string)** 
+   - Add `GCP_name` as **Text (string)**.
 
-#### 3. Annotating the GCPs   
+#### 3. Annotating the GCPs
 
-To start annotating the GRYFN data: 
+To start annotating the drone orthomosaic:
+
 1. Select `QC_GCP_points` in the **Layers** menu.
 2. Click the pencil icon (**Toggle Editing**).
-3. Click the points (**Add point feature**)
+3. Click **Add Point Feature**.
 
 ![GCPs_editlayer](AerialDataQC_media/GCP_img4.png)
 
-4. Navigate to the centre of the GCP, left click and name the GCP appropriatly (the name needs to match your ground truth data). In the figure below the ground truth data is in Green and the Red dot is GRYFNS accuracy. 
-
+4. Navigate to the centre of each GCP, left-click to drop a point, and enter
+   the `GCP_name` so it matches the corresponding `ID` in
+   `QC_GCP_groundtruth_points.geojson`. In the figure below the ground-truth
+   point is green and the digitised (observed) point is red — the offset
+   between them is the positional error being measured.
 
 ![GCPs_point_eg](AerialDataQC_media/GCP_img5.png)
 
-Do this for all relevent GCPs.
+Repeat for every GCP visible in the orthomosaic.
 
 #### 5. Save the data as a GeoJSON
 
-1. Right-click `QC_GCP_points` in the **Layers** menu → **Export → Save
-   Features As**.
+1. Right-click `QC_GCP_points` in the **Layers** menu →
+   **Export → Save Features As…**.
 
-2. The presets are fine — just make sure the **File Name** is correct and in
-   the right folder (click the three dots to navigate). Make sure **Format** is GeoJSON and double-check the
-   **CRS**.
+2. Set **Format** to *GeoJSON*, confirm the **File Name** and target folder
+   (click the three dots to navigate), and double-check the **CRS** matches
+   the orthomosaic.
 
 ![GCPs_export_json](AerialDataQC_media/GCP_img6.png)
 
