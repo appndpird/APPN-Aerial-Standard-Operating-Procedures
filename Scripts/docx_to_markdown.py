@@ -38,11 +38,13 @@ DEFAULT_INPUT = REPO_ROOT / "OriginalDocuments"
 # .docx stem (case-insensitive); values are (destination dir relative to repo
 # root, output basename without extension). New SOPs can be added here.
 SOP_ROUTES: dict[str, tuple[str, str]] = {
-    "appn_calvis_fieldbook":      ("Protocols/Sensors/CALVIS",                    "CALViS_FieldBook"),
-    "appn_gobi_fieldbook":        ("Protocols/Sensors/GOBI",                      "GOBI_FieldBook"),
-    "appn_aerialdataqc":          ("Protocols/QA/QAprocess",                      "AerialDataQC"),
-    "appn_validation_flight":     ("Protocols/FlightDesign/ValidationFlight",     "Validation_Flight"),
-    "appn_plot_delimitation":     ("Protocols/PlotProtocols/PlotDelimitation",    "Plot_Delimitation"),
+    "appn_calvis_fieldbook":        ("Protocols/Sensors/CALVIS",                    "CALViS_FieldBook"),
+    "appn_gobi_if1200_fieldbook":   ("Protocols/Sensors/GOBI",                      "GOBI_IF1200_FieldBook"),
+    "appn_gobi_m350_fieldbook":     ("Protocols/Sensors/GOBI",                      "GOBI_M350_FieldBook"),
+    "appn_gobi_fieldbook":          ("Protocols/Sensors/GOBI",                      "GOBI_FieldBook"),
+    "appn_aerialdataqc":            ("Protocols/QA/QAprocess",                      "AerialDataQC"),
+    "appn_validation_flight":       ("Protocols/FlightDesign/ValidationFlight",     "Validation_Flight"),
+    "appn_plot_delimitation":       ("Protocols/PlotProtocols/PlotDelimitation",    "Plot_Delimitation"),
 }
 
 

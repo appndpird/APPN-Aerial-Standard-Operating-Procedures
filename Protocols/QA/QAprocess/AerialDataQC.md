@@ -75,7 +75,6 @@ These file-format, naming, and storage rules apply to every QC process
 > the QA pipeline will read either format. New files should be saved as
 > `.geojson`.
 
-
 ### Naming Conventions
 
 | Name                                    | Overview                                                                                                                  |
