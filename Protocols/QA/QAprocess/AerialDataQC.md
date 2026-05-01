@@ -230,7 +230,8 @@ Do this for all relevent GCPs.
 
 ![GCPs_export_json](AerialDataQC_media/GCP_img6.png)
 
-4. **Accuracy reporting** — run the QA code at
+### 5. Accuracy reporting
+Run the QA code at
    <https://github.com/ArdenB/APPN_GenricFileStorage>
    (`Code/DS02_DatasetQA/`) to generate a spatial accuracy report comparing
    the observed (drone) and reference (surveyed) GCP locations. The report
