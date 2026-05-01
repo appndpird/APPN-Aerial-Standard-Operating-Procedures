@@ -143,6 +143,93 @@ APPN Positional QC is performed in four stages:
    from the drone orthomosaic in QGIS, saved as `QC_GCP_points.geojson`
    (see [Naming Conventions](#naming-conventions)). The `point_num` column
    must match the surveyed CSV.
+   ### Creating Geospatial Point Data — GOBI & CALViS (QGIS)
+
+> The description below shows the procedure for creating GeoJSON files for the
+>  CALViS using GCPs The process for the GOBI is
+>  the same, but there is only the VNIR orthomosaic. The same workflow can be
+>  used to produce shapefiles if preferred — just choose *ESRI Shapefile* in
+>  place of *GeoJSON* in the format dropdown.
+
+For the CALViS, in the products folder of the completed GPRO you will find the
+`.tif` files:
+
+- `X__VNIR_Orthomosaic.rgb`
+- `X_SWIR_Orthomosaic.rgb`
+
+These are the RGB bands from the VNIR and SWIR files respectively. They can be
+easier to use than the full `.bin` files, though the procedure is the same.
+
+### 1. Load the Data
+
+1. Load the SWIR and VNIR files into QGIS and run the following checks:
+   - Do the panels in the SWIR and VNIR overlap?
+   - Make note of the CRS.
+
+   ![VNIR at 50% opacity confirming panel overlap with SWIR; information panel showing CRS (EPSG:7855 – GDA2020 / MGA zone 54)](AerialDataQC_media/GCP_swir_vnir.png)
+
+   *Figure: The VNIR is set to 50% opacity to confirm the panels overlap with the
+SWIR. The information panel is open on the SWIR to confirm the CRS (EPSG:7855
+– GDA2020 / MGA zone 54). This CRS is for Roseworthy SA where this CALViS
+flight was collected.*
+
+Instead of transperency you can also turn one image on and off to confirm overlap is aceptable.
+
+If overlap is fine:
+
+ 2. Load the ground truth GPS data for your GCPs. Note that the ground truth data is loaded to making naming the annotations on the GRYFN data easier.
+
+
+   ![GCPs_groundtruth_overlay](AerialDataQC_media/GCP_img1.png)
+
+Here, is an example of the ground truth data points over the GCP from the CALVIS 
+![GCPs_groundtruth_overlay_zoom](AerialDataQC_media/GCP_img2.png)   
+
+### 2. Create the Shapefile
+ 
+1. Navigate to **Layer → Create Layer → New Shapefile Layer**.
+
+The file name will be QC_GCP_points, Geomtry type is "points" and for field we delete the existing "ID" and replace it with GCP_name (Note: use Type "Text(string)")
+![GCPs_set_up_shapefile](AerialDataQC_media/GCP_img3.png) 
+
+2. Set the **File Name** to `QC_GCP_points.shp` 
+
+3. Set the **Geometry type** to *points*.
+
+4. Set the **CRS** to match your dataset.
+
+5. Add a single field — `GCP_name`:
+   - Select the pre-filled `id` field in the Fields list and click
+     **Remove Field** (bottom right) to remove it.
+   - Set `GCP_name` as an **Text(string)** 
+
+### 3. Annotating the GCPs   
+
+To start annotating the GRYFN data: 
+1. Select `QC_GCP_points` in the **Layers** menu.
+2. Click the pencil icon (**Toggle Editing**).
+3. Click the points (**Add point feature**)
+
+![GCPs_editlayer](AerialDataQC_media/GCP_img4.png)
+
+4. Navigate to the centre of the GCP, left click and name the GCP appropriatly (the name needs to match your ground truth data). In the figure below the ground truth data is in Green and the Red dot is GRYFNS accuracy. 
+
+
+![GCPs_point_eg](AerialDataQC_media/GCP_img5.png)
+
+Do this for all relevent GCPs.
+
+### 5. Save the data as a GeoJSON
+
+1. Right-click `QC_GCP_points` in the **Layers** menu → **Export → Save
+   Features As**.
+
+2. The presets are fine — just make sure the **File Name** is correct and in
+   the right folder (click the three dots to navigate). Make sure **Format** is GeoJSON and double-check the
+   **CRS**.
+
+![GCPs_export_json](AerialDataQC_media/GCP_img6.png)
+
 4. **Accuracy reporting** — run the QA code at
    <https://github.com/ArdenB/APPN_GenricFileStorage>
    (`Code/DS02_DatasetQA/`) to generate a spatial accuracy report comparing
