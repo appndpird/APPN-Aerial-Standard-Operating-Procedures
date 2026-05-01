@@ -1,43 +1,94 @@
 # APPN – Aerial Data QC Protocols
 
+> [!NOTE]
 > This document describes procedures for measuring the uncertainty of drone
-> flights. It currently focuses on assessing the accuracy of existing flights
-> in the lead-up to Cali Week 2026. It will also form the basis of a standard
-> QC procedure for future flights. Initially this document focuses on the
+> flights. Initially this document focuses on the
 > hyperspectral drones, but the procedure will expand in the future.
+> It will also form the basis of a standard QC procedure for future flights.
 
 > [!NOTE]
-> Future flights are likely to consist of multiple sets of panels for both ELM
-> and validation, ground control points (to test GNSS) and other reflectance
-> targets for LiDAR calibration.
+> The QC procedures in this document are tightly coupled to the APPN flight
+> designs — the panels, ground control points, and reflectance targets that
+> the QC steps rely on are deployed *during* the flight itself. Before
+> performing any QC, make sure you understand which targets were placed in
+> the field by reading the relevant flight protocol:
+>
+> - [Standard Flight](../../FlightDesign/StandardFlight/Standard_Flight.md)
+>   — routine APPN data-collection flight; defines the baseline panel and
+>   GCP layout used for ELM and positional QC.
+> - [Validation Flight](../../FlightDesign/ValidationFlight/Validation_Flight.md)
+>   — extended flight that adds additional validation panels, GCPs, and
+>   (in future) LiDAR calibration targets used by the spectral, positional,
+>   and LiDAR QC sections below.
+
+## Document Structure
+
+The conventions in [General QC Conventions](#general-qc-conventions) apply to
+**all** QC processes below. Read that section first, then jump to the
+specific QC type you need:
+
+- [General QC Conventions](#general-qc-conventions)
+  - [File Format — GeoJSON vs Shapefile](#file-format--geojson-vs-shapefile)
+  - [Naming Conventions](#naming-conventions)
+  - [File Storage](#file-storage)
+- [Positional QC](#positional-qc)
+- [Spectral QC](#spectral-qc)
+  - [Creating Geospatial Vector Data — GOBI & CALViS (QGIS)](#creating-geospatial-vector-data--gobi--calvis-qgis)
+  - [Extracting Pixels into a Table](#extracting-pixels-into-a-table)
+- [LiDAR QC](#lidar-qc)
 
 ---
 
-## Spectral QC
+## General QC Conventions
 
-Spectral QC is done by drawing polygons in GIS software over surfaces with
-known spectral values, then extracting and comparing them. This is done after
-all processing in software like GPT is complete.
+These file-format, naming, and storage rules apply to every QC process
+(positional, spectral, LiDAR) described later in this document.
 
-CALViS and GOBI flights conducted prior to the *Operational Excellence in APPN
-Hyperspectral Imaging* SIF likely consist of one GRYFN reflectance panel
-(used to generate the ELM in the GRYFN Processing Tool) along with additional
-panels for validation.
+### File Format — GeoJSON vs Shapefile
+
+> [!IMPORTANT]
+> **GeoJSON (`.geojson`) is the preferred format** for all QC vector data,
+> though shapefiles (`.shp`) are also supported by the QA code at
+> <https://github.com/ArdenB/APPN_GenricFileStorage>.
+>
+> GeoJSON is preferred because:
+>
+> - It is a **single self-contained file**, rather than the 4–6 sidecar files
+>   (`.shp`, `.shx`, `.dbf`, `.prj`, `.cpg`, …) required by the shapefile
+>   format. This makes it easier to copy, share, and store without losing
+>   pieces.
+> - It is **plain-text JSON**, so it is human-readable, diff-friendly, and
+>   works cleanly with Git version control.
+> - It is an **open, web-native standard** (RFC 7946) supported by virtually
+>   all modern GIS tools, web mappers, and Python/R libraries.
+> - CRS handling is explicit: the default GeoJSON specification (RFC 7946)
+>   only supports WGS84 (EPSG:4326), but all major GIS software (QGIS,
+>   ArcGIS, GDAL, geopandas, etc.) allow you to specify and read a different
+>   CRS when writing/reading the file. For APPN QC work we **keep the file
+>   in the same projected CRS as the source orthomosaic** (e.g. GDA2020 /
+>   MGA zone XX) rather than reprojecting to WGS84.
+> - It has **no field-name length limit** (shapefile DBF caps at 10
+>   characters) and no 2 GB file-size cap.
+>
+> If you already have shapefiles, you do **not** need to re-create them —
+> the QA pipeline will read either format. New files should be saved as
+> `.geojson`.
 
 ### Naming Conventions
 
-| Name                                | Overview                                                                                                                  |
-| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `QC_ELM_Panels.shp`                 | Shapefile of the reflectance panels used in the ELM during GRYFN Processing.                                              |
-| `QC_VAL_Grfyn_Panels.shp`           | When a second set of GRYFN panels is placed in the field. Replace *ELM* with *VAL* for validation.                        |
-| `QC_VAL_{PanelName}_Panels.shp`     | Any future validation panels or tests of other panels. Replace `{PanelName}` with the name or unique identifier.          |
-| `QC_GCP_points.shp`                 | If alternative GCP points (e.g. Aeropoints) are placed in the field. Points-only file; points should match panel centres. |
-| `QC_LIDAR_{TargetName}_Surface.shp` | Name for any future LiDAR calibration surfaces.                                                                           |
+| Name                                    | Overview                                                                                                                  |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `QC_ELM_Panels.geojson`                 | Polygons of the reflectance panels used in the ELM during GRYFN Processing.                                               |
+| `QC_VAL_Grfyn_Panels.geojson`           | When a second set of GRYFN panels is placed in the field. Replace *ELM* with *VAL* for validation.                        |
+| `QC_VAL_{PanelName}_Panels.geojson`     | Any future validation panels or tests of other panels. Replace `{PanelName}` with the name or unique identifier.          |
+| `QC_GCP_points.geojson`                 | If alternative GCP points (e.g. Aeropoints) are placed in the field. Points-only file; points should match panel centres. |
+| `QC_LIDAR_{TargetName}_Surface.geojson` | Name for any future LiDAR calibration surfaces.                                                                           |
 
 > [!TIP]
 > Any additional information (e.g. date) can be added to the end of the file
-> name with an underscore — e.g. `QC_ELM_Panels_20260302.shp`. This table
-> will be updated if we source panels other than GRYFN.
+> name with an underscore — e.g. `QC_ELM_Panels_20260302.geojson`. This
+> table will be updated if we source panels other than GRYFN. Shapefile
+> equivalents (e.g. `QC_ELM_Panels.shp`) are also accepted by the QA code.
 
 ### File Storage
 
@@ -60,17 +111,85 @@ Example:
 ./USYD_Narrabri/2025_SIFCal/2025IAWatson_F/CALVIS/20250825/run_00/T1_proc/QC_data/
 ```
 
-These shapefiles are meant to be created after the GPRO has been completed.
-The APPN storage repo has been updated to include this folder:
+These vector files (GeoJSON preferred, shapefile accepted) are meant to be
+created after the GPRO has been completed. The APPN storage repo has been
+updated to include this folder:
 <https://github.com/ArdenB/APPN_GenricFileStorage>
 
 ---
 
-## Creating Shapefiles — GOBI & CALViS (QGIS)
+## Positional QC
 
-> The description below shows the procedure for creating shapefiles for the
-> CALViS using GRYFN reflectance panels for ELM. The process for the GOBI is
-> the same, but there is only the VNIR orthomosaic.
+> [!WARNING]
+> This section is still a work in progress.
+
+> [!IMPORTANT]
+> Positional QC **must be performed immediately after processing is complete**
+> (e.g. straight after GPRO creation). Positional errors are often the first
+> indication of a larger problem with the flight or the processing pipeline,
+> and almost always require the data to be reprocessed before they can be
+> resolved. Catching them early avoids wasted downstream work.
+
+APPN Positional QC is performed in four stages:
+
+1. **Field deployment** — place independent GCPs in the field during data
+   capture (see [Standard Flight](../../FlightDesign/StandardFlight) and
+   [Validation Flight](../../FlightDesign/ValidationFlight)). These GCPs are
+   independent of any points used during processing so they provide an
+   unbiased check.
+2. **Reference conversion** — convert the surveyed GCP coordinates into the
+   APPN standard format (geojson with `point_num`, X, Y, Z, CRS).
+3. **Observed point capture** — manually digitise a matched set of points
+   from the drone orthomosaic in QGIS, saved as `QC_GCP_points.geojson`
+   (see [Naming Conventions](#naming-conventions)). The `point_num` column
+   must match the surveyed CSV.
+4. **Accuracy reporting** — run the QA code at
+   <https://github.com/ArdenB/APPN_GenricFileStorage>
+   (`Code/DS02_DatasetQA/`) to generate a spatial accuracy report comparing
+   the observed (drone) and reference (surveyed) GCP locations. The report
+   produces per-point residuals and overall RMSE in X, Y, and Z.
+
+> [!IMPORTANT]
+> THINGS TODO/ Decide uponL 
+> The file locations of the observed
+
+### File paths
+
+
+
+If alternative GCP points (like Aeropoints) are placed in the field, another
+vector file should be created. This should be a points-only file and the
+points should match the centre of the panels. It should be saved as:
+
+`QC_GCP_points.geojson` (or `QC_GCP_points.shp`)
+
+The point name should be saved in a column called `point_num` and the number
+should match the point number in the matching CSV file.
+
+---
+
+## Spectral QC
+
+Spectral QC is done by drawing polygons in GIS software over surfaces with
+known spectral values, then extracting and comparing them. This is done after
+all processing in software like GPT is complete.
+
+CALViS and GOBI flights conducted prior to the *Operational Excellence in APPN
+Hyperspectral Imaging* SIF likely consist of one GRYFN reflectance panel
+(used to generate the ELM in the GRYFN Processing Tool) along with additional
+panels for validation.
+
+File naming, format (GeoJSON preferred), and storage location for the
+polygons created below all follow the
+[General QC Conventions](#general-qc-conventions) above.
+
+### Creating Geospatial Vector Data — GOBI & CALViS (QGIS)
+
+> The description below shows the procedure for creating GeoJSON files for the
+>  CALViS using GRYFN reflectance panels for ELM. The process for the GOBI is
+>  the same, but there is only the VNIR orthomosaic. The same workflow can be
+>  used to produce shapefiles if preferred — just choose *ESRI Shapefile* in
+>  place of *GeoJSON* in the format dropdown.
 
 For the CALViS, in the products folder of the completed GPRO you will find the
 `.tif` files:
@@ -81,7 +200,7 @@ For the CALViS, in the products folder of the completed GPRO you will find the
 These are the RGB bands from the VNIR and SWIR files respectively. They can be
 easier to use than the full `.bin` files, though the procedure is the same.
 
-### 1. Load the Data
+#### 1. Load the Data
 
 1. Load both files into QGIS and run the following checks:
    - Do the panels in the SWIR and VNIR overlap?
@@ -94,13 +213,23 @@ SWIR. The information panel is open on the SWIR to confirm the CRS (EPSG:7855
 – GDA2020 / MGA zone 55). This CRS is for Narrabri NSW where this CALViS
 flight was collected.*
 
-### 2. Create the Shapefile
+#### 2. Create the Vector Layer
+> [!IMPORTANT]
+> TODO: Richard please check and update this
 
-1. Navigate to **Layer → Create Layer → New Shapefile Layer**.
+
+1. Navigate to **Layer → Create Layer → New GeoPackage Layer…** for GeoJSON
+   output, or **New Shapefile Layer…** if producing a shapefile. Either way
+   you will set the output **File Name** with the appropriate extension
+   (`.geojson` preferred, `.shp` accepted).
 
    ![New Shapefile Layer dialog](AerialDataQC_media/image_9f6183a618a4.png)
 
-2. Set the **File Name** to `QC_ELM_Panels.shp` (see the
+   > [!TIP]
+   > To save directly as GeoJSON you can also create a temporary scratch
+   > layer and then **Export → Save Features As… → GeoJSON** in step 5.
+
+2. Set the **File Name** to `QC_ELM_Panels.geojson` (see the
    [naming conventions](#naming-conventions) table for the correct name given
    your use case).
 3. Set the **Geometry type** to *Polygon*.
@@ -116,7 +245,7 @@ flight was collected.*
 
    ![Shapefile field configuration](AerialDataQC_media/image_a66d67f857b2.png)
 
-### 3. Draw Boxes over the Panels
+#### 3. Draw Boxes over the Panels
 
 The boxes should be polygons drawn inside the panel. The points should be
 drawn to cover as much of the panel as possible without including edge effects
@@ -135,29 +264,27 @@ within the panel, they should be included.
 
    ![Polygon drawn over reflectance panel](AerialDataQC_media/image_a14d736973fa.png)
 
-### 4. Sanity Check Labels
+#### 4. Sanity Check Labels
 
 1. Double-click `QC_ELM_Panels` in the **Layers** menu.
 2. In **Layer Properties**, click **Labels** and select **Single Labels**.
 
    ![Label configuration](AerialDataQC_media/image_2ee37c5d6f35.png)
 
-### 5. Save the Shapefile
+#### 5. Save the File
 
 1. Right-click `QC_ELM_Panels` in the **Layers** menu → **Export → Save
    Features As**.
 
    ![Export menu](AerialDataQC_media/image_897abfd23192.png)
 
-2. The presets are fine — just make sure the **File Name** is correct and in
-   the right folder (click the three dots to navigate). Double-check the
-   **CRS**.
+2. Set the **Format** to *GeoJSON* (preferred) — or *ESRI Shapefile* if
+   required. Make sure the **File Name** is correct and in the right folder
+   (click the three dots to navigate). Double-check the **CRS**.
 
    ![Save dialog](AerialDataQC_media/image_a77a81d079ab.png)
 
----
-
-## Extracting Pixels into a Table
+### Extracting Pixels into a Table
 
 Arden Burrell has made a Python script that can go through the APPN standard
 folder structure, extract the values into a table, and save that as a `.csv`
@@ -177,21 +304,7 @@ band, wavelength, value, Panel_ref, node, project, site, sensor, date, run, pane
 
 ---
 
-## Positional QC
 
-> [!WARNING]
-> This section is still a work in progress.
-
-If alternative GCP points (like Aeropoints) are placed in the field, another
-shapefile should be created. This should be a points-only file and the points
-should match the centre of the panels. It should be saved as:
-
-`QC_GCP_points.shp`
-
-The point name should be saved in a column called `point_num` and the number
-should match the point number in the matching CSV file.
-
----
 
 ## LiDAR QC
 
