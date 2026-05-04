@@ -32,8 +32,7 @@ Protocols/
 │   ├── StandardFlight/               Standard flight procedure
 │   └── ValidationFlight/             Validation flight procedure
 ├── QA/
-│   ├── QAprocess/                    Aerial data QC procedure (operator workflow)
-│   └── QCandReporting/               User-facing QC philosophy & reporting guidance
+│   └── QAprocess/                    Aerial data QC procedure (operator workflow)
 ├── PlotProtocols/
 │   └── PlotDelimitation/             Plot delimitation shapefile spec + methods
 ├── DataManagement/
@@ -41,7 +40,8 @@ Protocols/
 ├── Pipelines/
 │   ├── ProcessingPipelines/          GRYFN standard processing pipeline outputs
 │   └── StandardDataProducts/         Tabular summary of standard data products
-└── GroundPlatforms/
+└── Background/
+    ├── QCandReporting/               User-facing QC philosophy & reporting guidance
     └── PhenotypingAndEnvironmental/  Ground-based phenotyping & env. instruments
 
 OriginalDocuments/                    Source .docx files (input to docx_to_markdown.py)

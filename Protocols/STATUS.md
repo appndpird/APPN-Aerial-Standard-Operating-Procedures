@@ -25,12 +25,12 @@ Tick = stage complete. Update each page's `status:` list in [`publish.yaml`](../
 | [Standard Flight Procedure](FlightDesign/StandardFlight/Standard_Flight.md) | Flight Design | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |  |
 | [Validation Flight](FlightDesign/ValidationFlight/Validation_Flight.md) | Flight Design | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |  |
 | [QA Process](QA/QAprocess/AerialDataQC.md) | Quality Assurance | ✅ | ✅ | ✅ | ⬜ | ⬜ |  |
-| [QC and Reporting](QA/QCandReporting/QC_and_Reporting.md) | Quality Assurance | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |  |
 | [Plot Delimitation](PlotProtocols/PlotDelimitation/Plot_Delimitation.md) | Plot Protocols | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |  |
 | [Data Folder Structure](DataManagement/DataFolderStructure/DataFolderStructure.md) | Data Management | ✅ | ✅ | ✅ | ✅ | ⬜ |  |
 | [Processing Pipelines](Pipelines/ProcessingPipelines/Processing_Pipelines.md) | Processing & Data Products | ✅ | ✅ | ✅ | ⬜ | ⬜ |  |
 | [Standard Data Products](Pipelines/StandardDataProducts/Standard_Data_Products.md) | Processing & Data Products | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |  |
-| [Ground-Based Phenotyping and Environmental Platforms](GroundPlatforms/PhenotypingAndEnvironmental/Ground_Phenotyping_and_Environmental.md) | Ground-Based Platforms | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | Placeholder — formal protocols TBD |
+| [QC and Reporting](Background/QCandReporting/QC_and_Reporting.md) | Background | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |  |
+| [Ground-Based Phenotyping and Environmental Platforms](Background/PhenotypingAndEnvironmental/Ground_Phenotyping_and_Environmental.md) | Background | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | Placeholder — formal protocols TBD |
 
 ## Summary
 

@@ -58,8 +58,8 @@ categories:
     title: "Data Management"
   - id: Pipelines
     title: "Processing & Data Products"
-  - id: GroundPlatforms
-    title: "Ground-Based Platforms"
+  - id: Background
+    title: "Background"
 
 pages:
   - source: Protocols/Sensors/PlatformsOverview/Platforms_Overview.md
@@ -119,10 +119,10 @@ pages:
     category: QA
     status: [drafted, ewg_feedback, modified]
 
-  - source: Protocols/QA/QCandReporting/QC_and_Reporting.md
+  - source: Protocols/Background/QCandReporting/QC_and_Reporting.md
     wiki_page: QC-and-Reporting
     title: "QC and Reporting"
-    category: QA
+    category: Background
     status: [drafted]
 
   - source: Protocols/PlotProtocols/PlotDelimitation/Plot_Delimitation.md
@@ -149,9 +149,9 @@ pages:
     category: Pipelines
     status: [drafted]
 
-  - source: Protocols/GroundPlatforms/PhenotypingAndEnvironmental/Ground_Phenotyping_and_Environmental.md
+  - source: Protocols/Background/PhenotypingAndEnvironmental/Ground_Phenotyping_and_Environmental.md
     wiki_page: Ground-Phenotyping-and-Environmental
     title: "Ground-Based Phenotyping and Environmental Platforms"
-    category: GroundPlatforms
+    category: Background
     status: [drafted]
     notes: "Placeholder — formal protocols TBD"

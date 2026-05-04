@@ -8,7 +8,7 @@ The intent is to support transparency, informed use, and consistent reporting,
 rather than to present data products as error-free or universally applicable.
 
 For the operator-facing spectral and QGIS QC workflow used during routine data
-preparation, see [Aerial Data QC](../QAprocess/AerialDataQC.md).
+preparation, see [Aerial Data QC](../../QA/QAprocess/AerialDataQC.md).
 
 ---
 
