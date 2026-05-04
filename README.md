@@ -1,5 +1,13 @@
 # APPN Aerial Standard Operating Procedures
 
+> [!IMPORTANT]
+> **This repository location is temporary.** It is currently hosted under a
+> personal GitHub account to support active drafting and review. As individual
+> SOPs are finalised and ready for release, they will be migrated to the
+> official APPN organisation repository. Please treat URLs, links, and clone
+> paths here as **non-permanent** and expect them to change once the migration
+> occurs.
+
 Working drafts of the APPN Aerial Standard Operating Procedures (SOPs).
 
 This repository holds the **in-progress** versions of every SOP. The
