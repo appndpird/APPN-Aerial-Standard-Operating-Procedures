@@ -49,8 +49,8 @@ These file-format, naming, and storage rules apply to every QC process
 
 > [!IMPORTANT]
 > **GeoJSON (`.geojson`) is the preferred format** for all QC vector data,
-> though shapefiles (`.shp`) are also supported by the QA code at
-> <https://github.com/ArdenB/APPN_GenricFileStorage>.
+> though shapefiles (`.shp`) are also supported by the QA and plot 
+> extraction code  <https://github.com/ArdenB/APPN_GenricFileStorage>.
 >
 > GeoJSON is preferred because:
 >
