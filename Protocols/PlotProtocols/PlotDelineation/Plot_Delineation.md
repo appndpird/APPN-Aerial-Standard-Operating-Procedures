@@ -3,12 +3,12 @@
 > [!WARNING]
 > **Draft document — large sections require discussion with the APPN
 > Field EWG.** Several parts of this protocol (including the recommended
-> buffer values, the mandatory shapefile attribute set, and the trial
+> buffer values, the mandatory file attribute set, and the trial
 > information join specification) are placeholders intended to show the
 > structure and intent of the standard. They must be reviewed and
 > ratified by the Field EWG before being treated as the APPN standard.
-> Sections requiring EWG input are flagged inline with `IMPORTANT`
-> callouts.
+> Sections requiring EWG input are flagged inline with `IMPORTANT` 
+> callouts and *(TODO: Field EWG Discussion)* in headings.
 
 This protocol defines the APPN standard for plot delineation shapefiles —
 their structure, attributes, and storage location within the APPN folder
@@ -25,28 +25,39 @@ analysis across APPN trials.
 > the changes made, the rationale, and any implications for downstream
 > analysis.
 
+---
+
 ## Document Structure
 
 This protocol is organised so you can read it top-to-bottom for the full
-APPN plot delineation standard, or jump straight to the section you need:
+APPN plot delineation standard, or jump straight to the section you need.
+Sections still pending APPN Field EWG ratification are flagged with
+*(TODO: Field EWG Discussion)* in their headings.
 
 - [APPN Plot Delineation](#appn-plot-delineation) — rationale and the
   competing sources of error a standard delineation approach must manage.
   - [Recommended Buffer](#recommended-buffer) — default inward buffer
-    values, worked examples, and when to deviate.
+    values, worked examples, and when to deviate. *(TODO: Field EWG Discussion)*
 - [APPN Plot Shapefile Standard](#appn-plot-shapefile-standard) — the
   mandatory file format, attributes, storage location, and naming
-  convention every plot shapefile must follow.
-  - [File format](#file-format)
-  - [Required attributes](#required-attributes)
-  - [Storage location](#storage-location)
-  - [File naming convention](#file-naming-convention)
-- [Joining Trial Information](#joining-trial-information) — how trial
-  metadata is attached to the plot geometry via `plot_id`.
+  convention every plot layout file must follow.
+  - [File format](#file-format) — GeoJSON (preferred) and shapefile
+    (also accepted), CRS, and geometry rules.
+  - [Required attributes](#required-attributes) — `fid`, `plot_id`, and
+    candidate columns under EWG discussion. *(TODO: Field EWG Discussion)*
+  - [Storage location](#storage-location) — where the layout file lives
+    in the APPN folder structure.
+  - [File naming convention](#file-naming-convention-_todo-feild-ewg-discussion)
+    *(TODO: Field EWG Discussion)* — proposed `{YYYYSiteName}_{role}_v{NN}`
+    scheme and role tags.
+- [Joining Trial Information](#joining-trial-information-_todo-feild-ewg-discussion)
+  *(TODO: Field EWG Discussion)* — how trial metadata is attached to the
+  plot geometry via `plot_id`.
 - [Methods](#methods) — supported procedures for generating an
-  APPN-compliant plot shapefile.
+  APPN-compliant plot layout file.
   - [Method 1: FIELDimageR (QGIS)](#method-1-fieldimager-qgis)
-  - [Method 2: *(DPRID METHOD — TODO)*](#method-2-dprid-method--todo)
+  - [Method 2: *(DPIRD METHOD — TODO)*](#method-2-dpird-method--todo)
+  - [Method 3: *(GRYFN plot tool — TODO)*](#method-3-gryfn-plot-tool--todo)
 
 ---
 
@@ -126,21 +137,28 @@ downstream pipelines can ingest them without trial-specific configuration.
 
 ### File format
 
-- **Primary format:** ESRI Shapefile (`.shp` plus its sidecar files
+- **Primary format:** **GeoJSON** (`.geojson`) — a single, plain-text,
+  self-contained file. See
+  [File Format — GeoJSON vs Shapefile](../../QA/QAprocess/AerialDataQC.md#file-format--geojson-vs-shapefile)
+  in the Aerial Data QC protocol for the full rationale (single-file
+  packaging, version-control friendliness, no field-name length or file
+  size caps, open web-native standard).
+- **Also accepted:** ESRI Shapefile (`.shp` plus its sidecar files
   `.shx`, `.dbf`, `.prj`, `.cpg`). All sidecar files must be kept
-  together with the `.shp`.
-- **CRS:** the CRS of the source orthomosaic (typically the correct zone of GDA2020). 
-  The `.prj` file must be present and correct.
+  together with the `.shp`. Shapefiles already in use do **not** need to
+  be re-created; new files should be saved as `.geojson`.
+- **CRS:** the CRS of the source orthomosaic (typically the correct zone
+  of GDA2020). For GeoJSON, keep the file in the projected CRS of the
+  orthomosaic rather than reprojecting to WGS84 (see the linked rationale
+  above). For shapefiles, the `.prj` file must be present and correct.
 - **Geometry:** one polygon per plot. Polygons should be rectangular and
   aligned to the trial layout, sized to the plot dimensions minus the
   inward buffer applied to mitigate edge effects.
-- **Backup copy:** an additional copy of the same layer must be saved in
-  an open, plain-text format — **GeoJSON** (`.geojson`) is preferred —
-  using the **same base file name** as the shapefile (e.g.
-  `MyTrial_plots.shp` → `MyTrial_plots.geojson`) and stored alongside it.
-  This guards against shapefile-specific limitations (10-character field
-  names, 2 GB size cap, missing sidecars) and makes the layer
-  diff-friendly in version control.
+- **Optional companion copy:** a second copy of the same layer in the
+  other supported format may be saved alongside the primary file using
+  the **same base file name** (e.g. `MyTrial_plots.geojson` →
+  `MyTrial_plots.shp`). This is useful for tools that only consume one
+  format, but is not required.
 
 ### Required attributes
 
@@ -165,7 +183,7 @@ Each plot polygon should carry, at minimum:
 > the trial design. Conflating the two breaks reproducibility when the
 > shapefile is regenerated and `fid` values shift.
 
-#### Candidate mandatory plot-identification columns
+#### Candidate mandatory plot-identification columns (_TODO: Feild EWG Discussion)
 
 Used to locate a plot within the trial layout:
 
@@ -182,7 +200,7 @@ Used to locate a plot within the trial layout:
 (`plot_id` is listed above as part of the minimum set, since it is the
 join key.)
 
-#### Candidate mandatory biological / treatment columns
+#### Candidate mandatory biological / treatment columns (_TODO: Feild EWG Discussion)
 
 Used to describe what is in the plot:
 
@@ -191,7 +209,7 @@ Used to describe what is in the plot:
 - `genotype` / `entry` — variety, line, or accession code.
 - `treatment` — agronomic or experimental treatment applied to the plot.
 
-#### Candidate provenance columns
+#### Candidate provenance columns (_TODO: Feild EWG Discussion)
 
 Used to trace how the polygon was produced:
 
@@ -210,9 +228,10 @@ Used to trace how the polygon was produced:
 
 ### Storage location
 
-Save the shapefile (and all sidecar files) in the site-level
-`Documentation/Plot_Layout/` directory under the APPN folder structure (see
-the [APPN folder structure wiki](https://github.com/ArdenB/APPN_GenricFileStorage/wiki/Folder-Structure)
+Save the plot layout file (GeoJSON, or shapefile with all its sidecar
+files) in the site-level `Documentation/Plot_Layout/` directory under the
+APPN folder structure (see the
+[APPN folder structure wiki](https://github.com/ArdenB/APPN_GenricFileStorage/wiki/Folder-Structure)
 for the full naming convention).
 
 Formal path:
@@ -229,11 +248,11 @@ Example:
 USYD_Narrabri/2025_SIFOzBarley/2025IAWatson_F/Documentation/Plot_Layout/
 ```
 
-Also save the tool-specific configuration used to generate the shapefile
-(e.g. the FIELDimageR JSON settings) alongside it so the layout can be
-reproduced.
+Also save the tool-specific configuration used to generate the layout
+file (e.g. the FIELDimageR JSON settings) alongside it so the layout can
+be reproduced.
 
-### File naming convention
+### File naming convention (_TODO: Feild EWG Discussion)
 
 > [!IMPORTANT]
 > The file naming convention below is a **placeholder** and is **subject
@@ -264,7 +283,7 @@ Proposed format:
 | `{YYYYSiteName}` | Site identifier (year + site name), matching the parent folder name with the `_F` suffix dropped. Plot layouts only apply to field sites. |
 | `{role}` | Short role tag describing what the layer represents (see below). |
 | `_v{NN}` | Optional zero-padded revision (`_v01`, `_v02`, …). Bump on any change to geometry or attributes. |
-| `{ext}` | `shp` (with sidecars) and `geojson` for the backup copy. |
+| `{ext}` | `geojson` (preferred). `shp` (with sidecars) is also accepted; an optional companion copy in the other format may be saved alongside. |
 
 Proposed role tags:
 
@@ -283,10 +302,9 @@ Examples (within
 `USYD_Narrabri/2025_SIFOzBarley/2025IAWatson_F/Documentation/Plot_Layout/`):
 
 ```
-2025IAWatson_plots_v01.shp           (+ .shx .dbf .prj .cpg)
-2025IAWatson_plots_v01.geojson
+2025IAWatson_plots_v01.geojson       (preferred primary file)
+2025IAWatson_plots_v01.shp           (+ .shx .dbf .prj .cpg — optional companion)
 2025IAWatson_plots_v01.json          (FIELDimageR settings)
-2025IAWatson_exclude_biomass_v01.shp
 2025IAWatson_exclude_biomass_v01.geojson
 ```
 
@@ -297,7 +315,7 @@ Examples (within
 
 ---
 
-## Joining Trial Information
+## Joining Trial Information (_TODO: Feild EWG Discussion)
 
 > [!IMPORTANT]
 > **TODO / TBD — pending APPN Field EWG approval.**
@@ -345,7 +363,7 @@ the resulting shapefile must satisfy the
 [APPN Plot Shapefile Standard](#appn-plot-shapefile-standard) above.
 
 - [Method 1: FIELDimageR (QGIS)](#method-1-fieldimager-qgis)
-- *(Additional methods to be added.)*
+- *(Additional methods to be added.)* (_TODO: Feild EWG Discussion)
 
 ---
 
@@ -465,11 +483,26 @@ final shapefile to the trial's `Plot_Layout` directory per the
 
 ---
 
-## Method 2: *(DPRID METHOD — TODO)*
+## Method 2: *(DPIRD METHOD — TODO)*
 
 > [!IMPORTANT]
-> **TODO:** Document the DPRID plot-delineation method.
+> **TODO:** Document the DPIRD plot-delineation method.
 
 > [!NOTE]
 > Additional plot delineation methods will be documented here as they
 > are adopted by APPN.
+
+
+---
+
+## Method 3: *(GRYFN plot tool — TODO)*
+
+> [!IMPORTANT]
+> **TODO:** Document the GRYFN plot tool workflow for generating
+> APPN-compliant plot layout files.
+
+> [!NOTE]
+> Additional plot delineation methods will be documented here as they
+> are adopted by APPN.
+
+---
