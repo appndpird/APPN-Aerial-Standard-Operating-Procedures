@@ -239,6 +239,13 @@ SWIR. The information panel is open on the SWIR to confirm the CRS (EPSG:7855
 – GDA2020 / MGA zone 54). This CRS is for Roseworthy SA where this CALViS
 flight was collected.*
 
+> [!CAUTION]
+> For CALViS, the SWIR and VNIR orthomosaics **must** be checked
+> independently. The two sensors are georeferenced separately, and we have
+> seen flights where the GNSS correction was applied cleanly to one
+> orthomosaic but was broken or offset in the other. Confirming each one
+> on its own is the only reliable way to catch this.
+
 Instead of transparency you can also toggle one image on and off to confirm
 the overlap is acceptable.
 

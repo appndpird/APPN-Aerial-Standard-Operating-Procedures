@@ -27,7 +27,7 @@ Protocols/
 │   ├── QAprocess/                    Aerial data QC procedure (operator workflow)
 │   └── QCandReporting/               User-facing QC philosophy & reporting guidance
 ├── PlotProtocols/
-│   └── PlotDelimitation/             Plot delimitation shapefile spec + methods
+│   └── PlotDelineation/             Plot delineation shapefile spec + methods
 ├── DataManagement/
 │   └── DataFolderStructure/          Standard storage layout for raw/processed data
 ├── Pipelines/

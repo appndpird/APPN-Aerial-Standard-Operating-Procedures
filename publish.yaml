@@ -125,9 +125,9 @@ pages:
     category: QA
     status: [drafted]
 
-  - source: Protocols/PlotProtocols/PlotDelimitation/Plot_Delimitation.md
-    wiki_page: Plot-Delimitation
-    title: "Plot Delimitation"
+  - source: Protocols/PlotProtocols/PlotDelineation/Plot_Delineation.md
+    wiki_page: Plot-Delineation
+    title: "Plot Delineation"
     category: PlotProtocols
     status: [drafted]
 

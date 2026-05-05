@@ -26,7 +26,7 @@ Tick = stage complete. Update each page's `status:` list in [`publish.yaml`](../
 | [Validation Flight](FlightDesign/ValidationFlight/Validation_Flight.md) | Flight Design | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |  |
 | [QA Process](QA/QAprocess/AerialDataQC.md) | Quality Assurance | ✅ | ✅ | ✅ | ⬜ | ⬜ |  |
 | [QC and Reporting](QA/QCandReporting/QC_and_Reporting.md) | Quality Assurance | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |  |
-| [Plot Delimitation](PlotProtocols/PlotDelimitation/Plot_Delimitation.md) | Plot Protocols | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |  |
+| [Plot Delineation](PlotProtocols/PlotDelineation/Plot_Delineation.md) | Plot Protocols | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |  |
 | [Data Folder Structure](DataManagement/DataFolderStructure/DataFolderStructure.md) | Data Management | ✅ | ✅ | ✅ | ✅ | ⬜ |  |
 | [Processing Pipelines](Pipelines/ProcessingPipelines/Processing_Pipelines.md) | Processing & Data Products | ✅ | ✅ | ✅ | ⬜ | ⬜ |  |
 | [Standard Data Products](Pipelines/StandardDataProducts/Standard_Data_Products.md) | Processing & Data Products | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |  |

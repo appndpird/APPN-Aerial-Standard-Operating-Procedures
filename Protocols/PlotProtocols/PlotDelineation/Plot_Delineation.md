@@ -1,4 +1,4 @@
-# APPN – Plot Delimitation
+# APPN – Plot Delineation
 
 > [!WARNING]
 > **Draft document — large sections require discussion with the APPN
@@ -10,11 +10,11 @@
 > Sections requiring EWG input are flagged inline with `IMPORTANT`
 > callouts.
 
-This protocol defines the APPN standard for plot delimitation shapefiles —
+This protocol defines the APPN standard for plot delineation shapefiles —
 their structure, attributes, and storage location within the APPN folder
 hierarchy — and documents the supported methods for producing them from
 APPN aerial imagery (typically RGB orthomosaics captured by GRYFN UAV
-systems). Consistent plot delimitation underpins repeatable phenotypic
+systems). Consistent plot delineation underpins repeatable phenotypic
 analysis across APPN trials.
 
 > [!IMPORTANT]
@@ -25,11 +25,34 @@ analysis across APPN trials.
 > the changes made, the rationale, and any implications for downstream
 > analysis.
 
+## Document Structure
+
+This protocol is organised so you can read it top-to-bottom for the full
+APPN plot delineation standard, or jump straight to the section you need:
+
+- [APPN Plot Delineation](#appn-plot-delineation) — rationale and the
+  competing sources of error a standard delineation approach must manage.
+  - [Recommended Buffer](#recommended-buffer) — default inward buffer
+    values, worked examples, and when to deviate.
+- [APPN Plot Shapefile Standard](#appn-plot-shapefile-standard) — the
+  mandatory file format, attributes, storage location, and naming
+  convention every plot shapefile must follow.
+  - [File format](#file-format)
+  - [Required attributes](#required-attributes)
+  - [Storage location](#storage-location)
+  - [File naming convention](#file-naming-convention)
+- [Joining Trial Information](#joining-trial-information) — how trial
+  metadata is attached to the plot geometry via `plot_id`.
+- [Methods](#methods) — supported procedures for generating an
+  APPN-compliant plot shapefile.
+  - [Method 1: FIELDimageR (QGIS)](#method-1-fieldimager-qgis)
+  - [Method 2: *(DPRID METHOD — TODO)*](#method-2-dprid-method--todo)
+
 ---
 
-## APPN Plot Delimitation
+## APPN Plot Delineation
 
-A standard APPN plot delimitation approach ensures that comparable trials can
+A standard APPN plot delineation approach ensures that comparable trials can
 be analysed consistently across nodes. The goal is to maximise the usable
 plot area sampled by the aerial data while minimising two competing sources
 of error:
@@ -129,7 +152,7 @@ downstream pipelines can ingest them without trial-specific configuration.
 
 Each plot polygon should carry, at minimum:
 
-- `fid` — unique polygon identifier assigned by the delimitation tool
+- `fid` — unique polygon identifier assigned by the delineation tool
   (e.g. FIELDimageR's sequential `fid`). It identifies the *geometry*
   only and may not match the trial's plot numbering.
 - `plot_id` — plot number from the trial design / sowing plan. This is
@@ -172,7 +195,7 @@ Used to describe what is in the plot:
 
 Used to trace how the polygon was produced:
 
-- `method` — delimitation method (e.g. `FIELDimageR`).
+- `method` — delineation method (e.g. `FIELDimageR`).
 - `buffer_end_m`, `buffer_side_m` — buffer values applied (in metres).
 - `source_ortho` — filename or ID of the orthomosaic the polygon was fit to.
 - `created` — ISO date the shapefile was generated.
@@ -298,7 +321,7 @@ Examples (within
 > - Whether the joined output should overwrite the source shapefile or
 >   be saved as a separate `*_joined.shp`.
 
-Most delimitation tools produce a shapefile whose plots are identified
+Most delineation tools produce a shapefile whose plots are identified
 by a tool-assigned `fid` plus the design's `plot_id`. Trial metadata is
 attached as a separate step using `plot_id` as the join key:
 
@@ -351,7 +374,7 @@ Make sure the **Processing Toolbox** panel is visible in QGIS:
 3. Enable **Processing Toolbox**.
 4. Confirm the Processing Toolbox is now showing on the right-hand side.
 
-![Enabling the Processing Toolbox in QGIS](Plot_Delimitation_media/image_ba05c006aa1d.jpg)
+![Enabling the Processing Toolbox in QGIS](Plot_Delineation_media/image_ba05c006aa1d.jpg)
 
 #### Install the Processing R Provider plugin
 
@@ -364,7 +387,7 @@ Install the **Processing R Provider** plugin in QGIS:
 5. Click **Install Plugin**.
 6. Verify that **R** now appears in the Processing Toolbox.
 
-![Installing the Processing R Provider plugin](Plot_Delimitation_media/image_c5873abf8c31.jpg)
+![Installing the Processing R Provider plugin](Plot_Delineation_media/image_c5873abf8c31.jpg)
 
 #### Install FIELDimageR
 
@@ -382,9 +405,9 @@ Install the **Processing R Provider** plugin in QGIS:
 8. Paste the FIELDimageR functions downloaded from GitHub into the
    `rscripts` folder.
 
-![Locating the R scripts folder in QGIS](Plot_Delimitation_media/image_5b4a63593e15.png)
+![Locating the R scripts folder in QGIS](Plot_Delineation_media/image_5b4a63593e15.png)
 
-![FIELDimageR functions installed in the R scripts folder](Plot_Delimitation_media/image_37f8400f36f7.jpg)
+![FIELDimageR functions installed in the R scripts folder](Plot_Delineation_media/image_37f8400f36f7.jpg)
 
 ### Generating the Plot Shapefile
 
@@ -394,11 +417,11 @@ aerial imagery.
 1. Load an image into QGIS. An RGB orthomosaic from a GRYFN drone is the
    easiest starting point.
 
-   ![Loaded RGB orthomosaic in QGIS](Plot_Delimitation_media/image_d29caa3b45af.png)
+   ![Loaded RGB orthomosaic in QGIS](Plot_Delineation_media/image_d29caa3b45af.png)
 
 2. Open the **fieldShape** module from the Processing Toolbox.
 
-   ![Opening the fieldShape module](Plot_Delimitation_media/image_c9dce09dde41.png)
+   ![Opening the fieldShape module](Plot_Delineation_media/image_c9dce09dde41.png)
 
 3. Fill in the module parameters:
    - Number of **rows** and **columns**.
@@ -410,7 +433,7 @@ aerial imagery.
 
 4. Click **Run**.
 
-   ![Run button in the fieldShape module](Plot_Delimitation_media/image_866350342e31.png)
+   ![Run button in the fieldShape module](Plot_Delineation_media/image_866350342e31.png)
 
 5. The plot shapefile will be generated.
 
@@ -423,7 +446,7 @@ aerial imagery.
 Save your fieldShape settings before closing the tool — inputs will be
 wiped if FIELDimageR is closed.
 
-![Saving fieldShape settings as JSON](Plot_Delimitation_media/image_c93a421b9c73.png)
+![Saving fieldShape settings as JSON](Plot_Delineation_media/image_c93a421b9c73.png)
 
 Use **Copy as JSON** and save the contents as a text file alongside the
 shapefile in the trial's `Plot_Layout` directory.
@@ -433,7 +456,7 @@ shapefile in the trial's `Plot_Layout` directory.
 The shapefile produced by FIELDimageR contains plots identified only by
 `fid`.
 
-![Plots identified by fid in the shapefile attribute table](Plot_Delimitation_media/image_6bacd8c6405f.png)
+![Plots identified by fid in the shapefile attribute table](Plot_Delineation_media/image_6bacd8c6405f.png)
 
 Attach trial metadata as described in
 [Joining Trial Information](#joining-trial-information), then save the
@@ -445,8 +468,8 @@ final shapefile to the trial's `Plot_Layout` directory per the
 ## Method 2: *(DPRID METHOD — TODO)*
 
 > [!IMPORTANT]
-> **TODO:** Document the DPRID plot-delimitation method.
+> **TODO:** Document the DPRID plot-delineation method.
 
 > [!NOTE]
-> Additional plot delimitation methods will be documented here as they
+> Additional plot delineation methods will be documented here as they
 > are adopted by APPN.
