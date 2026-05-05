@@ -1,5 +1,13 @@
 # APPN Aerial Standard Operating Procedures
 
+> [!IMPORTANT]
+> **This repository location is temporary.** It is currently hosted under a
+> personal GitHub account to support active drafting and review. As individual
+> SOPs are finalised and ready for release, they will be migrated to the
+> official APPN organisation repository. Please treat URLs, links, and clone
+> paths here as **non-permanent** and expect them to change once the migration
+> occurs.
+
 Working drafts of the APPN Aerial Standard Operating Procedures (SOPs).
 
 This repository holds the **in-progress** versions of every SOP. The
@@ -24,8 +32,7 @@ Protocols/
 │   ├── StandardFlight/               Standard flight procedure
 │   └── ValidationFlight/             Validation flight procedure
 ├── QA/
-│   ├── QAprocess/                    Aerial data QC procedure (operator workflow)
-│   └── QCandReporting/               User-facing QC philosophy & reporting guidance
+│   └── QAprocess/                    Aerial data QC procedure (operator workflow)
 ├── PlotProtocols/
 │   └── PlotDelineation/             Plot delineation shapefile spec + methods
 ├── DataManagement/
@@ -33,7 +40,8 @@ Protocols/
 ├── Pipelines/
 │   ├── ProcessingPipelines/          GRYFN standard processing pipeline outputs
 │   └── StandardDataProducts/         Tabular summary of standard data products
-└── GroundPlatforms/
+└── Background/
+    ├── QCandReporting/               User-facing QC philosophy & reporting guidance
     └── PhenotypingAndEnvironmental/  Ground-based phenotyping & env. instruments
 
 OriginalDocuments/                    Source .docx files (input to docx_to_markdown.py)
