@@ -37,7 +37,7 @@
 >       flight designs).
 >
 > **Figures to produce**
-> - [ ] Panel set correctly laid out on a folding table
+> - [x] Panel set correctly laid out on a folding table
 >       (see [Panel Setup](#panel-setup)).
 > - [ ] Validation panel table with the elevated GCP and the paired
 >       ground GCP in the adjacent flight line
@@ -172,8 +172,12 @@ ground**, clear of the take-off / landing zone and clear of any
 obstructions that could cast shadows across the panels at any point
 during the flight window.
 
-> TODO: Insert image of a panel set correctly laid out on a folding
-> table.
+![GRYFN 4-panel ELM reflectance set arranged in order of brightness on a levelled folding table in an open, unshaded paddock](Standard_Flight_media/panel_setup_table.jpg)
+
+*Figure: A GRYFN 4-panel ELM reflectance set deployed on a folding table in
+an open, unshaded area. Panels are laid out in order of brightness along the
+intended flight direction, elevated above the soil surface, and positioned
+clear of vegetation, infrastructure, and the take-off / landing zone.*
 
 **Place panels on a folding table.** All radiometric panels deployed in
 the field should be placed on a folding table (e.g.
