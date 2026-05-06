@@ -52,9 +52,9 @@ operations.
   - [ ] SD card
   - [ ] *Capture* polygon files
 - [ ] **Ground reference kit**
-  - [ ] Reflectance calibration panels (11%, 30%, 56%, 82%)
-  - [ ] Calibration validation panels (20%, 45%)
-  - [ ] Ground control points and RTK GNSS system
+  - [ ] 2 x Reflectance calibration panels (11%, 30%, 56%, 82%)
+  - [ ] 1 x Calibration validation panels (20%, 45%)
+  - [ ] 5 × Propeller Aeropoints or other ground control points (GCPs) and/or RTK GNSS system 
   - [ ] 2 × folding tables to elevate panels
   - [ ] *If over 50 km from CORS base station*, a portable RTK base station
         ([link to GRYFN gitbook](https://gryfn.gitbook.io/gryfn-operations/operations/base-station-availability))
@@ -68,6 +68,17 @@ operations.
   - [ ] Portable fan (for cooling GOBI during data offload)
   - [ ] External power brick (for charging UAV RC)
   - [ ] Anemometer (e.g. Kestrel — _TODO: add link_)
+
+> [!NOTE]
+> The **Ground reference kit** above assumes the
+> [Standard Dual ELM panel flight](../../FlightDesign/StandardFlight/Standard_Flight.md#dual-elm-panel-flight)
+> design. Other flight designs may require additional equipment (e.g.
+> extra reflectance panel sets, additional GCPs and folding tables for
+> multi-flight captures, or extra targets for validation flights). See
+> the [Standard Flight Procedure](../../FlightDesign/StandardFlight/Standard_Flight.md)
+> and the
+> [Validation Flight Procedure](../../FlightDesign/ValidationFlight/Validation_Flight.md)
+> for the full equipment requirements of each design.
 
 ---
 
