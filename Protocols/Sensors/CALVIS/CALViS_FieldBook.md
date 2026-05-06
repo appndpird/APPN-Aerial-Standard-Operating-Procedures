@@ -58,7 +58,7 @@ analysis across APPN operations.
 - [ ] **Ground reference kit**
   - [ ] Reflectance calibration panels (11%, 30%, 56%, 82%)
   - [ ] Calibration validation panels (20%, 45%)
-  - [ ] >2 × Propeller Aeropoints or other ground control points (GCPs) + RTK GNSS system
+  - [ ] 5 × Propeller Aeropoints or other ground control points (GCPs) + RTK GNSS system (or more)
   - [ ] 2 × folding tables to elevate panels
 - [ ] **Accessories**
   - [ ] Safety gear (signage and high-vis vests)
