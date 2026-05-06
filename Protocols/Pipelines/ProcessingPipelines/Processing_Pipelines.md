@@ -1,5 +1,16 @@
 # Processing Pipelines
 
+**Version 0.1 – DRAFT, May 2026**
+
+> [!IMPORTANT]
+> This page documents the **standardised GRYFN processing pipelines** used
+> within APPN for UAV-based data processing, intended for trained APPN staff
+> processing CALViS, GOBI, HiRes, and M3M datasets. Adherence to the
+> pipelines below ensures reproducibility, quality assurance, and
+> cross-project comparability. For any processing run that **deviates from
+> the standard pipeline**, detailed records must be kept of every parameter
+> changed, the rationale, and any anticipated implications for data quality.
+
 This page documents the standardised GRYFN processing pipeline YAML files used
 within APPN for UAV-based data processing. These YAML configurations define
 consistent, transparent, and repeatable processing workflows across
@@ -10,216 +21,249 @@ deviations explicitly documented to maintain traceability and data integrity.
 
 The standard pipelines and the data products they output are detailed below.
 For a tabular summary of output formats, resolutions and software
-compatibility, see [Standard Data Products](../StandardDataProducts/Standard_Data_Products.md).
+compatibility, see
+[Standard Data Products](../StandardDataProducts/Standard_Data_Products.md).
+
+> [!IMPORTANT]
+> **Document status — work in progress.**
+> This page is a draft and requires further revision before it can be
+> considered final.
+>
+> **Outstanding TODOs:**
+>
+> - [ ] CALViS walkthrough author / reviewer: Richard Harwood.
+> - [ ] Add the GOBI standard processing walkthrough (currently outputs only).
+> - [ ] Add HiRes and M3M standard processing pipelines.
+> - [ ] Automate handling of GNSS `.TO4` files in the raw-data formatting
+>       step.
+
+---
+
+## Document Structure
+
+- [🌿 CALViS — Standard Processing Pipeline](#-calvis--standard-processing-pipeline)
+  - [1. Configure GPT defaults](#1-configure-gpt-defaults)
+  - [2. Format the raw data](#2-format-the-raw-data)
+  - [3. Create the graw bundle](#3-create-the-graw-bundle)
+  - [4. Load the Calvis_standard_pipeline](#4-load-the-calvis_standard_pipeline)
+  - [5. Run the pipeline on a graw](#5-run-the-pipeline-on-a-graw)
+  - [CALViS outputs](#calvis-outputs)
+- [🌱 GOBI — Standard Processing Pipeline](#-gobi--standard-processing-pipeline)
+  - [GOBI outputs](#gobi-outputs)
 
 ---
 
 ## 🌿 CALViS — Standard Processing Pipeline
 
-WIP- Richard Harwood 
+This section describes the standard CALViS processing workflow using the
+`Calvis_standard_pipeline` YAML in the GRYFN Processing Tool (**GPT,
+v1.9.2**).
 
-Using the CALVIS standard YAML (Calvis_standard_pipeline) file in Gryfn Processing Tool (GPT, V.1.9.2)
+### 1. Configure GPT defaults
 
-### 1) Setting up GPT
-Firstly we need to configure GPT so that it uses the correct radiometric calibration files and points to where the correct panel target files are stored. 
-![GPT set up](ProcessingPipelines_media/GPT_defaults.png)
+Before processing any data, configure GPT so that it uses the correct
+radiometric calibration files and points to the correct panel target files.
 
-## CALVIS Boresight Calibration Configuration
+![GPT defaults dialog showing radiometric calibration and reflectance target paths](Processing_Pipelines_media/GPT_defaults.png)
 
-### Sensor Identification and Matching
+#### Sensor identification (boresight calibration)
 
-Each CALVIS unit has a unique sensor identifier embedded in the boresight calibration filename. The naming convention follows this format:
+Each CALViS unit has a unique sensor identifier embedded in the boresight
+calibration filename. The naming convention is:
 
 **Example:** `20250527_cAHP-191_SystemCal.yml`
 
-Where "191" represents the USYD sensor number. Each CALVIS unit is assigned its own unique number.
+Where `191` is the USYD sensor number; each CALViS unit is assigned its own
+unique number.
 
-**CRITICAL:** When processing data, you must verify that the sensor number in the calibration file matches the sensor used for data collection.
+> [!IMPORTANT]
+> When processing data, you **must** verify that the sensor number in the
+> boresight calibration file matches the sensor used for data collection.
 
-### Radiometric Calibration Configuration
+#### Radiometric calibration files
 
-Each sensor hasan associated radiometric calibration files supplied by GRYFN. 
+Each sensor has an associated set of radiometric calibration files supplied
+by GRYFN.
 
-**Required Action:** Verify that the **Radiometric Calibration Location** parameter points to the correct calibration files for your specific sensor(s).
+> [!IMPORTANT]
+> Verify that the **Radiometric Calibration Location** parameter in GPT
+> points to the correct calibration files for your specific sensor(s).
 
-### Reflectance Target Configuration
+#### Reflectance target values
 
-The Empirical Line Method (ELM) requires accurate reflectance target values for the calibration panels.
+The Empirical Line Method (ELM) requires accurate reflectance target values
+for the calibration panels.
 
-**Setup Requirements:**
-- Four (4) calibration panels are used for the ELM process
-- Each panel has specific, measured target reflectance values
-- These values are unique to your panel set
+- Four (4) calibration panels are used for the ELM process.
+- Each panel has specific, measured target reflectance values.
+- These values are unique to your panel set.
 
-**Required Action:** Ensure the **Reflectance Target Location** parameter references the correct target values that correspond to your specific calibration panels. 
+> [!IMPORTANT]
+> Ensure the **Reflectance Target Location** parameter references the
+> correct target values that correspond to your specific calibration
+> panels.
 
-### 2) Formatting the RAW data 
+### 2. Format the raw data
 
-For this example CALVIS flight we will use run_00 a flight from UOA. 
+The example CALViS flight used here is `run_00`, a flight from UOA.
 
-For the CALVIS there are 4 key pieces of data. VNIR, SWIR, LIDAR and GNSS, for a complete dataset and a workign graw we need to set these up correctly. The raw data will look like this: 
+A complete CALViS dataset has four key components — **VNIR, SWIR, LiDAR,
+and GNSS** — and these must be arranged correctly before a working graw
+can be bundled. The raw data folder will look like this:
 
-![GPT set up](ProcessingPipelines_media/RAW_FOLDER_EG.png)
+![Example CALViS RAW folder layout showing VNIR, SWIR, LiDAR and GNSS components](Processing_Pipelines_media/RAW_FOLDER_EG.png)
 
-It is important to note that when you download the VNIR data it has the LIDAR data inside the folder, the VNIR folder also has the "dark" files in the folder, whilst SWIR they are in a different folder. The GNSS folder contains the relevant .TO4 files (automation of this is WIP) 
+> [!NOTE]
+> When you download the VNIR data it has the **LiDAR data nested inside**
+> the VNIR folder, and the **VNIR dark frames** are in the same folder.
+> The **SWIR dark frames** are in a separate folder. The GNSS folder
+> contains the relevant `.TO4` files (automated handling is WIP).
 
-### 3) Creating a graw
-Checks before each graw:
+### 3. Create the graw bundle
 
-System Cal
+#### Pre-bundle checks
 
-Radiometric Cal
+Before each graw, confirm you have:
 
-Reflectence Target File
+- [ ] System calibration file (matching the sensor used).
+- [ ] Radiometric calibration files.
+- [ ] Reflectance target file.
 
-Steps to bundle graw:
-![UOA paths](ProcessingPipelines_media/UOA_cals.png)
+![UOA calibration paths](Processing_Pipelines_media/UOA_cals.png)
 
-Set your system calibration file that matches the sensor you are using.
-![GPT set up](ProcessingPipelines_media/Sys_cal_set.png)
+#### Bundling steps
 
-Choose your raw data path: 
-![GPT set up](ProcessingPipelines_media/raw_path.png)
+1. **Set the system calibration file** to match the sensor you are using.
 
-Click next:
-Here you will see optional paramaters
-![optional params](ProcessingPipelines_media/optional.png)
+   ![GPT system calibration selection dialog](Processing_Pipelines_media/Sys_cal_set.png)
 
-Unless there is a specfic reason you need to use an extent leave it blank, we can crop the data to the hyperspectral capture area later which is ideal for most standard flights. Other details are optional. 
+2. **Choose the raw data path.**
 
-Click next 
+   ![GPT raw data path selection](Processing_Pipelines_media/raw_path.png)
 
-Give your bundle a logical name and save it in the T0_raw.
+3. **Click *Next*** to view the optional parameters.
 
-![optional params](ProcessingPipelines_media/save_graw.png)
+   ![GPT bundling optional parameters dialog](Processing_Pipelines_media/optional.png)
 
-Click "create bundle"
+   > [!NOTE]
+   > Unless you have a specific reason to set an extent, **leave it
+   > blank** — data can be cropped to the hyperspectral capture area
+   > later, which is ideal for most standard flights. Other fields here
+   > are also optional.
 
-You should sell a progress report of your bundling.
-![optional params](ProcessingPipelines_media/bundle_prog.png)
+4. **Click *Next***. Give the bundle a logical name and save it under
+   `T0_raw`.
 
-### 4) Uploading the Calvis_standard_pipeline
+   ![Save graw dialog with bundle named and saved under T0_raw](Processing_Pipelines_media/save_graw.png)
 
-![optional params](ProcessingPipelines_media/pipe1.png)
-![optional params](ProcessingPipelines_media/pipe2.png)
-![optional params](ProcessingPipelines_media/pipe3.png)
+5. **Click *Create bundle***. You should see a progress report while the
+   bundle is being created.
 
-### 4) Using the Calvis_standard_pipeline to process the graw
+   ![Bundle creation progress dialog](Processing_Pipelines_media/bundle_prog.png)
 
-Select "New Job" and "Calvis_std" from pipelines. Choose your graw, name your gpro and choose where the gpro is saved (T1_proc !!!) 
-![optional params](ProcessingPipelines_media/gpro_file_paths.png)
+### 4. Load the Calvis_standard_pipeline
 
-Next we set up GNSS processing, for now, we encourage using PPRTX.
+Import the standard CALViS pipeline YAML into GPT before running a job for
+the first time:
 
-![optional params](ProcessingPipelines_media/GNSS.png)
+1. Open the pipelines manager.
 
-Here it is super crucial to double check your Datum , Grid and Zone. 
+   ![GPT pipelines manager — step 1 of upload](Processing_Pipelines_media/pipe1.png)
 
-Next, we load the target files, the UOA panels were in this flight so we choose those target files 
+2. Import the `Calvis_standard_pipeline` YAML.
 
-![optional params](ProcessingPipelines_media/load_targets.png)
+   ![GPT pipeline import dialog — step 2 of upload](Processing_Pipelines_media/pipe2.png)
 
-Next, we do the VNIR ELM. Cycle through the images until you find the 4 panels and then click draw target bounds 
+3. Confirm the imported pipeline is listed.
 
-![optional params](ProcessingPipelines_media/find_elm_vnir.png)
+   ![GPT pipelines manager showing imported Calvis_standard_pipeline — step 3 of upload](Processing_Pipelines_media/pipe3.png)
 
-Next you choose a target you want to work on 
+### 5. Run the pipeline on a graw
 
-![optional params](ProcessingPipelines_media/choose_targ_elm.png)
+1. Select **New Job** and choose **Calvis_std** from the pipelines list.
+   Choose your graw, name your gpro, and set the gpro output location.
 
-Then by holding right click you draw a recntangle around that panel 
+   ![New job dialog: graw selection and gpro output path](Processing_Pipelines_media/gpro_file_paths.png)
 
-![optional params](ProcessingPipelines_media/11.png)
+   > [!IMPORTANT]
+   > The gpro **must** be saved under `T1_proc`.
 
-Do the same for the remaining 3 panels 
-![optional params](ProcessingPipelines_media/vnir_done.png)
+2. Configure GNSS processing. We currently recommend **PPRTX**.
 
-The process is the same for the SWIR. Note that the SWIR will have water bands (red box) and some times has rogue values (red circle). As a rule of thumb just do normal size boxes that cover the panel (as appose to cherry picking areas with very small boxes to get a neater ELM) 
+   ![GNSS processing configuration dialog](Processing_Pipelines_media/GNSS.png)
 
-![optional params](ProcessingPipelines_media/swir_eg.png)
+   > [!CAUTION]
+   > Double-check your **Datum**, **Grid**, and **Zone** before
+   > continuing. Errors here propagate through every downstream product.
 
-Hit Submit
+3. Load the reflectance target files. For this example flight we use the
+   UOA panel target files.
 
+   ![Reflectance target file selection — UOA panels](Processing_Pipelines_media/load_targets.png)
 
+4. **VNIR ELM.** Cycle through the images until you find the four panels,
+   then click **Draw target bounds**.
 
+   ![Cycling through VNIR images to locate the four ELM panels](Processing_Pipelines_media/find_elm_vnir.png)
 
+   Choose a target to work on:
 
-### LiDAR-derived products
+   ![Selecting a VNIR ELM target panel](Processing_Pipelines_media/choose_targ_elm.png)
 
-#### LiDAR Digital Surface Model (DSM)
+   Hold right-click and drag a rectangle around the panel:
 
-- **Output:** `LiDAR_DSM.tif`
-- **Type:** Raster
-- **Resolution:** 8 cm (fixed resolution)
-- **Extent:** VNIR scene extent
+   ![Drawing a target-bounds rectangle around a VNIR panel](Processing_Pipelines_media/11.png)
 
-#### LiDAR Digital Terrain Model (DTM)
+   Repeat for the remaining three panels:
 
-- **Output:** `LiDAR_DTM.tif`
-- **Type:** DTM
-- **Resolution:** 100 cm (1 m)
-- **Extent:** Processing extent
+   ![All four VNIR panels with target bounds drawn](Processing_Pipelines_media/vnir_done.png)
 
-#### Combined LiDAR Point Cloud
+5. **SWIR ELM.** The process is the same as VNIR.
 
-- **Output:** `LiDAR_CombinedPointCloud.las`
-- **Type:** Combined point cloud
-- **Notes:** Outliers removed during combination
+   ![SWIR ELM showing water bands (red box) and rogue values (red circle)](Processing_Pipelines_media/swir_eg.png)
 
-### Hyperspectral products
+   > [!TIP]
+   > The SWIR will have water bands (red box in the figure above) and
+   > sometimes rogue values (red circle). As a rule of thumb, **draw
+   > normal-sized boxes that cover the panel** rather than cherry-picking
+   > small areas to get a neater ELM.
 
-#### VNIR Orthomosaic
+6. Click **Submit**.
 
-- **Output:** `VNIR_Orthomosaic.bin`
-- **Type:** Orthomosaic (ENVI format, radiance-scaled)
-- **Resolution:** 4 cm (GSD-based)
-- **Notes:** binning = 2, radiometric calibration applied
+### CALViS outputs
 
-#### SWIR Orthomosaic
+The CALViS standard pipeline produces the LiDAR and hyperspectral products
+listed below. See
+[Standard Data Products](../StandardDataProducts/Standard_Data_Products.md)
+for the canonical specifications, file sizes, and software compatibility.
 
-- **Output:** `SWIR_Orthomosaic.bin`
-- **Type:** Orthomosaic (ENVI format, radiance-scaled)
-- **Resolution:** 4 cm (GSD-based)
-- **Notes:** binning = 2, radiometric calibration applied
+| Product | Output filename | Resolution | Format | Notes |
+|---|---|---|---|---|
+| LiDAR Digital Surface Model (DSM) | `LiDAR_DSM.tif` | 8 cm (fixed) | GeoTIFF | Extent: VNIR scene |
+| LiDAR Digital Terrain Model (DTM) | `LiDAR_DTM.tif` | 1 m | GeoTIFF | Extent: processing extent |
+| Combined LiDAR Point Cloud | `LiDAR_CombinedPointCloud.las` | Native point spacing | LAS | Outliers removed during combination |
+| VNIR Orthomosaic | `VNIR_Orthomosaic.bin` | 4 cm (GSD-based) | ENVI (`.bin` + `.hdr`) | binning = 2, radiometric calibration applied |
+| SWIR Orthomosaic | `SWIR_Orthomosaic.bin` | 4 cm (GSD-based) | ENVI (`.bin` + `.hdr`) | binning = 2, radiometric calibration applied |
 
 ---
 
 ## 🌱 GOBI — Standard Processing Pipeline
 
-### LiDAR-derived products
+> [!NOTE]
+> The GOBI standard processing walkthrough is **TODO**. The outputs of the
+> standard GOBI pipeline are documented below.
 
-#### LiDAR Digital Surface Model (DSM)
+### GOBI outputs
 
-- **Output:** `LiDAR_DSM.tif`
-- **Type:** Raster
-- **Resolution:** 8 cm (fixed resolution)
-- **Extent:** VNIR scene extent
+The GOBI standard pipeline produces the LiDAR, hyperspectral, and RGB
+products listed below. See
+[Standard Data Products](../StandardDataProducts/Standard_Data_Products.md)
+for the canonical specifications, file sizes, and software compatibility.
 
-#### LiDAR Digital Terrain Model (DTM)
-
-- **Output:** `LiDAR_DTM.tif`
-- **Type:** DTM
-- **Resolution:** 100 cm (1 m)
-- **Extent:** Processing extent
-
-#### Combined LiDAR Point Cloud
-
-- **Output:** `LiDAR_CombinedPointCloud.las`
-- **Type:** Combined point cloud
-- **Notes:** Outliers removed during combination
-
-### RGB & hyperspectral products
-
-#### VNIR Orthomosaic
-
-- **Output:** `VNIR_Orthomosaic.bin`
-- **Type:** Orthomosaic (ENVI format, radiance-scaled)
-- **Resolution:** 4 cm (GSD-based)
-- **Notes:** binning = 2, radiometric calibration applied
-
-#### RGB Orthomosaic
-
-- **Output:** `RGB_Orthomosaic.tif`
-- **Type:** Orthomosaic
-- **Resolution:** 0.6 cm (fixed resolution)
-- **Notes:** Feature-matching (SIFT) bundle adjustment applied
+| Product | Output filename | Resolution | Format | Notes |
+|---|---|---|---|---|
+| LiDAR Digital Surface Model (DSM) | `LiDAR_DSM.tif` | 8 cm (fixed) | GeoTIFF | Extent: VNIR scene |
+| LiDAR Digital Terrain Model (DTM) | `LiDAR_DTM.tif` | 1 m | GeoTIFF | Extent: processing extent |
+| Combined LiDAR Point Cloud | `LiDAR_CombinedPointCloud.las` | Native point spacing | LAS | Outliers removed during combination |
+| VNIR Orthomosaic | `VNIR_Orthomosaic.bin` | 4 cm (GSD-based) | ENVI (`.bin` + `.hdr`) | binning = 2, radiometric calibration applied |
+| RGB Orthomosaic | `RGB_Orthomosaic.tif` | 0.6 cm (fixed) | GeoTIFF | Feature-matching (SIFT) bundle adjustment applied |
