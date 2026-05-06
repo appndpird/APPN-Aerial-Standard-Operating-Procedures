@@ -29,16 +29,83 @@
 >
 > **Outstanding TODOs:**
 >
+> **Content review**
 > - [ ] Review and revise all section content for technical accuracy
 >       and completeness.
-> - [ ] Produce new figures illustrating:
->     - [ ] Flight-line layout and overlap geometry
->     - [ ] Flight-line layout for the two panel setup
->     - [ ] Reflectance panel placement and orientation
->     - [ ] GCP distribution across the survey area
->     - [ ] On-site equipment setup
 > - [ ] Cross-check terminology and links against the sensor fieldbooks.
-> - [ ] Confirm equipment checklist with field operators.
+> - [ ] Confirm equipment checklists with field operators (all three
+>       flight designs).
+>
+> **Figures to produce**
+> - [ ] Panel set correctly laid out on a folding table
+>       (see [Panel Setup](#panel-setup)).
+> - [ ] Validation panel table with the elevated GCP and the paired
+>       ground GCP in the adjacent flight line
+>       (see [Validation Panel Setup](#validation-panel-setup)).
+> - [ ] Dual ELM panel flight: panel placement at 1/3 and 2/3, flight-
+>       line orientation, edge-of-polygon buffer, and 5-GCP layout
+>       (see [Dual ELM panel flight](#dual-elm-panel-flight)).
+> - [ ] Single ELM panel flight: panel placement near centre,
+>       validation panel position, flight-line orientation, edge buffer,
+>       and 5-GCP layout
+>       (see [Single ELM panel flight](#single-elm-panel-flight)).
+> - [ ] Multi-Flight Capture: sub-flight polygons with overlap zone,
+>       shared ELM panel set + 2 tie GCPs in the overlap, dual-panel
+>       layout per sub-flight, validation panel placement, and expanded
+>       GCP distribution
+>       (see [Multi-Flight Capture](#multi-flight-capture)).
+>
+> **Cross-links to add**
+> - [ ] Recommended folding table (e.g. Bunnings product link) in
+>       [Panel Setup](#panel-setup).
+> - [ ] Processing pipeline page covering dual-panel ingestion in GPT,
+>       referenced from the
+>       [Dual ELM panel flight](#dual-elm-panel-flight) rationale.
+>
+> **Pending APEx / GRYFN decisions (revise before season start)**
+> - [ ] Flight-line orientation guidance — confirm or revise the
+>       align-with-planting-direction recommendation in
+>       [Flight-line Orientation](#flight-line-orentiation).
+> - [ ] Confirm whether the Dual ELM panel flight is truly
+>       **mandatory** under variable illumination, or only strongly
+>       recommended (see
+>       [Dual ELM panel flight: When to use](#dual-elm-panel-flight)).
+> - [ ] Confirm whether the Single ELM panel flight is permitted at
+>       all under variable illumination (see
+>       [Single ELM panel flight: When to use](#single-elm-panel-flight)).
+>
+> **Operational parameters still to be defined**
+> - [ ] Maximum permissible wind speed per UAV / sensor combination.
+> - [ ] Standard exposure-setting procedure (cross-link once finalised
+>       in the sensor fieldbooks).
+> - [ ] Minimum acceptable solar elevation for routine surveys.
+> - [ ] Quantitative definition of the "effective capture area"
+>       inset (currently ~10% — see
+>       [Background callout](#background-and-common-ellments-of-all-standard-flights)).
+
+---
+
+## Document Structure
+
+This protocol is organised into two parts:
+
+1. **[Background and common elements of all standard flights](#background-and-common-ellments-of-all-standard-flights)** —
+   shared setup rules that apply to every standard flight design:
+   - [Flight-line Orientation](#flight-line-orentiation)
+   - [Panel Setup](#panel-setup)
+     - [Validation Panel Setup](#validation-panel-setup)
+   - [Ground Control Points](#ground-control-points)
+2. **The three standard flight designs**, each with its own overview,
+   when-to-use criteria, flight-design notes, and equipment list:
+   - [Dual ELM panel flight](#dual-elm-panel-flight) — default
+     pattern for nodes with 2 ELM panel sets; required for longer
+     flights and variable illumination.
+   - [Single ELM panel flight](#single-elm-panel-flight) — for
+     nodes with a single ELM panel set or short missions in stable
+     conditions.
+   - [Multi-Flight Capture](#multi-flight-capture) — for survey
+     areas too large to capture in a single mission, split into
+     overlapping sub-flights with shared ELM panels and tie GCPs.
 
 ---
 

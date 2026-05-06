@@ -70,6 +70,17 @@ LATEX_CHECKLIST_HEADER = PANDOC_ASSETS_DIR / "checklist-header.tex"
 # relative paths are left alone.
 _IMG_RE = re.compile(r"(!\[[^\]]*\]\()([^)\s]*_media/[^)\s]+)(\))")
 
+# Matches Markdown links whose target is a (relative) ``.md`` file, with an
+# optional ``#anchor`` fragment. Only non-image links are matched (negative
+# lookbehind on ``!``). External URLs and absolute / scheme-prefixed targets
+# are left alone by ``rewrite_md_links``.
+_MD_LINK_RE = re.compile(
+    r"(?<!!)(\[[^\]]*\]\()"   # 1: "[text]("
+    r"([^)\s#]+\.md)"          # 2: target .md path (no spaces, no fragment)
+    r"(#[^)\s]*)?"              # 3: optional #anchor
+    r"(\))"                     # 4: closing ")"
+)
+
 
 # ---------------------------------------------------------------------------
 # Field EWG review pipeline
@@ -219,6 +230,68 @@ def rewrite_media(markdown: str, wiki_page: str) -> str:
     return _IMG_RE.sub(_sub, markdown)
 
 
+def build_slug_map(manifest: dict[str, Any]) -> dict[Path, str]:
+    """Map each manifest page's resolved source path to its wiki slug.
+
+    Used by :func:`rewrite_md_links` to turn relative cross-document
+    ``.md`` links in the source repo into wiki-style links that resolve
+    inside the published wiki (where every page is flat at the root).
+    """
+    slug_map: dict[Path, str] = {}
+    for page in manifest.get("pages", []):
+        try:
+            src = (REPO_ROOT / page["source"]).resolve()
+        except (OSError, RuntimeError):
+            # Source file may be missing on disk; let publish_page report it
+            # later when it actually tries to read the file.
+            src = (REPO_ROOT / page["source"])
+        slug_map[src] = page["wiki_page"]
+    return slug_map
+
+
+def rewrite_md_links(markdown: str, source_path: Path,
+                     slug_map: dict[Path, str]) -> str:
+    """Rewrite relative ``.md`` cross-document links to wiki page slugs.
+
+    A link target like ``../../FlightDesign/StandardFlight/Standard_Flight.md``
+    (optionally with a ``#anchor``) is resolved relative to ``source_path``
+    and looked up in ``slug_map``. On a hit, the target is replaced with
+    ``<wiki_page>[#anchor]`` so the link works on the GitHub wiki, where
+    every published page lives flat at the wiki root.
+
+    External links (``http://``, ``https://``, ``mailto:``, etc.), absolute
+    paths, and ``.md`` targets that are not in the manifest are left
+    untouched; the latter case prints a warning so missing manifest entries
+    are easy to spot during a publish run.
+    """
+    source_dir = source_path.parent
+
+    def _sub(m: re.Match[str]) -> str:
+        prefix, target, anchor, suffix = m.group(1), m.group(2), m.group(3) or "", m.group(4)
+        # Skip anything that looks like an external URL or absolute path.
+        if re.match(r"^[a-zA-Z][a-zA-Z0-9+.-]*:", target) or target.startswith("/"):
+            return m.group(0)
+        try:
+            resolved = (source_dir / target).resolve()
+        except (OSError, RuntimeError):
+            return m.group(0)
+        wiki_page = slug_map.get(resolved)
+        if wiki_page is None:
+            try:
+                rel = resolved.relative_to(REPO_ROOT)
+            except ValueError:
+                rel = resolved
+            print(
+                f"    warn: unmapped .md link in {source_path.relative_to(REPO_ROOT)}: "
+                f"{target}{anchor} -> {rel} (not in publish.yaml)",
+                file=sys.stderr,
+            )
+            return m.group(0)
+        return f"{prefix}{wiki_page}{anchor}{suffix}"
+
+    return _MD_LINK_RE.sub(_sub, markdown)
+
+
 def inject_banner(markdown: str, banner: str) -> str:
     """Insert ``banner`` after the first H1; if no H1, prepend it."""
     lines = markdown.splitlines()
@@ -268,7 +341,8 @@ def make_banner(page: dict[str, Any], manifest: dict[str, Any], date: str) -> st
 
 
 def publish_page(page: dict[str, Any], manifest: dict[str, Any], wiki_root: Path,
-                 date: str, dry_run: bool) -> None:
+                 date: str, dry_run: bool,
+                 slug_map: dict[Path, str] | None = None) -> None:
     source = REPO_ROOT / page["source"]
     if not source.is_file():
         sys.exit(f"source markdown missing: {source}")
@@ -282,6 +356,9 @@ def publish_page(page: dict[str, Any], manifest: dict[str, Any], wiki_root: Path
     print(f"  page: {page['source']}  ->  {target_md.relative_to(wiki_root.parent)}")
 
     text = source.read_text(encoding="utf-8")
+    if slug_map is None:
+        slug_map = build_slug_map(manifest)
+    text = rewrite_md_links(text, source.resolve(), slug_map)
     text = rewrite_media(text, wiki_page)
     text = inject_banner(text, make_banner(page, manifest, date))
 
@@ -773,8 +850,9 @@ def main() -> int:
     print()
 
     print("Pages:")
+    slug_map = build_slug_map(manifest)
     for page in manifest["pages"]:
-        publish_page(page, manifest, wiki_root, date, args.dry_run)
+        publish_page(page, manifest, wiki_root, date, args.dry_run, slug_map)
 
     print()
     print("Navigation:")

@@ -56,9 +56,9 @@ analysis across APPN operations.
   - [ ] Hyperspectral capture polygon exported from the
         [HPI Polygon Tool](http://50.170.92.179/)
 - [ ] **Ground reference kit**
-  - [ ] Reflectance calibration panels (11%, 30%, 56%, 82%)
-  - [ ] Calibration validation panels (20%, 45%)
-  - [ ] 5 × Propeller Aeropoints or other ground control points (GCPs) + RTK GNSS system (or more)
+  - [ ] 2 x Reflectance calibration panels (11%, 30%, 56%, 82%)
+  - [ ] 1 x Calibration validation panels (20%, 45%)
+  - [ ] 5 × Propeller Aeropoints or other ground control points (GCPs) and/or RTK GNSS system 
   - [ ] 2 × folding tables to elevate panels
 - [ ] **Accessories**
   - [ ] Safety gear (signage and high-vis vests)
@@ -70,6 +70,16 @@ analysis across APPN operations.
   - [ ] External power brick (for charging UAV RC)
   - [ ] Anemometer (e.g. Kestrel — _TODO: add link_)
 
+> [!NOTE]
+> The **Ground reference kit** above assumes the
+> [Standard Dual ELM panel flight](../../FlightDesign/StandardFlight/Standard_Flight.md#dual-elm-panel-flight)
+> design. Other flight designs may require additional equipment (e.g.
+> extra reflectance panel sets, additional GCPs and folding tables for
+> multi-flight captures, or extra targets for validation flights). See
+> the [Standard Flight Procedure](../../FlightDesign/StandardFlight/Standard_Flight.md)
+> and the
+> [Validation Flight Procedure](../../FlightDesign/ValidationFlight/Validation_Flight.md)
+> for the full equipment requirements of each design.
 
 ---
 
@@ -529,7 +539,7 @@ Formal paths use the wiki's placeholder syntax; an example follows each.
    ```
 
 7. Standard QA process should be performed following
-   [this guide](../QAprocess/APPN_AerialDataQC_Rev1.0.md).
+   [this guide](../../QA/QAprocess/AerialDataQC.md).
 
 ---
 
