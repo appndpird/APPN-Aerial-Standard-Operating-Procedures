@@ -1,0 +1,135 @@
+folder: ~
+id: 1776226146022
+name: Gobi_std
+num_threads: 16
+radiometric_calibrations: C:\Headwall\sensorConfig
+scripts: []
+tasks:
+  - calibration: nominal
+    configuration:
+      azimuth_end: 30
+      azimuth_start: 330
+      range_end: 170
+      range_start: 5
+    products:
+      - directory: products
+        extension: .tif
+        extent: vnir
+        extent_type: vnir
+        filename: LiDAR_DSM.tif
+        fill_gaps: none
+        median_filter_radius_cm: 40
+        outlier_std_deviations: 12
+        percentile_threshold: 90
+        product_id: 1776226167238
+        product_name: LiDAR_DSM
+        resolution_cm: 8
+        resolution_type: fixed
+        type: raster
+      - class_threshold: 0.5
+        directory: products
+        extension: .tif
+        extent: processing
+        extent_type: processing
+        filename: LiDAR_DTM.tif
+        iterations: 500
+        number_of_nearest_neighbors: 10
+        point_cloud_source: raw
+        product_id: 1776226169084
+        product_name: LiDAR_DTM
+        resolution_cm: 100
+        rigidness: 1
+        standard_deviation_multiplier: 5
+        steep_slope: false
+        time_step: 0.65
+        type: dtm
+      - directory: products
+        extension: .las
+        extent: vnir
+        extent_type: vnir
+        filename: LiDAR_CombinedPointCloud.las
+        outlier_std_deviations: 12
+        product_id: 1776226171224
+        product_name: LiDAR_CombinedPointCloud
+        remove_outliers_in_combined_point_cloud: true
+        type: combined_point_cloud
+    sensor_id: ''
+    task_id: 1776226159801
+    type: LiDAR
+  - calibration: nominal
+    configuration:
+      angular_acceleration_threshold: '0.3'
+      digital_surface_model: LiDAR_DSM.tif
+      distance_to_scene: auto
+      dsm_id: 1776226167238
+      dsm_type: lidar
+      eop_window_size: 100
+      fill_gap_buffer: 3
+      flight_line_method: sum_of_cosines
+      hsi_preprocessing: []
+      manual_time_delay: '0'
+      median_percentile: '0.67'
+      mode: return
+      orthorectification_method: back_projection
+      pitch_acceleration_threshold: 0
+      pps_alignment: floating
+      radiometric_calibrations: ''
+      residual_threshold: '0.030'
+      use_radiance: true
+      window: '100'
+      write_igm_files: false
+      write_radiance: false
+    products:
+      - binning: 2
+        directory: products
+        distance_to_scene: auto
+        envi_data_type: u16
+        extension: .bin
+        extent: vnir
+        extent_type: vnir
+        filename: VNIR_Orthomosaic.bin
+        max_back_projection: 1
+        product_id: 1776226189197
+        product_name: VNIR_Orthomosaic
+        resolution_cm: '4'
+        resolution_gsd: '100.0'
+        resolution_type: gsd
+        scale_factor: 10000
+        type: orthomosaic
+    sensor_id: ''
+    task_id: 1776226160470
+    type: VNIR
+  - calibration: nominal
+    configuration:
+      bundle_adjustment_windows: 50
+      chi_threshold: 5.99
+      digital_surface_model: ''
+      dsm_id: ''
+      dsm_type: lidar
+      feature_extraction: SIFT
+      matching_ratio: 75
+      max_msat_iterations: 20
+      median_altitude_threshold: 96
+      msat_convergence_threshold: 0.0001
+      overlap_factor: 20
+      pyramid_downs: 4
+      rop_method: matching
+    products:
+      - color_balance: none
+        digital_surface_model: ''
+        directory: products
+        dsm_id: ''
+        dsm_type: lidar
+        exposure_matching: false
+        extension: .tif
+        extent: vnir
+        extent_type: vnir
+        filename: RGB_Orthomosaic.tif
+        product_id: 1776226219818
+        product_name: RGB_Orthomosaic
+        resolution_cm: '0.6'
+        resolution_type: fixed
+        type: orthomosaic
+    sensor_id: ''
+    task_id: 1776226161910
+    type: RGB

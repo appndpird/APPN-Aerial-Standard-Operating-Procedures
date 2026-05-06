@@ -56,8 +56,14 @@ compatibility, see
 ## 🌿 CALViS — Standard Processing Pipeline
 
 This section describes the standard CALViS processing workflow using the
-`Calvis_standard_pipeline` YAML in the GRYFN Processing Tool (**GPT,
-v1.9.2**).
+[`Calvis_standard_pipeline_v1.0.yaml`](https://github.com/ArdenB/APPN-Aerial-Standard-Operating-Procedures/blob/main/Protocols/Pipelines/ProcessingPipelines/yaml/Calvis_standard_pipeline_v1.0.yaml)
+file in the GRYFN Processing Tool (**GPT, v1.9.2**).
+
+> [!NOTE]
+> The pipeline YAML lives in
+> [`Protocols/Pipelines/ProcessingPipelines/yaml/`](https://github.com/ArdenB/APPN-Aerial-Standard-Operating-Procedures/tree/main/Protocols/Pipelines/ProcessingPipelines/yaml).
+> Download the latest version from the link above before importing it
+> into GPT (see [Step 4](#4-load-the-calvis_standard_pipeline)).
 
 ### 1. Configure GPT defaults
 
@@ -163,8 +169,9 @@ Before each graw, confirm you have:
 
 ### 4. Load the Calvis_standard_pipeline
 
-Import the standard CALViS pipeline YAML into GPT before running a job for
-the first time:
+Import the standard CALViS pipeline YAML
+([`Calvis_standard_pipeline_v1.0.yaml`](https://github.com/ArdenB/APPN-Aerial-Standard-Operating-Procedures/blob/main/Protocols/Pipelines/ProcessingPipelines/yaml/Calvis_standard_pipeline_v1.0.yaml))
+into GPT before running a job for the first time:
 
 1. Open the pipelines manager.
 
@@ -248,6 +255,9 @@ for the canonical specifications, file sizes, and software compatibility.
 ---
 
 ## 🌱 GOBI — Standard Processing Pipeline
+
+The GOBI standard processing pipeline is defined by
+[`Gobi_standard_pipeline_v1.0.yaml`](https://github.com/ArdenB/APPN-Aerial-Standard-Operating-Procedures/blob/main/Protocols/Pipelines/ProcessingPipelines/yaml/Gobi_standard_pipeline_v1.0.yaml).
 
 > [!NOTE]
 > The GOBI standard processing walkthrough is **TODO**. The outputs of the
