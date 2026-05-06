@@ -9,6 +9,8 @@ available tools**.
 For the pipelines that generate these products, see
 [Processing Pipelines](../ProcessingPipelines/Processing_Pipelines.md).
 
+For additional infomation about all products see the [Gryfn Documentation](https://gryfn.gitbook.io/gryfn-software/user-manual/new-job)
+
 ---
 
 ## ☝️ Guiding principles
