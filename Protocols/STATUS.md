@@ -27,16 +27,19 @@ Tick = stage complete. Update each page's `status:` list in [`publish.yaml`](../
 | [Standard Flight Procedure](FlightDesign/StandardFlight/Standard_Flight.md) | Flight Design | ✅ | ✅ | ✅ | ⬜ | ⬜ |  |
 | [Validation Flight](FlightDesign/ValidationFlight/Validation_Flight.md) | Flight Design | ✅ | ✅ | ⬜ | ⬜ | ⬜ |  |
 | [QA Process](QA/QAprocess/AerialDataQC.md) | Quality Assurance | ✅ | ✅ | ✅ | ⬜ | ⬜ |  |
+| [Spectral Panel Cleaning and Calibration](QA/SpectralPanel/Spectral_Panel_Cleaning_and_Calibration.md) | Quality Assurance | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | Current STUB- Draft being written |
 | [Plot Delineation](PlotProtocols/PlotDelineation/Plot_Delineation.md) | Plot Protocols | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |  |
 | [Data Folder Structure](DataManagement/DataFolderStructure/DataFolderStructure.md) | Data Management | ✅ | ✅ | ✅ | ✅ | ✅ |  |
 | [Processing Pipelines](Pipelines/ProcessingPipelines/Processing_Pipelines.md) | Processing & Data Products | ✅ | ✅ | ✅ | ⬜ | ⬜ |  |
+| [M3M Processing Pipeline](Pipelines/M3MPipeline/M3M_Processing_Pipeline.md) | Processing & Data Products | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | Current STUB- Draft being written |
+| [HiRes Processing Pipeline](Pipelines/HiResPipeline/HiRes_Processing_Pipeline.md) | Processing & Data Products | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | Current STUB- Draft being written |
 | [Standard Data Products](Pipelines/StandardDataProducts/Standard_Data_Products.md) | Processing & Data Products | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | Background document - not a protocol |
 
 ## Summary
 
-- Documents tracked: **15**
-- Drafted: **13 / 15**
-- EWG feedback: **8 / 15**
-- Modified: **7 / 15**
-- Approved: **1 / 15**
-- Adopted: **1 / 15**
+- Documents tracked: **18**
+- Drafted: **13 / 18**
+- EWG feedback: **8 / 18**
+- Modified: **7 / 18**
+- Approved: **1 / 18**
+- Adopted: **1 / 18**

@@ -118,6 +118,13 @@ pages:
     category: QA
     status: [drafted, ewg_feedback, modified]
 
+  - source: Protocols/QA/SpectralPanel/Spectral_Panel_Cleaning_and_Calibration.md
+    wiki_page: Spectral-Panel-Cleaning-and-Calibration
+    title: "Spectral Panel Cleaning and Calibration"
+    category: QA
+    status: []
+    notes: "Current STUB- Draft being written"
+
   - source: Protocols/Background/QCandReporting/QC_and_Reporting.md
     wiki_page: QC-and-Reporting
     title: "QC and Reporting"
@@ -142,6 +149,20 @@ pages:
     title: "Processing Pipelines"
     category: Pipelines
     status: [drafted, ewg_feedback, modified]
+
+  - source: Protocols/Pipelines/M3MPipeline/M3M_Processing_Pipeline.md
+    wiki_page: M3M-Processing-Pipeline
+    title: "M3M Processing Pipeline"
+    category: Pipelines
+    status: []
+    notes: "Current STUB- Draft being written"
+
+  - source: Protocols/Pipelines/HiResPipeline/HiRes_Processing_Pipeline.md
+    wiki_page: HiRes-Processing-Pipeline
+    title: "HiRes Processing Pipeline"
+    category: Pipelines
+    status: []
+    notes: "Current STUB- Draft being written"
 
   - source: Protocols/Pipelines/StandardDataProducts/Standard_Data_Products.md
     wiki_page: Standard-Data-Products
