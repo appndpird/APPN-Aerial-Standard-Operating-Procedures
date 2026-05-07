@@ -24,6 +24,12 @@ revision: "1.0"
 repo_url: "https://github.com/ArdenB/APPN-Aerial-Standard-Operating-Procedures"
 default_branch: "main"
 
+# Extra entries appended to the sidebar's "External" section, after the main
+# repository link. Each entry needs `label:` and `url:`.
+external_links:
+  - label: "Gryfn Gitbook"
+    url: "https://gryfn.gitbook.io/"
+
 # Sensor fieldbook nav strip injected at the top of every published wiki page
 # (just under the locked-revision/status banner). Each entry references an
 # existing wiki_page; rendered as a centred row of shields.io badges.
@@ -164,10 +170,10 @@ pages:
     status: []
     notes: "Current STUB- Draft being written"
 
-  - source: Protocols/Pipelines/StandardDataProducts/Standard_Data_Products.md
+  - source: Protocols/Background/StandardDataProducts/Standard_Data_Products.md
     wiki_page: Standard-Data-Products
     title: "Standard Data Products"
-    category: Pipelines
+    category: Background
     status: [drafted]
     notes: "Background document - not a protocol"
 

@@ -403,8 +403,19 @@ def render_sidebar(manifest: dict[str, Any], date: str) -> str:
             lines.append(f"- [{page['title']}]({page['wiki_page']})")
         lines.append("")
     repo_url = manifest.get("repo_url", "").rstrip("/")
+    external: list[tuple[str, str]] = []
     if repo_url:
-        lines += ["### External", f"- [Main repository]({repo_url})", ""]
+        external.append(("Main repository", repo_url))
+    for link in manifest.get("external_links", []) or []:
+        label = link.get("label")
+        url = link.get("url")
+        if label and url:
+            external.append((label, url))
+    if external:
+        lines.append("### External")
+        for label, url in external:
+            lines.append(f"- [{label}]({url})")
+        lines.append("")
     lines.append(f"_Locked revision {manifest['revision']} — {date}_")
     return "\n".join(lines) + "\n"
 

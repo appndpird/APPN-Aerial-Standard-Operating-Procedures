@@ -18,6 +18,7 @@ Tick = stage complete. Update each page's `status:` list in [`publish.yaml`](../
 | --- | --- | :---: | :---: | :---: | :---: | :---: | --- |
 | [Platforms Overview](Background/PlatformsOverview/Platforms_Overview.md) | Background | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |  |
 | [QC and Reporting](Background/QCandReporting/QC_and_Reporting.md) | Background | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | Background document - not a protocol. No Approval needed |
+| [Standard Data Products](Background/StandardDataProducts/Standard_Data_Products.md) | Background | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | Background document - not a protocol |
 | [Ground-Based Phenotyping and Environmental Platforms](Background/PhenotypingAndEnvironmental/Ground_Phenotyping_and_Environmental.md) | Background | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | Placeholder — formal protocols TBD |
 | [CALViS Fieldbook](Sensors/CALVIS/CALViS_FieldBook.md) | Sensor Fieldbooks | ✅ | ✅ | ✅ | ⬜ | ⬜ |  |
 | [GOBI M350 Fieldbook](Sensors/GOBI/GOBI_M350_FieldBook.md) | Sensor Fieldbooks | ✅ | ✅ | ✅ | ⬜ | ⬜ |  |
@@ -33,7 +34,6 @@ Tick = stage complete. Update each page's `status:` list in [`publish.yaml`](../
 | [Processing Pipelines](Pipelines/ProcessingPipelines/Processing_Pipelines.md) | Processing & Data Products | ✅ | ✅ | ✅ | ⬜ | ⬜ |  |
 | [M3M Processing Pipeline](Pipelines/M3MPipeline/M3M_Processing_Pipeline.md) | Processing & Data Products | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | Current STUB- Draft being written |
 | [HiRes Processing Pipeline](Pipelines/HiResPipeline/HiRes_Processing_Pipeline.md) | Processing & Data Products | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | Current STUB- Draft being written |
-| [Standard Data Products](Pipelines/StandardDataProducts/Standard_Data_Products.md) | Processing & Data Products | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | Background document - not a protocol |
 
 ## Summary
 

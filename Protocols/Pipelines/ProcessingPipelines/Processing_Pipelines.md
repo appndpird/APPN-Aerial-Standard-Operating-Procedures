@@ -22,7 +22,7 @@ deviations explicitly documented to maintain traceability and data integrity.
 The standard pipelines and the data products they output are detailed below.
 For a tabular summary of output formats, resolutions and software
 compatibility, see
-[Standard Data Products](../StandardDataProducts/Standard_Data_Products.md).
+[Standard Data Products](../../Background/StandardDataProducts/Standard_Data_Products.md).
 
 For additional infomation about all steps in this document, see the 
 [Gryfn Documentation](https://gryfn.gitbook.io/gryfn-software/documentation/quick-start-guide)
@@ -244,7 +244,7 @@ into GPT before running a job for the first time:
 
 The CALViS standard pipeline produces the LiDAR and hyperspectral products
 listed below. See
-[Standard Data Products](../StandardDataProducts/Standard_Data_Products.md)
+[Standard Data Products](../../Background/StandardDataProducts/Standard_Data_Products.md)
 for the canonical specifications, file sizes, and software compatibility.
 
 | Product | Output filename | Resolution | Format | Notes |
@@ -270,7 +270,7 @@ The GOBI standard processing pipeline is defined by
 
 The GOBI standard pipeline produces the LiDAR, hyperspectral, and RGB
 products listed below. See
-[Standard Data Products](../StandardDataProducts/Standard_Data_Products.md)
+[Standard Data Products](../../Background/StandardDataProducts/Standard_Data_Products.md)
 for the canonical specifications, file sizes, and software compatibility.
 
 | Product | Output filename | Resolution | Format | Notes |
