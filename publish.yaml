@@ -85,21 +85,20 @@ pages:
     title: "GOBI IF1200 Fieldbook"
     category: Sensors
     status: [drafted, ewg_feedback, modified]
-    notes: "IF1200 flight-mode terminology TBC"
 
   - source: Protocols/Sensors/M3M/M3M_FieldBook.md
     wiki_page: M3M-Fieldbook
     title: "M3M Fieldbook"
     category: Sensors
     status: []
-    notes: "Currnet STUB- Draft being written"
+    notes: "Current STUB- Draft being written"
 
   - source: Protocols/Sensors/HIRES/HIRES_FieldBook.md
     wiki_page: HiRes-Fieldbook
     title: "HiRes Fieldbook"
     category: Sensors
     status: []
-    notes: "Currnet STUB- Draft being written"
+    notes: "Current STUB- Draft being written"
 
   - source: Protocols/FlightDesign/StandardFlight/Standard_Flight.md
     wiki_page: Standard-Flight
