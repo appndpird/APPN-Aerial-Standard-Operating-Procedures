@@ -92,26 +92,26 @@ pages:
     title: "M3M Fieldbook"
     category: Sensors
     status: []
-    notes: "Stub — content pending"
+    notes: "Currnet STUB- Draft being written"
 
   - source: Protocols/Sensors/HIRES/HIRES_FieldBook.md
     wiki_page: HiRes-Fieldbook
     title: "HiRes Fieldbook"
     category: Sensors
     status: []
-    notes: "Stub — content pending"
+    notes: "Currnet STUB- Draft being written"
 
   - source: Protocols/FlightDesign/StandardFlight/Standard_Flight.md
     wiki_page: Standard-Flight
     title: "Standard Flight Procedure"
     category: FlightDesign
-    status: []
+    status: [drafted, ewg_feedback, modified]
 
   - source: Protocols/FlightDesign/ValidationFlight/Validation_Flight.md
     wiki_page: Validation-Flight
     title: "Validation Flight"
     category: FlightDesign
-    status: [drafted]
+    status: [drafted, ewg_feedback]
 
   - source: Protocols/QA/QAprocess/AerialDataQC.md
     wiki_page: QA-Process
@@ -135,7 +135,7 @@ pages:
     wiki_page: Data-Folder-Structure
     title: "Data Folder Structure"
     category: DataManagement
-    status: [drafted, ewg_feedback, modified, approved]
+    status: [drafted, ewg_feedback, modified, approved, adopted]
 
   - source: Protocols/Pipelines/ProcessingPipelines/Processing_Pipelines.md
     wiki_page: Processing-Pipelines
