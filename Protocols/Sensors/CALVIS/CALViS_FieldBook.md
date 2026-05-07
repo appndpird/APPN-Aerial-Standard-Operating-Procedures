@@ -351,7 +351,7 @@ analysis across APPN operations.
 1. Place the lens cap on the sensor.
 2. Toggle **Dark Reference**.
 3. Click **Start**.
-   - You should hear two clicks, signaling that the dark reference is
+   - You should hear two clicks, signalling that the dark reference is
      complete.
 
 #### Setting Flight Parameters

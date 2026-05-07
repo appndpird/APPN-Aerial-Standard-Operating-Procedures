@@ -138,7 +138,7 @@ This protocol is organised into two parts:
 > from each edge of the planned polygon.
 >
 > See the
-> [Standard Flight Procedure background section](../StandardFlight/Standard_Flight.md#background-and-common-ellments-of-all-standard-flights)
+> [Standard Flight Procedure background section](../StandardFlight/Standard_Flight.md#background-and-common-elements-of-all-standard-flights)
 > for the full rationale and the recommended ~10% inset.
 
 ### Site selection

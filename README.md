@@ -129,6 +129,6 @@ Writes one PDF per manifest page into `releases/Rev<revision>/`, rendered
 with [`pandoc`](https://pandoc.org/) (must be on `PATH`, with a working
 PDF engine such as `xelatex`, `wkhtmltopdf`, or `weasyprint`).
 
-## License
+## Licence
 
 See [LICENSE](LICENSE).

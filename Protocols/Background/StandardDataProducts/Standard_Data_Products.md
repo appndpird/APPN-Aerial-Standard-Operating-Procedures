@@ -9,7 +9,7 @@ available tools**.
 For the pipelines that generate these products, see
 [Processing Pipelines](../../Pipelines/ProcessingPipelines/Processing_Pipelines.md).
 
-For additional infomation about all all GOBI and CALVIS products see the [Gryfn Documentation](https://gryfn.gitbook.io/gryfn-software/user-manual/new-job)
+For additional information about all GOBI and CALVIS products see the [Gryfn Documentation](https://gryfn.gitbook.io/gryfn-software/user-manual/new-job)
 
 ---
 

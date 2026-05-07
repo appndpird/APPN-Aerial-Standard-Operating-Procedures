@@ -65,7 +65,7 @@
 > **Pending APEx / GRYFN decisions (revise before season start)**
 > - [ ] Flight-line orientation guidance — confirm or revise the
 >       align-with-planting-direction recommendation in
->       [Flight-line Orientation](#flight-line-orentiation).
+>       [Flight-line Orientation](#flight-line-orientation).
 > - [ ] Confirm whether the Dual ELM panel flight is truly
 >       **mandatory** under variable illumination, or only strongly
 >       recommended (see
@@ -81,7 +81,7 @@
 > - [ ] Minimum acceptable solar elevation for routine surveys.
 > - [ ] Quantitative definition of the "effective capture area"
 >       inset (currently ~10% — see
->       [Background callout](#background-and-common-ellments-of-all-standard-flights)).
+>       [Background callout](#background-and-common-elements-of-all-standard-flights)).
 
 ---
 
@@ -89,9 +89,9 @@
 
 This protocol is organised into two parts:
 
-1. **[Background and common elements of all standard flights](#background-and-common-ellments-of-all-standard-flights)** —
+1. **[Background and common elements of all standard flights](#background-and-common-elements-of-all-standard-flights)** —
    shared setup rules that apply to every standard flight design:
-   - [Flight-line Orientation](#flight-line-orentiation)
+   - [Flight-line Orientation](#flight-line-orientation)
    - [Panel Setup](#panel-setup)
      - [Validation Panel Setup](#validation-panel-setup)
    - [Ground Control Points](#ground-control-points)
@@ -109,7 +109,7 @@ This protocol is organised into two parts:
 
 ---
 
-## Background and common ellments of all standard flights
+## Background and common elements of all standard flights
 
 > [!IMPORTANT]
 > This section describes the **placement of GCPs and reflectance panels**
@@ -155,7 +155,7 @@ This protocol is organised into two parts:
 > Failure to place ELM panels correctly can render a flight's data
 > completely unusable for radiometric analysis.
 
-### Flight-line Orentiation
+### Flight-line Orientation
 
 > [!NOTE]
 > GRYFN recommends aligning flight lines with the planting direction for
@@ -301,7 +301,7 @@ the long axis of the survey area**.
 - **Mandatory** for flights longer than **15 minutes**.
 
 - **Mandatory** under variable illumination conditions (e.g. broken
-  cloud), regardless of flight duration. (APEx results dependant)
+  cloud), regardless of flight duration. (APEx results dependent)
 
 ### Flight design
 
@@ -309,8 +309,8 @@ the long axis of the survey area**.
 >
 > - Panel placement at the 1/3 and 2/3 positions along the long axis.
 > - Flight-line orientation relative to the panels.
-> - Recommended buffer between panels and the Edge of the capture pologyon.
-> - GCP placment
+> - Recommended buffer between panels and the edge of the capture polygon.
+> - GCP placement
 
 
 ### Ground Equipment Required
@@ -334,7 +334,7 @@ the long axis of the survey area**.
 ### Overview
 
 This flight uses a **single set of ELM (Empirical Line Method) reflectance
-panels**, deployed near the **center of the survey area** and are only flown 
+panels**, deployed near the **centre of the survey area** and are only flown 
 over once.
 
 **Rationale:**
@@ -363,7 +363,7 @@ over once.
 
 > TODO: Insert annotated diagram showing:
 >
-> - Panel placement near center of the survey area.
+> - Panel placement near centre of the survey area.
 > - Validation panel placement in the middle of the survey area.
 > - Flight-line orientation relative to the panels.
 > - Recommended buffer between panels and the edge of the capture polygon.

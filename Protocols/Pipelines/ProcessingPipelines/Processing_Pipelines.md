@@ -24,7 +24,7 @@ For a tabular summary of output formats, resolutions and software
 compatibility, see
 [Standard Data Products](../../Background/StandardDataProducts/Standard_Data_Products.md).
 
-For additional infomation about all steps in this document, see the 
+For additional information about all steps in this document, see the 
 [Gryfn Documentation](https://gryfn.gitbook.io/gryfn-software/documentation/quick-start-guide)
 
 > [!IMPORTANT]
