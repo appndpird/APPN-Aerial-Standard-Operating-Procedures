@@ -16,7 +16,9 @@ Tick = stage complete. Update each page's `status:` list in [`publish.yaml`](../
 
 | Document | Category | Drafted | EWG feedback | Modified | Approved | Adopted | Notes |
 | --- | --- | :---: | :---: | :---: | :---: | :---: | --- |
-| [Platforms Overview](Sensors/PlatformsOverview/Platforms_Overview.md) | Sensor Fieldbooks | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |  |
+| [Platforms Overview](Background/PlatformsOverview/Platforms_Overview.md) | Background | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |  |
+| [QC and Reporting](Background/QCandReporting/QC_and_Reporting.md) | Background | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | Background document - not a protocol. No Approval needed |
+| [Ground-Based Phenotyping and Environmental Platforms](Background/PhenotypingAndEnvironmental/Ground_Phenotyping_and_Environmental.md) | Background | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | Placeholder — formal protocols TBD |
 | [CALViS Fieldbook](Sensors/CALVIS/CALViS_FieldBook.md) | Sensor Fieldbooks | ✅ | ✅ | ✅ | ⬜ | ⬜ |  |
 | [GOBI M350 Fieldbook](Sensors/GOBI/GOBI_M350_FieldBook.md) | Sensor Fieldbooks | ✅ | ✅ | ✅ | ⬜ | ⬜ |  |
 | [GOBI IF1200 Fieldbook](Sensors/GOBI/GOBI_IF1200_FieldBook.md) | Sensor Fieldbooks | ✅ | ✅ | ✅ | ⬜ | ⬜ |  |
@@ -29,8 +31,6 @@ Tick = stage complete. Update each page's `status:` list in [`publish.yaml`](../
 | [Data Folder Structure](DataManagement/DataFolderStructure/DataFolderStructure.md) | Data Management | ✅ | ✅ | ✅ | ✅ | ✅ |  |
 | [Processing Pipelines](Pipelines/ProcessingPipelines/Processing_Pipelines.md) | Processing & Data Products | ✅ | ✅ | ✅ | ⬜ | ⬜ |  |
 | [Standard Data Products](Pipelines/StandardDataProducts/Standard_Data_Products.md) | Processing & Data Products | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | Background document - not a protocol |
-| [QC and Reporting](Background/QCandReporting/QC_and_Reporting.md) | Background | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | Background document - not a protocol. No Approval needed |
-| [Ground-Based Phenotyping and Environmental Platforms](Background/PhenotypingAndEnvironmental/Ground_Phenotyping_and_Environmental.md) | Background | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | Placeholder — formal protocols TBD |
 
 ## Summary
 

@@ -2,7 +2,7 @@
 
 For a high-level description of the GOBI sensor package and how it sits
 alongside the other APPN platforms, see the
-[Platforms Overview](../PlatformsOverview/Platforms_Overview.md).
+[Platforms Overview](../../Background/PlatformsOverview/Platforms_Overview.md).
 
 For the GOBI fieldbook covering the DJI M350, see
 [GOBI M350 Fieldbook](../GOBI/GOBI_M350_FieldBook.md).

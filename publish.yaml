@@ -46,6 +46,8 @@ nav_badges:
     color: "6f901e"
 
 categories:
+  - id: Background
+    title: "Background"
   - id: Sensors
     title: "Sensor Fieldbooks"
   - id: FlightDesign
@@ -58,14 +60,12 @@ categories:
     title: "Data Management"
   - id: Pipelines
     title: "Processing & Data Products"
-  - id: Background
-    title: "Background"
 
 pages:
-  - source: Protocols/Sensors/PlatformsOverview/Platforms_Overview.md
+  - source: Protocols/Background/PlatformsOverview/Platforms_Overview.md
     wiki_page: Platforms-Overview
     title: "Platforms Overview"
-    category: Sensors
+    category: Background
     status: [drafted]
 
   - source: Protocols/Sensors/CALVIS/CALViS_FieldBook.md

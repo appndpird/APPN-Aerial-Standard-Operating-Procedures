@@ -2,7 +2,7 @@
 
 For a high-level description of the CALViS sensor package and how it sits
 alongside the other APPN platforms, see the
-[Platforms Overview](../PlatformsOverview/Platforms_Overview.md).
+[Platforms Overview](../../Background/PlatformsOverview/Platforms_Overview.md).
 
 This fieldbook provides a standardised operational guide for APPN CALViS UAV
 deployments, supporting safe flight operations, consistent sensor

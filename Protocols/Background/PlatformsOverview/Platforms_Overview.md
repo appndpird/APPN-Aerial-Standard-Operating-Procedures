@@ -30,7 +30,7 @@ particularly well suited to:
 - Repeated monitoring through the growing season
 - Remote or logistically constrained field locations
 
-See also: [M3M Fieldbook](../M3M/M3M_FieldBook.md).
+See also: [M3M Fieldbook](../../Sensors/M3M/M3M_FieldBook.md).
 
 ---
 
@@ -56,8 +56,8 @@ All configurations are linked to **RTK-based GNSS-INS positioning**, supporting
 robust geometric alignment between LiDAR, hyperspectral, and RGB data streams.
 This enables reliable extraction of physical and structural traits at scale.
 
-See also: [GOBI M350 Fieldbook](../GOBI/GOBI_M350_FieldBook.md) and
-[GOBI IF1200 Fieldbook](../GOBI/GOBI_IF1200_FieldBook.md).
+See also: [GOBI M350 Fieldbook](../../Sensors/GOBI/GOBI_M350_FieldBook.md) and
+[GOBI IF1200 Fieldbook](../../Sensors/GOBI/GOBI_IF1200_FieldBook.md).
 
 ---
 
@@ -84,7 +84,7 @@ The co-aligned sensor geometry ensures consistent spatial correspondence
 between VNIR, SWIR, and LiDAR observations, supporting advanced multi-modal
 analysis and trait modelling.
 
-See also: [CALViS Fieldbook](../CALVIS/CALViS_FieldBook.md).
+See also: [CALViS Fieldbook](../../Sensors/CALVIS/CALViS_FieldBook.md).
 
 ---
 
@@ -104,4 +104,4 @@ This configuration delivers exceptionally high-quality RGB imagery suitable for:
 - Canopy structure and morphology studies
 - Visual scoring, annotation, and validation
 
-See also: [HiRes Fieldbook](../HIRES/HIRES_FieldBook.md).
+See also: [HiRes Fieldbook](../../Sensors/HIRES/HIRES_FieldBook.md).
