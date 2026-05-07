@@ -22,6 +22,40 @@ analysis across APPN operations.
 
 ---
 
+## Document Structure
+
+1. [Equipment Checklist](#equipment-checklist) — what to bring to
+   the field.
+2. [Preflight Planning](#preflight-planning) — survey / capture
+   polygons, QGroundControl setup, and mission upload.
+3. [Onsite Preflight Operations](#onsite-preflight-operations) —
+   weather and airspace checks, panel and GCP layout, aircraft setup.
+4. [CALViS Sensor Configuration](#calvis-sensor-configuration) —
+   sensor power-up and per-flight configuration:
+   - [Setting Exposure](#setting-exposure)
+   - [Setting Flight Plan](#setting-flight-plan)
+   - [Setting Dark Reference](#setting-dark-reference)
+   - [Setting Flight Parameters](#setting-flight-parameters)
+   - [Completing the Setup](#completing-the-setup)
+5. [Flight Operations](#flight-operations) — takeoff, dynamic
+   alignment, autonomous mission, and landing.
+6. [Post-Flight Sensor Configuration](#post-flight-sensor-configuration) —
+   stopping the capture and confirming data on the sensor.
+7. [Post-Flight](#post-flight) — pack-down of aircraft, payload, and
+   ground reference kit.
+8. [Data Integrity Checks](#data-integrity-checks) — expected file
+   counts and sizes by sensor.
+9. [Data Confirmation & Download](#data-confirmation--download) —
+   downloading from the sensor and storing under the APPN folder
+   structure:
+   - [VNIR, SWIR + LiDAR](#vnir-swir--lidar)
+   - [GNSS-INS](#gnss-ins)
+   - [Data storage, processing & validation](#data-storage-processing--validation)
+10. [Appendix](#appendix) — static IP setup, network reference, and
+    Headwall polygon tool workflow.
+
+---
+
 ## Equipment Checklist
 
 > [!NOTE]

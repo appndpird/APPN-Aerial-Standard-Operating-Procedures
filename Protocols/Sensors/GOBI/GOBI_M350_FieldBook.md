@@ -25,6 +25,32 @@ confidence in downstream data analysis across APPN operations.
 
 ---
 
+## Document Structure
+
+1. [Equipment Checklist](#equipment-checklist) — what to bring to
+   the field.
+2. [Preflight Planning](#preflight-planning) — survey / capture
+   polygons and DJI Pilot 2 flight planning.
+3. [Onsite Preflight Operations](#onsite-preflight-operations) —
+   weather and airspace checks, panel and GCP layout, aircraft setup.
+4. [GOBI Sensor Configuration](#gobi-sensor-configuration) — sensor
+   power-up, exposure, dark reference, and mission start.
+5. [Flight Operations](#flight-operations) — takeoff, dynamic
+   alignment, autonomous mission, and landing.
+6. [Post-Flight Sensor Configuration](#post-flight-sensor-configuration) —
+   stopping the mission and confirming data on the sensor.
+7. [Data Confirmation](#data-confirmation) — expected file counts and
+   sizes by sensor.
+8. [Post-Flight](#post-flight) — pack-down of aircraft, payload, and
+   ground reference kit.
+9. [Offload Data](#offload-data) — downloading from the sensor and
+   storing under the APPN folder structure:
+   - [Data storage, processing & validation](#data-storage-processing--validation)
+10. [Appendix](#appendix) — FTP & service reference, Headwall polygon
+    tool workflow, static IP setup, and IP address reference.
+
+---
+
 ## Equipment Checklist
 
 > [!NOTE]
