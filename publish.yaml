@@ -123,6 +123,7 @@ pages:
     title: "QC and Reporting"
     category: Background
     status: [drafted]
+    notes: "Background document - not a protocol. No Approval needed"
 
   - source: Protocols/PlotProtocols/PlotDelineation/Plot_Delineation.md
     wiki_page: Plot-Delineation
@@ -147,6 +148,7 @@ pages:
     title: "Standard Data Products"
     category: Pipelines
     status: [drafted]
+    notes: "Background document - not a protocol"
 
   - source: Protocols/Background/PhenotypingAndEnvironmental/Ground_Phenotyping_and_Environmental.md
     wiki_page: Ground-Phenotyping-and-Environmental

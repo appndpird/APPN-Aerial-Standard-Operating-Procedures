@@ -28,8 +28,8 @@ Tick = stage complete. Update each page's `status:` list in [`publish.yaml`](../
 | [Plot Delineation](PlotProtocols/PlotDelineation/Plot_Delineation.md) | Plot Protocols | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |  |
 | [Data Folder Structure](DataManagement/DataFolderStructure/DataFolderStructure.md) | Data Management | ✅ | ✅ | ✅ | ✅ | ✅ |  |
 | [Processing Pipelines](Pipelines/ProcessingPipelines/Processing_Pipelines.md) | Processing & Data Products | ✅ | ✅ | ✅ | ⬜ | ⬜ |  |
-| [Standard Data Products](Pipelines/StandardDataProducts/Standard_Data_Products.md) | Processing & Data Products | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |  |
-| [QC and Reporting](Background/QCandReporting/QC_and_Reporting.md) | Background | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |  |
+| [Standard Data Products](Pipelines/StandardDataProducts/Standard_Data_Products.md) | Processing & Data Products | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | Background document - not a protocol |
+| [QC and Reporting](Background/QCandReporting/QC_and_Reporting.md) | Background | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | Background document - not a protocol. No Approval needed |
 | [Ground-Based Phenotyping and Environmental Platforms](Background/PhenotypingAndEnvironmental/Ground_Phenotyping_and_Environmental.md) | Background | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | Placeholder — formal protocols TBD |
 
 ## Summary
