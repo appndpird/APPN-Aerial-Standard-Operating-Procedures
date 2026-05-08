@@ -36,7 +36,6 @@ For additional information about all steps in this document, see the
 >
 > - [ ] CALViS walkthrough author / reviewer: Richard Harwood.
 > - [ ] Add the GOBI standard processing walkthrough (currently outputs only).
-> - [ ] Add HiRes and M3M standard processing pipelines.
 > - [ ] Automate handling of GNSS `.TO4` files in the raw-data formatting
 >       step.
 
