@@ -83,8 +83,8 @@ suitable for quantitative analysis.
 > Methods 1 and 2 are **functionally equivalent** — they apply the same
 > radiometric calibration, lens correction, and geometric model from the
 > PhaseOne Image SDK, and should produce numerically comparable outputs.
-> Method 3 is **separate** and produces a visually pleasing but
-> radiometrically uncalibrated product.
+> Method 3 is **separate** and produces a visually pleasing product
+> at the cost of some mosaicing artefects and lower resolution.  
 
 ---
 
