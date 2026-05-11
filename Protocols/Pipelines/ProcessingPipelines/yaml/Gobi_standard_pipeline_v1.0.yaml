@@ -1,8 +1,8 @@
 folder: ~
 id: 1776226146022
 name: Gobi_std
-num_threads: 16
-radiometric_calibrations: C:\Headwall\sensorConfig
+num_threads: '32'
+radiometric_calibrations: C:\Users\richa\APPN_GRFYFN\UOA_RAD_CAL
 scripts: []
 tasks:
   - calibration: nominal
@@ -44,15 +44,26 @@ tasks:
         time_step: 0.65
         type: dtm
       - directory: products
-        extension: .las
+        extension: .laz
         extent: vnir
         extent_type: vnir
-        filename: LiDAR_CombinedPointCloud.las
+        filename: LiDAR_CombinedPointCloud.laz
         outlier_std_deviations: 12
         product_id: 1776226171224
         product_name: LiDAR_CombinedPointCloud
         remove_outliers_in_combined_point_cloud: true
         type: combined_point_cloud
+      - digital_terrain_model: LiDAR_DTM.tif
+        directory: products
+        dsm_type: lidar
+        dtm_id: 1776226169084
+        extension: .las
+        extent: processing
+        extent_type: processing
+        filename: LiDAR_HAG.las
+        product_id: 1778459310966
+        product_name: LiDAR_HAG
+        type: hag
     sensor_id: ''
     task_id: 1776226159801
     type: LiDAR
@@ -116,9 +127,9 @@ tasks:
       rop_method: matching
     products:
       - color_balance: none
-        digital_surface_model: ''
+        digital_surface_model: LiDAR_DSM.tif
         directory: products
-        dsm_id: ''
+        dsm_id: 1776226167238
         dsm_type: lidar
         exposure_matching: false
         extension: .tif
