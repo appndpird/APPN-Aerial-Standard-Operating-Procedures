@@ -103,8 +103,8 @@ pages:
     wiki_page: HiRes-Fieldbook
     title: "HiRes Fieldbook"
     category: Sensors
-    status: []
-    notes: "Current STUB- Draft being written"
+    status: [drafted, ewg_feedback]
+    notes: "Currently getting EWG Feedback"
 
   - source: Protocols/FlightDesign/StandardFlight/Standard_Flight.md
     wiki_page: Standard-Flight
