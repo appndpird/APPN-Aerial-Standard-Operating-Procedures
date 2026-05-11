@@ -42,6 +42,7 @@ SOP_ROUTES: dict[str, tuple[str, str]] = {
     "appn_gobi_if1200_fieldbook":   ("Protocols/Sensors/GOBI",                      "GOBI_IF1200_FieldBook"),
     "appn_gobi_m350_fieldbook":     ("Protocols/Sensors/GOBI",                      "GOBI_M350_FieldBook"),
     "appn_gobi_fieldbook":          ("Protocols/Sensors/GOBI",                      "GOBI_FieldBook"),
+    "appn_hires_fieldbook":         ("Protocols/Sensors/HIRES",                     "HIRES_FieldBook"),
     "appn_aerialdataqc":            ("Protocols/QA/QAprocess",                      "AerialDataQC"),
     "appn_validation_flight":       ("Protocols/FlightDesign/ValidationFlight",     "Validation_Flight"),
     "appn_plot_delineation":       ("Protocols/PlotProtocols/PlotDelineation",    "Plot_Delineation"),
