@@ -57,10 +57,10 @@ tasks:
         directory: products
         dsm_type: lidar
         dtm_id: 1776226169084
-        extension: .las
+        extension: .laz
         extent: processing
         extent_type: processing
-        filename: LiDAR_HAG.las
+        filename: LiDAR_HAG.laz
         product_id: 1778459310966
         product_name: LiDAR_HAG
         type: hag
