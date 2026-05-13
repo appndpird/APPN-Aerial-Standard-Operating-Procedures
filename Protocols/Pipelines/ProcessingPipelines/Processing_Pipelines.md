@@ -38,6 +38,13 @@ For additional information about all steps in this document, see the
 > - [ ] Add the GOBI standard processing walkthrough (currently outputs only).
 > - [ ] Automate handling of GNSS `.TO4` files in the raw-data formatting
 >       step.
+>
+> **Figures to produce** (see master list in [`/IMAGE_TODO.md`](../../../IMAGE_TODO.md))
+> - [ ] **Screenshots** — GOBI standard pipeline walkthrough: GPT
+>       polygon import, exposure setting, ELM panel selection, and
+>       pipeline submission (matching the level of detail used in the
+>       CALViS section above)
+>       (see [GOBI — Standard Processing Pipeline](#-gobi--standard-processing-pipeline)).
 
 ---
 
@@ -264,6 +271,13 @@ The GOBI standard processing pipeline is defined by
 > [!NOTE]
 > The GOBI standard processing walkthrough is **TODO**. The outputs of the
 > standard GOBI pipeline are documented below.
+
+> [!NOTE]
+> 🖼️ **Image needed (screenshots):** Step-by-step screenshot sequence
+> of the GRYFN Processing Tool (GPT) workflow for GOBI processing —
+> polygon import, exposure setting, ELM panel selection, and pipeline
+> submission — matching the level of detail used in the CALViS section
+> above.
 
 ### GOBI outputs
 

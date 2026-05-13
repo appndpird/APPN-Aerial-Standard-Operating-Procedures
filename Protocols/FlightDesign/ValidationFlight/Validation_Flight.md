@@ -57,13 +57,21 @@
 > - [ ] Confirm equipment checklists with field operators (all three
 >       validation flight types).
 >
-> **Figures to produce**
-> - [ ] Spectral validation flight — panel layout, flight-line
->       orientation, and GCP distribution.
-> - [ ] Spatial validation flight — GCP layout (including elevated /
->       paired GCPs), flight-line geometry, and any check targets.
-> - [ ] APEx experimental flight — reference layout used as the
->       starting point for parameter sweeps.
+> **Figures to produce** (see master list in [`/IMAGE_TODO.md`](../../../IMAGE_TODO.md))
+> - [ ] **Diagram** — Spectral validation flight: panel layout,
+>       flight-line orientation, and GCP distribution.
+> - [ ] **Diagram** — Spatial validation flight: GCP layout (including
+>       elevated / paired GCPs), flight-line geometry, and any check
+>       targets.
+> - [ ] **Diagram** — APEx experimental flight: reference layout used
+>       as the starting point for parameter sweeps.
+> - [ ] **Photo (suggested)** — Example validation site with uniform
+>       crop cover, fixed repeatable location, clear of tall
+>       obstructions (see [Site selection](#site-selection)).
+> - [ ] **Chart (suggested)** — Sample QC plot showing spectral
+>       validation metrics (e.g. panel-derived reflectance drift,
+>       band-to-band offsets) annotated as pass vs fail (see
+>       [Acceptance criteria](#acceptance-criteria)).
 >
 > **Cross-links to add**
 > - [ ] Processing pipeline page describing how validation outputs are
@@ -156,6 +164,12 @@ but should ideally be flown:
 
 > _TODO: Add guidance on minimum site footprint, and on documenting
 > the chosen validation site at each node._
+
+> [!NOTE]
+> 🖼️ **Image needed (photo, suggested):** Example field photograph
+> of an appropriate validation site — uniform crop or grass cover,
+> fixed repeatable location at the node, clear of tall obstructions —
+> to anchor the site-selection criteria above.
 
 ### Flight-line orientation and timing
 
@@ -258,6 +272,12 @@ other nodes flying the equivalent payload.
 
 ### Flight design
 
+> [!NOTE]
+> 🖼️ **Image needed (diagram):** Top-down annotated diagram of the
+> spectral validation flight layout — panel placement (dual ELM where
+> available), validation panel position, flight-line orientation and
+> overlap, and the 5-GCP layout.
+
 > _TODO: Insert annotated diagram showing the spectral validation
 > flight layout — panel placement (dual ELM where available),
 > validation panel position, flight-line orientation and overlap, and
@@ -347,6 +367,13 @@ The legacy panel-layout figure used to illustrate this design:
 
 ### Acceptance criteria
 
+> [!NOTE]
+> 🖼️ **Image needed (chart, suggested):** Sample QC chart (e.g.
+> exported plot) showing spectral validation metrics over time —
+> panel-derived reflectance drift, band-to-band offsets,
+> spectroradiometer–UAV mismatch — with the pass/fail thresholds
+> annotated.
+
 > _TODO: Define quantitative pass / fail thresholds for the spectral
 > validation flight (e.g. maximum drift in panel-derived reflectance,
 > maximum band-to-band offset, maximum spectroradiometer–UAV
@@ -405,6 +432,12 @@ between-flight-line registration.
   affect georeferencing.
 
 ### Flight design
+
+> [!NOTE]
+> 🖼️ **Image needed (diagram):** Top-down annotated diagram of the
+> spatial validation flight layout — expanded GCP distribution,
+> paired elevated / ground GCPs, and any additional check targets
+> used to characterise across-track and vertical error.
 
 > _TODO: Insert annotated diagram showing the spatial validation
 > flight layout — extended GCP distribution, paired elevated / ground
@@ -491,6 +524,12 @@ parameters at a time and compare the resulting products.
   comparing the proposed setting against the current default.
 
 ### Flight design
+
+> [!NOTE]
+> 🖼️ **Image needed (diagram):** Top-down annotated diagram of the
+> APEx reference layout — the spectral validation flight footprint
+> with standard panel and GCP positions clearly marked as the
+> baseline against which parameter sweeps are compared.
 
 APEx flights start from the
 [Spectral validation flight](#spectral-validation-flight) layout

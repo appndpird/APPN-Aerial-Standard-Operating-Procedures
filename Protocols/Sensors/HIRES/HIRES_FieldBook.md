@@ -576,6 +576,12 @@ in. Follow the steps below and the instructional video on gimbal balancing:
 > [!NOTE]
 > **[NC17]** @franco to write :)
 
+> [!NOTE]
+> 🖼️ **Image needed (photos):** Step-by-step photo sequence of the
+> gimbal-balance procedure — close-ups of each balance-adjustment
+> point on the P3 gimbal, plus a reference photo of the final settings
+> table values — to accompany the written steps below.
+
 1. X
 2. Y
 3. Z
@@ -601,6 +607,13 @@ Refer to this video for more information:
 [P3 Payload installation Part 8 | Phase One](https://youtu.be/Jx60AdmacfA?si=psUrBgX_gJ9GZ0cg).
 
 [![Video titled: P3 Payload installation Part 8 | Phase One](HIRES_FieldBook_media/image_0db9b221380d.jpg)](https://youtu.be/Jx60AdmacfA?si=psUrBgX_gJ9GZ0cg)
+
+> [!NOTE]
+> 🖼️ **Image needed (screenshot + photo):** DJI Pilot 2 UI
+> screenshot of the **Center of Gravity Auto Calibration** section
+> (showing the Calibrate button and expected post-calibration prompt),
+> plus a field photo of the aircraft in a windless environment in the
+> hover state during calibration.
 
 1. Go to **Flight Controller Settings** in the DJI Pilot 2 app.
 2. Tap **Calibrate** in the **Center of Gravity Auto Calibration** section.

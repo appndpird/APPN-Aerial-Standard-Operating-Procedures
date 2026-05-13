@@ -129,6 +129,14 @@ licence is available.
 - Document exact GUI parameter presets and screenshots.
 - Document export settings for handover to the orthomosaic stage.
 
+> [!NOTE]
+> 🖼️ **Images needed (screenshots):**
+>
+> - iX Capture GUI showing the camera-calibration profile being
+>   loaded / applied.
+> - LCC (Light Calibration / flat-field) correction step in the GUI.
+> - Export-settings dialog for calibrated GeoTIFF / DNG frame output.
+
 ---
 
 ### Method 2 — PhaseOne Image SDK (Linux CLI / shell scripts)
@@ -172,6 +180,14 @@ for reproducible processing runs.
 - Add reference shell pipeline (location in repo, invocation, env vars).
 - Document parity checks against Method 1 (numerical equivalence tests).
 - Document container / environment (Conda / Docker) used for runs.
+
+> [!NOTE]
+> 🖼️ **Images needed (screenshots):**
+>
+> - Terminal screenshot showing the reference shell-pipeline
+>   invocation (env vars, command line, expected log output).
+> - Sample structured processing report (parameters, versions, run
+>   time, checksums) rendered for the docs.
 
 ---
 

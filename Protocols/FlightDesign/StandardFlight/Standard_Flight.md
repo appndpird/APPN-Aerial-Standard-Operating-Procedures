@@ -36,24 +36,28 @@
 > - [ ] Confirm equipment checklists with field operators (all three
 >       flight designs).
 >
-> **Figures to produce**
-> - [x] Panel set correctly laid out on a folding table
+> **Figures to produce** (see master list in [`/IMAGE_TODO.md`](../../../IMAGE_TODO.md))
+> - [ ] **Photo** — Panel set correctly laid out on a folding table
 >       (see [Panel Setup](#panel-setup)).
-> - [ ] Validation panel table with the elevated GCP and the paired
->       ground GCP in the adjacent flight line
+> - [ ] **Photo** — Validation panel table with the elevated GCP and
+>       the paired ground GCP in the adjacent flight line
 >       (see [Validation Panel Setup](#validation-panel-setup)).
-> - [ ] Dual ELM panel flight: panel placement at 1/3 and 2/3, flight-
->       line orientation, edge-of-polygon buffer, and 5-GCP layout
+> - [ ] **Diagram** — Dual ELM panel flight: panel placement at 1/3
+>       and 2/3, flight-line orientation, edge-of-polygon buffer, and
+>       5-GCP layout
 >       (see [Dual ELM panel flight](#dual-elm-panel-flight)).
-> - [ ] Single ELM panel flight: panel placement near centre,
->       validation panel position, flight-line orientation, edge buffer,
->       and 5-GCP layout
+> - [ ] **Diagram** — Single ELM panel flight: panel placement near
+>       centre, validation panel position, flight-line orientation,
+>       edge buffer, and 5-GCP layout
 >       (see [Single ELM panel flight](#single-elm-panel-flight)).
-> - [ ] Multi-Flight Capture: sub-flight polygons with overlap zone,
->       shared ELM panel set + 2 tie GCPs in the overlap, dual-panel
->       layout per sub-flight, validation panel placement, and expanded
->       GCP distribution
+> - [ ] **Diagram** — Multi-Flight Capture: sub-flight polygons with
+>       overlap zone, shared ELM panel set + 2 tie GCPs in the overlap,
+>       dual-panel layout per sub-flight, validation panel placement,
+>       and expanded GCP distribution
 >       (see [Multi-Flight Capture](#multi-flight-capture)).
+> - [ ] **Photo (suggested)** — Hero/cover photo of a complete,
+>       correctly-staged standard flight site (drone, panel table,
+>       GCPs visible) for use as a reference ideal.
 >
 > **Cross-links to add**
 > - [ ] Recommended folding table (e.g. Bunnings product link) in
@@ -225,8 +229,11 @@ support data QC:
    flight line**, positioned **perpendicular to the elevated GCP** (i.e.
    on a line running across-track from the table).
 
-> TODO: Insert image showing the validation panel table with the
-> elevated GCP, and the paired ground GCP in the adjacent flight line.
+> [!NOTE]
+> 🖼️ **Image needed (photo):** Field photograph of the validation
+> panel table showing the 2-panel validation reflectance set, the
+> elevated GCP mounted on the table, and the paired ground GCP placed
+> in the adjacent flight line perpendicular to the elevated GCP.
 
 This paired GCP arrangement is used during data QC to check for:
 
@@ -305,12 +312,16 @@ the long axis of the survey area**.
 
 ### Flight design
 
-> TODO: Insert annotated diagram showing:
+> [!NOTE]
+> 🖼️ **Image needed (diagram):** Top-down annotated diagram of the
+> survey polygon showing:
 >
 > - Panel placement at the 1/3 and 2/3 positions along the long axis.
-> - Flight-line orientation relative to the panels.
-> - Recommended buffer between panels and the edge of the capture polygon.
-> - GCP placement
+> - Flight-line orientation relative to the panels (direction arrows).
+> - Recommended ~10% buffer between panels and the edge of the capture
+>   polygon.
+> - 5-GCP placement (one per flight line in a diagonal pattern), with
+>   labels.
 
 
 ### Ground Equipment Required
@@ -361,13 +372,16 @@ over once.
 
 ### Flight design
 
-> TODO: Insert annotated diagram showing:
+> [!NOTE]
+> 🖼️ **Image needed (diagram):** Top-down annotated diagram of the
+> survey polygon showing:
 >
-> - Panel placement near centre of the survey area.
+> - Single ELM panel set placement near centre of the survey area.
 > - Validation panel placement in the middle of the survey area.
 > - Flight-line orientation relative to the panels.
-> - Recommended buffer between panels and the edge of the capture polygon.
-> - GCP placement (5-GCP layout described above).
+> - Recommended ~10% buffer between panels and the edge of the capture
+>   polygon.
+> - 5-GCP placement (5-GCP layout described above), with labels.
 
 ### Ground Equipment Required
 
@@ -435,12 +449,13 @@ geometrically consistent product.
 
 ### Flight design
 
-> TODO: Insert annotated diagram showing:
+> [!NOTE]
+> 🖼️ **Image needed (diagram):** Top-down annotated diagram showing:
 >
 > - Two (or more) sub-flight polygons with a deliberate overlap zone
 >   at their shared boundary.
 > - The **shared ELM panel set and 2 × tie GCPs** located inside the
->   overlap zone, overflown by both sub-flights.
+>   overlap zone (highlighted), overflown by both sub-flights.
 > - Dual ELM panel placement within each sub-flight (the shared set
 >   serves as one of the two panel positions for each sub-flight).
 > - Validation panel placement within one of the sub-flights, per the

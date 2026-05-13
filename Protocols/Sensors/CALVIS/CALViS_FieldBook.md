@@ -220,6 +220,12 @@ analysis across APPN operations.
    ensure geometric calibration. GCPs should be located next to calibration
    panels, and should be in alternate flight lines. (TO DO: ADD STANDARD FLIGHT LAYOUT md)
 
+   > [!NOTE]
+   > 🖼️ **Image needed (diagram):** Embed or cross-link the calibration
+   > panel + 5-GCP layout diagram from the
+   > [Standard Flight Procedure](../../FlightDesign/StandardFlight/Standard_Flight.md#background-and-common-elements-of-all-standard-flights)
+   > so CALViS operators have an in-doc visual reference.
+
    - Both the calibration and validation panels should be placed on level
      folding tables to avoid dirt, reduce angle, and reduce spectral
      spillover. Having them level is important.
