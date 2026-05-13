@@ -500,7 +500,7 @@ Western Australia, as part of the
 
 - **Generate Grid** — Create regular plot grids over drone orthomosaics
   by drawing a trial boundary and specifying banks, rows, buffer, and
-  plot dimensions.
+  plot dimensions. 
 - **Edit Grid** — Interactive browser-based polygon editor with drag,
   vertex editing, multi-select, copy/paste, measurements, undo, and
   keyboard shortcuts.
